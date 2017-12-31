@@ -1,11 +1,12 @@
-package fatproject.findatutor;
+package fatproject.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import fatproject.findatutor.R;
 
 public class MainActivity extends AppCompatActivity {
 

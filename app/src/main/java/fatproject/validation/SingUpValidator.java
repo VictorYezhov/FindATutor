@@ -2,7 +2,7 @@ package fatproject.validation;
 
 import android.support.v7.app.AppCompatActivity;
 
-import fatproject.findatutor.SingUpActivity;
+import fatproject.activities.SingUpActivity;
 
 /**
  * Created by Victor on 31.12.2017.

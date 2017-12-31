@@ -1,4 +1,4 @@
-package fatproject.findatutor;
+package fatproject.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import fatproject.findatutor.R;
 import fatproject.validation.SingUpValidator;
 import fatproject.validation.Validator;
 
@@ -41,6 +42,8 @@ public class SingUpActivity  extends AppCompatActivity {
     EditText _reEnterPasswordText;
     @Bind(R.id.btn_signup)
     Button _signupButton;
+
+
     @Bind(R.id.link_login)
     TextView _loginLink;
 
@@ -51,10 +54,11 @@ public class SingUpActivity  extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
 
+
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signup();
+                signUp();
             }
         });
 
@@ -70,20 +74,28 @@ public class SingUpActivity  extends AppCompatActivity {
         });
     }
 
-    public void signup() {
-        Log.d(TAG, "Signup");
-        //TODO Dependensiy injection using Dagger 2
+    public boolean signUp() {
+        Log.d(TAG, "SignUp");
+        //TODO Dependency injection using Dagger 2
         Validator singUpValidator = new SingUpValidator();
 
-        if (singUpValidator.validate(this)) {
+        final ProgressDialog progressDialog = new ProgressDialog(SingUpActivity.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setMessage("Validating information...");
+        progressDialog.show();
+
+        if (!singUpValidator.validate(this)) {
+            progressDialog.setMessage("Validating error...");
+            progressDialog.show();
             onSignupFailed();
-            return;
+            onRestart();
+            progressDialog.dismiss();
+            return false;
         }
 
         _signupButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(SingUpActivity.this,
-                R.style.AppTheme_Dark_Dialog);
+
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
@@ -108,6 +120,7 @@ public class SingUpActivity  extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 3000);
+        return true;
     }
 
 
@@ -118,88 +131,48 @@ public class SingUpActivity  extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "Registration failed", Toast.LENGTH_LONG).show();
+        onStop();
 
+       // Intent intent = new Intent(getApplicationContext(),SingUpActivity.class);
+       // startActivity(intent);
         _signupButton.setEnabled(true);
     }
 
 
 
-
-
-    public static String getTAG() {
-        return TAG;
-    }
-
     public EditText get_nameText() {
         return _nameText;
     }
 
-    public void set_nameText(EditText _nameText) {
-        this._nameText = _nameText;
-    }
 
     public EditText get_addressText() {
         return _addressText;
     }
 
-    public void set_addressText(EditText _addressText) {
-        this._addressText = _addressText;
-    }
 
     public EditText get_emailText() {
         return _emailText;
     }
 
-    public void set_emailText(EditText _emailText) {
-        this._emailText = _emailText;
-    }
 
     public EditText get_mobileText() {
         return _mobileText;
     }
 
-    public void set_mobileText(EditText _mobileText) {
-        this._mobileText = _mobileText;
-    }
 
     public EditText get_reEnterPasswordText() {
         return _reEnterPasswordText;
     }
 
-    public void set_reEnterPasswordText(EditText _reEnterPasswordText) {
-        this._reEnterPasswordText = _reEnterPasswordText;
-    }
 
     public EditText get_passwordText() {
         return _passwordText;
     }
 
-    public void set_passwordText(EditText _passwordText) {
-        this._passwordText = _passwordText;
-    }
-
-    public Button get_signupButton() {
-        return _signupButton;
-    }
-
-    public void set_signupButton(Button _signupButton) {
-        this._signupButton = _signupButton;
-    }
-
-    public TextView get_loginLink() {
-        return _loginLink;
-    }
-
-    public void set_loginLink(TextView _loginLink) {
-        this._loginLink = _loginLink;
-    }
 
     public EditText get_surnamenameText() {
         return _surnamenameText;
     }
 
-    public void set_surnamenameText(EditText _surnamenameText) {
-        this._surnamenameText = _surnamenameText;
-    }
 }
