@@ -11,15 +11,13 @@ import fatproject.findatutor.R;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    String max = "dick";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        Intent intent = new Intent(this, SingUpActivity.class);//TODO Коли логін буде готове, змінити SingUp на Login
+        Intent intent = new Intent(this, LoginActivity.class);//TODO Коли логін буде готове, змінити SingUp на Login
         startActivity(intent);
     }
 
