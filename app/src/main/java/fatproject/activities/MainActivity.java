@@ -2,6 +2,7 @@ package fatproject.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import fatproject.findatutor.R;
 public class MainActivity extends AppCompatActivity {
 
 
+    String max = "dick";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
