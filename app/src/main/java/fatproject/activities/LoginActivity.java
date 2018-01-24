@@ -74,6 +74,8 @@ public class LoginActivity extends AppCompatActivity{
             progressDialog1.dismiss();
             return false;
         }
+        Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
+        startActivityForResult(intent, REQUEST_SIGNUP);
 
         _loginButton.setEnabled(false);
 

@@ -17,6 +17,7 @@
         </activity>
         <activity android:name="fatproject.activities.SingUpActivity" android:theme="@style/AppTheme.Dark" />
         <activity android:name="fatproject.activities.LoginActivity" android:theme="@style/AppTheme.Dark" />
+        <activity android:name="fatproject.activities.AccountActivity" android:theme="@style/AppTheme.Dark"/>
     </application>
 
 </manifest>
