@@ -68,12 +68,7 @@ public class AnswerQuestions extends Fragment {
         return inflater.inflate(R.layout.fragment_answer_questions, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+
 
     @Override
     public void onAttach(Context context) {

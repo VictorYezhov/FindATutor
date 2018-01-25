@@ -125,4 +125,6 @@ public class AccountActivity extends AppCompatActivity {
         //TODO LOGOUT LOGIC
         return;
     }
+
 }
+

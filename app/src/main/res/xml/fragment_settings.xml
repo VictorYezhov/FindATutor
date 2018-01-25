@@ -10,7 +10,7 @@
             android:title="@string/lang"
             android:summary="Choose language"
             android:key="lang"
-            android:defaultValue="2"
+            android:defaultValue="en"
             android:entries="@array/listArray"
             android:entryValues="@array/listValues" />
     </PreferenceCategory>

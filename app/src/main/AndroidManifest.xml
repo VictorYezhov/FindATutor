@@ -3,6 +3,7 @@
     package="fatproject.findatutor">
 
     <application
+        android:name="fatproject.activities.MainAplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,8 +26,9 @@
             android:name="fatproject.activities.AccountActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name="fatproject.activities.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:name="fatproject.activities.ProcessingActivity"
+            android:theme="@style/AppTheme.Dark"
+            android:label="@string/title_activity_settings"/>
     </application>
 
 </manifest>
