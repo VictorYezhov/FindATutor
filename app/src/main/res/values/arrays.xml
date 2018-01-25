@@ -5,4 +5,9 @@
         <item>Русский</item>
         <item>Українська</item>
     </string-array>
+    <string-array name="listValues">
+        <item>en</item>
+        <item>ru</item>
+        <item>uk</item>
+    </string-array>
 </resources>

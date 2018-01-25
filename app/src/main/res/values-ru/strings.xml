@@ -19,4 +19,6 @@
     <string name="aboutUs">Про нас</string>
     <string name="contacts">Мои контакты</string>
     <string name="account">Профиль</string>
+    <string name="lang">Язык</string>
+    <string name="notification">Оповещения</string>
 </resources>
