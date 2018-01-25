@@ -15,6 +15,7 @@ android {
                 cppFlags "-frtti -fexceptions"
             }
         }
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -32,6 +33,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-v4:25.4.0'
+    compile 'com.android.support:support-vector-drawable:25.4.0'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -39,6 +41,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:25.4.0'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'io.paperdb:paperdb:2.5'
+    compile 'com.android.support:preference-v7:25.4.0'
 
 
     compile 'com.google.dagger:dagger:2.13'
