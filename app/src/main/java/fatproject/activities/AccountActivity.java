@@ -16,6 +16,7 @@ import fatproject.findatutor.R;
 import fatproject.fragments.AboutUs;
 import fatproject.fragments.AnswerQuestions;
 import fatproject.fragments.AskQuestions;
+import fatproject.fragments.Contacts;
 import fatproject.fragments.Settings;
 
 /**
@@ -73,8 +74,12 @@ public class AccountActivity extends AppCompatActivity {
                 fragmentClass = AskQuestions.class;
                 break;
             }
-            case R.id.listOfQuestions:{
+            case R.id.answerQuestion:{
                 fragmentClass = AnswerQuestions.class;
+                break;
+            }
+            case R.id.contacts:{
+                fragmentClass = Contacts.class;
                 break;
             }
             case R.id.acount:{

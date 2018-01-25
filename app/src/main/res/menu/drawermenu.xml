@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/acount" android:title="Acount" android:icon="@drawable/ic_account_circle_black_24dp"/>
+    <item android:id="@+id/acount" android:title="@string/account" android:icon="@drawable/ic_account_circle_black_24dp"/>
     <item
-        android:id="@+id/listOfQuestions"
+        android:id="@+id/contacts"
         android:icon="@drawable/ic_forum_black_24dp"
-        android:title="Answer Questions" />
-    <item android:id="@+id/askQuestion" android:title="Ask Question" android:icon="@drawable/ic_chat_bubble_black_24dp"/>
-    <item android:id="@+id/settings" android:title="Settings" android:icon="@drawable/ic_settings_applications_black_24dp" />
-    <item android:id="@+id/aboutUs" android:title="About Us" android:icon="@drawable/ic_info_black_24dp"/>
-    <item android:id="@+id/logout" android:title="Logout" android:icon="@drawable/ic_streetview_black_24dp"/>
+        android:title="@string/contacts" />
+    <item android:id="@+id/askQuestion" android:title="@string/ask" android:icon="@drawable/ic_chat_bubble_black_24dp"/>
+    <item android:id="@+id/answerQuestion" android:title="@string/answer" android:icon="@drawable/ic_settings_applications_black_24dp" />
+    <item android:id="@+id/settings" android:title="@string/action_settings" android:icon="@drawable/ic_info_black_24dp"/>
+    <item android:id="@+id/aboutUs" android:title="@string/aboutUs" android:icon="@drawable/ic_info_black_24dp"/>
+    <item android:id="@+id/logout" android:title="@string/logout" android:icon="@drawable/ic_streetview_black_24dp"/>
 </menu>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Material Login Example</string>
+    <string name="action_settings">Налаштування</string>
+    <string name="name">Ім\'я</string>
+    <string name="surname">Прізвище</string>
+    <string name="address">Адреса</string>
+    <string name="mobile_number">Номер телефону</string>
+    <string name="re_enter_Password">Повтор Паролю</string>
+    <string name="password">Пароль</string>
+    <string name="create_Account">Створити профіль</string>
+    <string name="already_a_member">Логування</string>
+    <string name="email">Імейл</string>
+    <string name="avatar">Фото</string>
+    <string name="login">Увійти</string>
+    <string name="ask">Задати Питання</string>
+    <string name="answer">Відповісти на питання</string>
+    <string name="logout">Вийти</string>
+    <string name="aboutUs">Про нас</string>
+    <string name="contacts">Мої контакти</string>
+    <string name="account">Профіль</string>
+</resources>

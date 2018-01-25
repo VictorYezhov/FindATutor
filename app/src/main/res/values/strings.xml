@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Material Login Example</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world" translatable="false">Hello world!</string>
 
-    <string name="open">Open</string>
-    <string name="close">Close</string>
+    <string name="open" translatable="false">Open</string>
+    <string name="close" translatable="false">Close</string>
 
     <string name="action_settings">Settings</string>
+    <string name="login">Login</string>
     <string name="name">Name</string>
     <string name="surname">Surname</string>
     <string name="address">Address</string>
@@ -17,6 +18,12 @@
     <string name="create_Account">Create Account</string>
     <string name="already_a_member">Already a member? Login</string>
     <string name="avatar">Photo</string>
+    <string name="ask">Ask Question</string>
+    <string name="answer">Answer Question</string>
+    <string name="logout">Logout</string>
+    <string name="aboutUs">About Us</string>
+    <string name="contacts">My Contacts</string>
+    <string name="account">Account</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
