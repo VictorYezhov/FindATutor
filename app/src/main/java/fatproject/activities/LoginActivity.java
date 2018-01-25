@@ -74,6 +74,7 @@ public class LoginActivity extends AppCompatActivity{
             progressDialog1.dismiss();
             return false;
         }
+        progressDialog1.dismiss();
         Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
         startActivityForResult(intent, REQUEST_SIGNUP);
 
