@@ -22,6 +22,8 @@ import io.paperdb.Paper;
 
 public class Settings extends PreferenceFragmentCompat {
 
+
+    private static final String TAG = "Settings";
     private ListPreference listPreference;
 
     @Override

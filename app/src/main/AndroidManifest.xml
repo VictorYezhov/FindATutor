@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fatproject.findatutor">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="fatproject.activities.MainAplication"
         android:allowBackup="true"
