@@ -2,6 +2,7 @@ package fatproject.activities;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -9,8 +10,19 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,9 +34,18 @@ import fatproject.validation.Validator;
  * Created by Victor on 31.12.2017.
  */
 
-public class LoginActivity extends AppCompatActivity{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener,GoogleApiClient.OnConnectionFailedListener{
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+
+    //--------------------------------
+    private LinearLayout profSection;
+    private SignInButton SingIn;
+    private TextView name, email;
+    private ImageView profPicture;
+    private GoogleApiClient googleApiClient;
+    private static final int REQ_CODE = 9001;
+    //--------------------------------
 
     @Bind(R.id.input_email) EditText _emailText;
     @Bind(R.id.input_password) EditText _passwordText;
@@ -54,6 +75,17 @@ public class LoginActivity extends AppCompatActivity{
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
+
+        //--------------------------
+        profSection = (LinearLayout)findViewById(R.id.prof_section);
+        SingIn =(SignInButton)findViewById(R.id.bn_login);
+        name = (TextView)findViewById(R.id.name);
+        email = (TextView)findViewById(R.id.email);
+        profPicture = (ImageView)findViewById(R.id.prof_pic);
+        SingIn.setOnClickListener(this);
+        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
+        //--------------------------
     }
 
     public boolean login() {
@@ -106,6 +138,8 @@ public class LoginActivity extends AppCompatActivity{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
 
@@ -114,6 +148,13 @@ public class LoginActivity extends AppCompatActivity{
                 this.finish();
             }
         }
+        //----------------------------
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode==REQ_CODE) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleResult(result);
+        }
+        //----------------------------
     }
 
     @Override
@@ -141,5 +182,52 @@ public class LoginActivity extends AppCompatActivity{
         return _passwordText;
     }
 
+    //-------------------
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.bn_login:
+                singIn();
+                break;
+        }
+    }
 
+
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    private void singIn() {
+        Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+        startActivityForResult(intent,REQ_CODE);
+
+    }
+
+    private void handleResult(GoogleSignInResult result){
+        if(result.isSuccess()){
+            GoogleSignInAccount account = result.getSignInAccount();
+            String given_name = account.getDisplayName();
+            String given_email = account.getEmail();
+            String img_url = account.getPhotoUrl().toString();
+            name.setText(given_name);
+            email.setText(given_email);
+            Glide.with(this).load(img_url).into(profPicture);
+            updateUI(true);
+        }else{
+            updateUI(false);
+        }
+    }
+
+    private void updateUI(boolean isLogin){
+        if(isLogin){
+            profSection.setVisibility(View.VISIBLE);
+            SingIn.setVisibility(View.GONE);
+        }else{
+            profSection.setVisibility(View.GONE);
+            SingIn.setVisibility(View.VISIBLE);
+        }
+    }
+    //-------------------
 }

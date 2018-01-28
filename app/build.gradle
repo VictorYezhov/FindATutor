@@ -38,6 +38,10 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.4.0'
+
+    compile 'com.google.android.gms:play-services-auth:11.8.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:25.4.0'
     compile 'com.jakewharton:butterknife:7.0.1'
@@ -49,3 +53,4 @@ dependencies {
 
 
 }
+
