@@ -2,8 +2,6 @@ package fatproject.activities;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -11,12 +9,11 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.esotericsoftware.kryo.NotNull;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -34,6 +31,7 @@ import butterknife.ButterKnife;
 import fatproject.findatutor.R;
 import fatproject.validation.LoginValidator;
 import fatproject.validation.Validator;
+import io.paperdb.Paper;
 
 /**
  * Created by Victor on 31.12.2017.
@@ -43,9 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private static final int RC_SIGN_IN = 2;
-    private GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build();
+
     private  GoogleSignInClient googleSignInClient;
 
 
@@ -69,6 +65,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         _loginButton.setOnClickListener(this);
         _signupLink.setOnClickListener(this);
         SingIn.setOnClickListener(this);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail().requestIdToken("167433851487-3jpk45c953eva5sfcjsmt7oe0n1r7i97.apps.googleusercontent.com")
+                .build();
+
 
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
@@ -168,7 +168,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            System.err.println(account.getEmail());
+            System.err.println(account.getEmail() + " " + account.getDisplayName() + account.getFamilyName() + account.getGivenName());
+
+
+
+//            Paper.book().write("email", account.getEmail());
+
 
             // Signed in successfully, show authenticated UI.
 
