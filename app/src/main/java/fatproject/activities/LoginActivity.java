@@ -18,12 +18,16 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.Task;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final int REQUEST_SIGNUP = 0;
 
 
-    private GoogleApiClient googleApiClient;
+    private GoogleSignInClient signInClient;
     private static final int REQ_CODE = 9001;
 
 
@@ -65,13 +69,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         SingIn.setOnClickListener(this);
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        System.err.println("GOOGLE sign in options "+signInOptions.isIdTokenRequested());
-        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
-        googleApiClient.connect();
-        System.err.println("GOOGLE api client is connected "+googleApiClient.isConnected());
+        signInClient =   GoogleSignIn.getClient(this, signInOptions);
         //--------------------------
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if(account != null){
+            System.err.println("OnStart");
+        }
+    }
 
     public boolean login() {
         Log.d(TAG, "Login");
@@ -123,19 +132,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
-        if (requestCode == REQUEST_SIGNUP) {
-            if (resultCode == RESULT_OK) {
-                GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-                handleResult(result);
-                // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
-                this.finish();
-            }
-        }
+        System.err.println("REQ CODE "+requestCode+"\nRESULT CODE"+requestCode);
+
         //----------------------------
         if(requestCode==REQ_CODE) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleResult(result);
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleResult(task);
         }else {
             System.err.println("Something went wrong");
         }
@@ -187,23 +189,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void singIn() {
-        Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-        startActivityForResult(intent,REQ_CODE);
+        Intent signInIntent = signInClient.getSignInIntent();
+        startActivityForResult(signInIntent, REQ_CODE);
 
     }
 
-    private void handleResult(GoogleSignInResult result){
-        if(result.isSuccess()){
-            GoogleSignInAccount account = result.getSignInAccount();
+    private void handleResult(Task<GoogleSignInAccount> completedTask){
+     //   if(result.isSuccess()){
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             String given_name = account.getDisplayName();
             String given_email = account.getEmail();
             String img_url = account.getPhotoUrl().toString();
-            System.err.println(given_name+"  "+given_email+"\n "+img_url);
+            System.err.println(given_name + "  " + given_email + "\n " + img_url);
             updateUI(true);
-        }else{
-            System.err.println(result.getStatus().getStatusMessage());
-            updateUI(false);
+        }catch (ApiException e){
+            System.err.println("API EXEPTION");
         }
+//        }else{
+//            System.err.println(result.getStatus().toString());
+//            updateUI(false);
+//        }
     }
 
     private void updateUI(boolean isLogin){
