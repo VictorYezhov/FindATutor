@@ -7,11 +7,19 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import fatproject.Helpers.LocaleManager;
 import fatproject.findatutor.R;
 
 public class MainActivity extends AppCompatActivity {
+
+
+    @Bind(R.id.restart)
+    Button button;
 
 
     @Override
@@ -23,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         Intent intent = new Intent(this, LoginActivity.class);

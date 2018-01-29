@@ -59,14 +59,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.err.println("YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZ");
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         _loginButton.setOnClickListener(this);
         _signupLink.setOnClickListener(this);
         SingIn.setOnClickListener(this);
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail().requestIdToken("167433851487-3jpk45c953eva5sfcjsmt7oe0n1r7i97.apps.googleusercontent.com")
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
+                        requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
@@ -167,19 +166,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             System.err.println(account.getEmail() + " " + account.getDisplayName() + account.getFamilyName() + account.getGivenName());
-
-
-
 //            Paper.book().write("email", account.getEmail());
-
-
             // Signed in successfully, show authenticated UI.
-
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            System.err.println("ApiException");
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            e.getCause();
         }
     }
 
