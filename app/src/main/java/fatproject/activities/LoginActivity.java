@@ -38,59 +38,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    //--------------------------------
-    private LinearLayout profSection;
-    private SignInButton SingIn;
-    private TextView name, email;
-    private ImageView profPicture;
+
     private GoogleApiClient googleApiClient;
     private static final int REQ_CODE = 9001;
-    //--------------------------------
 
-    @Bind(R.id.input_email) EditText _emailText;
-    @Bind(R.id.input_password) EditText _passwordText;
-    @Bind(R.id.btn_login) Button _loginButton;
-    @Bind(R.id.link_signup) TextView _signupLink;
+
+    @Bind(R.id.input_email)
+    EditText _emailText;
+    @Bind(R.id.input_password)
+    EditText _passwordText;
+    @Bind(R.id.btn_login)
+    Button _loginButton;
+    @Bind(R.id.link_signup)
+    TextView _signupLink;
+    @Bind(R.id.google_login)
+    SignInButton SingIn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        setListener(_loginButton);
+        setListener(_signupLink);
 
-        _loginButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
-
-        _signupLink.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), SingUpActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
-            }
-        });
-
-        //--------------------------
-        profSection = (LinearLayout)findViewById(R.id.prof_section);
-        SingIn =(SignInButton)findViewById(R.id.bn_login);
-        name = (TextView)findViewById(R.id.name);
-        email = (TextView)findViewById(R.id.email);
-        profPicture = (ImageView)findViewById(R.id.prof_pic);
         SingIn.setOnClickListener(this);
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        System.err.println("GOOGLE sign in options "+signInOptions.isIdTokenRequested());
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
+        googleApiClient.connect();
+
+        System.err.println("GOOGLE api client is connected "+googleApiClient.isConnected());
         //--------------------------
     }
 
+
     public boolean login() {
         Log.d(TAG, "Login");
-
         Validator loginValidator = new LoginValidator();
 
         final ProgressDialog progressDialog1 = new ProgressDialog(LoginActivity.this,
@@ -138,21 +122,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
+        super.onActivityResult(requestCode,resultCode,data);
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
-
+                GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+                handleResult(result);
                 // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically
                 this.finish();
             }
         }
         //----------------------------
-        super.onActivityResult(requestCode,resultCode,data);
         if(requestCode==REQ_CODE) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleResult(result);
+        }else {
+            System.err.println("Something went wrong");
         }
         //----------------------------
     }
@@ -174,19 +159,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         _loginButton.setEnabled(true);
     }
 
-    public EditText get_emailText() {
-        return _emailText;
-    }
 
-    public EditText get_passwordText() {
-        return _passwordText;
-    }
 
     //-------------------
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.bn_login:
+            case R.id.google_login:
                 singIn();
                 break;
         }
@@ -196,7 +175,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        System.err.println("CONNECTION FAILED");
     }
 
     private void singIn() {
@@ -211,23 +190,52 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String given_name = account.getDisplayName();
             String given_email = account.getEmail();
             String img_url = account.getPhotoUrl().toString();
-            name.setText(given_name);
-            email.setText(given_email);
-            Glide.with(this).load(img_url).into(profPicture);
+            System.err.println(given_name+"  "+given_email+"\n "+img_url);
             updateUI(true);
         }else{
+            System.err.println(result.getStatus().getStatusMessage());
             updateUI(false);
         }
     }
 
     private void updateUI(boolean isLogin){
         if(isLogin){
-            profSection.setVisibility(View.VISIBLE);
             SingIn.setVisibility(View.GONE);
         }else{
-            profSection.setVisibility(View.GONE);
+            //profSection.setVisibility(View.GONE);
             SingIn.setVisibility(View.VISIBLE);
         }
     }
+
+    public EditText get_emailText() {
+        return _emailText;
+    }
+
+    public EditText get_passwordText() {
+        return _passwordText;
+    }
+
+    private void setListener(Button btn){
+        btn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                login();
+            }
+        });
+    }
+    private void setListener(TextView txt){
+        txt.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // Start the Signup activity
+                Intent intent = new Intent(getApplicationContext(), SingUpActivity.class);
+                startActivityForResult(intent, REQUEST_SIGNUP);
+            }
+        });
+
+    }
+
     //-------------------
 }

@@ -24,8 +24,6 @@ public class ProcessingActivity extends AppCompatActivity {
         progressDialog1.setMessage("Applying Changes...");
         progressDialog1.show();
 
-       //TODO якимось чудом зробити локалізацію
-
 
         progressDialog1.dismiss();
 

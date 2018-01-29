@@ -64,7 +64,7 @@
         <com.google.android.gms.common.SignInButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/bn_login"
+            android:id="@+id/google_login"
             >
         </com.google.android.gms.common.SignInButton>
 

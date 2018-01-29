@@ -67,17 +67,4 @@ public class Settings extends PreferenceFragmentCompat {
         startActivity(intent);
     }
 
-
-//    private void changeLang() {
-//        String lang = Paper.book().read("language");
-//        Locale myLocale = new Locale(lang);
-//
-//        System.err.println("LOCALE " + myLocale.getLanguage()+" Lang "+ lang);
-//        Locale.setDefault(myLocale);
-//        android.content.res.Configuration config = new android.content.res.Configuration();
-//        config.locale = myLocale;
-//
-//
-//        this.getContext().getResources().updateConfiguration(config, this.getContext().getResources().getDisplayMetrics());
-//    }
 }
