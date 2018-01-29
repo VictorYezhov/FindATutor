@@ -3,6 +3,7 @@ package fatproject.activities;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -59,15 +60,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        setListener(_loginButton);
-        setListener(_signupLink);
+        _loginButton.setOnClickListener(this);
+        _signupLink.setOnClickListener(this);
 
         SingIn.setOnClickListener(this);
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         System.err.println("GOOGLE sign in options "+signInOptions.isIdTokenRequested());
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
         googleApiClient.connect();
-
         System.err.println("GOOGLE api client is connected "+googleApiClient.isConnected());
         //--------------------------
     }
@@ -168,6 +168,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.google_login:
                 singIn();
                 break;
+            case R.id.btn_login:
+                login();
+                break;
+            case R.id.link_signup:{
+                Intent intent = new Intent(getApplicationContext(), SingUpActivity.class);
+                startActivityForResult(intent, REQUEST_SIGNUP);
+                break;
+            }
         }
     }
 
@@ -215,27 +223,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return _passwordText;
     }
 
-    private void setListener(Button btn){
-        btn.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
-    }
-    private void setListener(TextView txt){
-        txt.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), SingUpActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
-            }
-        });
-
-    }
 
     //-------------------
 }
