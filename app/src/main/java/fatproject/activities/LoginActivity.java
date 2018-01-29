@@ -77,7 +77,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if(account != null){
+
+        if(account == null){
             System.err.println("OnStart");
         }
     }
