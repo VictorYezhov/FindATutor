@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D:\Android\Projects\FindATutor_clone\FindATutor.iml" filepath="D:\Android\Projects\FindATutor_clone\FindATutor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FindATutor.iml" filepath="$PROJECT_DIR$/FindATutor.iml" />
+      <module fileurl="file://D:/Android/Projects/FindATutor_clone/FindATutor.iml" filepath="D:/Android/Projects/FindATutor_clone/FindATutor.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/FindATutor_clone.iml" filepath="$PROJECT_DIR$/.idea/FindATutor_clone.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

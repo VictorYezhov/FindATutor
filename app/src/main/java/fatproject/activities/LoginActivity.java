@@ -39,13 +39,14 @@ import fatproject.validation.Validator;
  * Created by Victor on 31.12.2017.
  */
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener,GoogleApiClient.OnConnectionFailedListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
-
-
-    private GoogleSignInClient signInClient;
-    private static final int REQ_CODE = 9001;
+    private static final int RC_SIGN_IN = 2;
+    private GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build();
+    private  GoogleSignInClient googleSignInClient;
 
 
     @Bind(R.id.input_email)
@@ -62,14 +63,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.err.println("YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZ");
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         _loginButton.setOnClickListener(this);
         _signupLink.setOnClickListener(this);
-
         SingIn.setOnClickListener(this);
-        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        signInClient =   GoogleSignIn.getClient(this, signInOptions);
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
+
+
         //--------------------------
     }
 
@@ -77,9 +80,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-
-        if(account == null){
-            System.err.println("OnStart");
+        if(account != null){
+            System.err.println("onStart method");
         }
     }
 
@@ -130,20 +132,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode,resultCode,data);
-        System.err.println("REQ CODE "+requestCode+"\nRESULT CODE"+requestCode);
-
-        //----------------------------
-        if(requestCode==REQ_CODE) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleResult(task);
-        }else {
-            System.err.println("Something went wrong");
-        }
-        //----------------------------
-    }
 
     @Override
     public void onBackPressed() {
@@ -161,6 +149,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         onStop();
         _loginButton.setEnabled(true);
     }
+    private void signIn() {
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            System.err.println(account.getEmail());
+
+            // Signed in successfully, show authenticated UI.
+
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+            System.err.println("ApiException");
+        }
+    }
 
 
 
@@ -169,7 +187,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.google_login:
-                singIn();
+                signIn();
                 break;
             case R.id.btn_login:
                 login();
@@ -184,43 +202,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        System.err.println("CONNECTION FAILED");
-    }
-
-    private void singIn() {
-        Intent signInIntent = signInClient.getSignInIntent();
-        startActivityForResult(signInIntent, REQ_CODE);
-
-    }
-
-    private void handleResult(Task<GoogleSignInAccount> completedTask){
-     //   if(result.isSuccess()){
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            String given_name = account.getDisplayName();
-            String given_email = account.getEmail();
-            String img_url = account.getPhotoUrl().toString();
-            System.err.println(given_name + "  " + given_email + "\n " + img_url);
-            updateUI(true);
-        }catch (ApiException e){
-            System.err.println("API EXEPTION");
-        }
-//        }else{
-//            System.err.println(result.getStatus().toString());
-//            updateUI(false);
-//        }
-    }
-
-    private void updateUI(boolean isLogin){
-        if(isLogin){
-            SingIn.setVisibility(View.GONE);
-        }else{
-            //profSection.setVisibility(View.GONE);
-            SingIn.setVisibility(View.VISIBLE);
-        }
-    }
 
     public EditText get_emailText() {
         return _emailText;
