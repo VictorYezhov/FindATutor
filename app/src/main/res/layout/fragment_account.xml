@@ -40,26 +40,17 @@
         android:layout_alignEnd="@+id/profile_name"
         android:layout_alignStart="@+id/profile_name" />
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/plusButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:padding="12dp"
-            android:text="@string/login"/>
-
-    <!--<ImageButton-->
-        <!--android:id="@+id/plusButton"-->
-        <!--android:layout_width="60dp"-->
-        <!--android:layout_height="60dp"-->
-        <!--android:adjustViewBounds="true"-->
-        <!--android:scaleType="centerInside"-->
-        <!--android:padding="60dp"-->
-        <!--android:background="@android:color/transparent"-->
-        <!--android:layout_above="@+id/profile_name"-->
-        <!--android:layout_alignEnd="@+id/profile_image"-->
-        <!--android:src="@drawable/plus_button" />-->
+    <ImageButton
+        android:id="@+id/plusButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:padding="60dp"
+        android:background="@android:color/transparent"
+        android:layout_above="@+id/profile_name"
+        android:layout_alignEnd="@+id/profile_image"
+        android:src="@drawable/plus_button" />
 
     <ImageButton
         android:id="@+id/chatButton"

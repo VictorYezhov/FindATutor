@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,7 +23,10 @@ import fatproject.findatutor.R;
 
 public class Account extends Fragment {
     @Bind(R.id.plusButton)
-    AppCompatButton plusButton;
+    ImageButton plusButton;
+
+    @Bind(R.id.chatButton)
+    ImageButton chatButton;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -85,6 +89,12 @@ public class Account extends Fragment {
             }
         });
 
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.err.println("chat_button pressed");
+            }
+        });
 
         // inflate the layout using the cloned inflater, not default inflater
         //return inflater.inflate(R.layout.fragment_account, container, false);
