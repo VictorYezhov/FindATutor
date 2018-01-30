@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/accent"
-    tools:context="fatproject.fragments.AboutUs">
+    tools:context="fatproject.fragments.Account">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
