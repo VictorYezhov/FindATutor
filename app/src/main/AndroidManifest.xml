@@ -24,7 +24,7 @@
             android:name="fatproject.activities.LoginActivity"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name="fatproject.activities.AccountActivity"
+            android:name="fatproject.activities.FragmentDispatcher"
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name="fatproject.activities.ProcessingActivity"

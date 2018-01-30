@@ -28,7 +28,7 @@ public class ProcessingActivity extends AppCompatActivity {
         progressDialog1.dismiss();
 
 
-        Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
+        Intent intent = new Intent(getApplicationContext(), FragmentDispatcher.class);
         startActivity(intent);
 
 

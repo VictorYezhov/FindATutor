@@ -12,18 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.esotericsoftware.kryo.NotNull;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Task;
 
 import butterknife.Bind;
@@ -31,7 +25,6 @@ import butterknife.ButterKnife;
 import fatproject.findatutor.R;
 import fatproject.validation.LoginValidator;
 import fatproject.validation.Validator;
-import io.paperdb.Paper;
 
 /**
  * Created by Victor on 31.12.2017.
@@ -100,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return false;
         }
         progressDialog1.dismiss();
-        Intent intent = new Intent(getApplicationContext(), AccountActivity.class);
+        Intent intent = new Intent(getApplicationContext(), FragmentDispatcher.class);
         startActivityForResult(intent, REQUEST_SIGNUP);
 
         _loginButton.setEnabled(false);

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import fatproject.findatutor.R;
 import fatproject.fragments.AboutUs;
+import fatproject.fragments.Account;
 import fatproject.fragments.AnswerQuestions;
 import fatproject.fragments.AskQuestions;
 import fatproject.fragments.Contacts;
@@ -23,7 +24,7 @@ import fatproject.fragments.Settings;
  * Created by Victor on 09.01.2018.
  */
 
-public class AccountActivity extends AppCompatActivity {
+public class FragmentDispatcher extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
 
@@ -31,8 +32,7 @@ public class AccountActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        setContentView(R.layout.activity_account);
+        setContentView(R.layout.fragments_manager);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
@@ -44,6 +44,19 @@ public class AccountActivity extends AppCompatActivity {
            System.out.println("EXEPTION");
         }
         setUpNavigationDrawer(navigationView);
+        Fragment fragment = null;
+        Class fragmentClass = Account.class;
+
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
+
+
     }
 
     @Override
@@ -83,8 +96,8 @@ public class AccountActivity extends AppCompatActivity {
                 break;
             }
             case R.id.acount:{
-                //TODO Account logic. OLES HELP
-                return;
+                fragmentClass = Account.class;
+                break;
             }
             case R.id.logout:{
                 logout();

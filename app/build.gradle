@@ -46,6 +46,7 @@ dependencies {
     compile 'io.paperdb:paperdb:2.5'
     compile 'com.android.support:preference-v7:25.4.0'
     compile 'com.google.dagger:dagger:2.13'
+    compile 'de.hdodenhof:circleimageview:2.2.0'
 
 
 }
