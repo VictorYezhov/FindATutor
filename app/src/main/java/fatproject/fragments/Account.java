@@ -3,15 +3,14 @@ package fatproject.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatImageButton;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.animation.Animation;
 import android.widget.ImageButton;
+
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,11 +21,35 @@ import fatproject.findatutor.R;
  */
 
 public class Account extends Fragment {
-    @Bind(R.id.plusButton)
-    ImageButton plusButton;
 
     @Bind(R.id.chatButton)
     ImageButton chatButton;
+
+    @Bind(R.id.open_photo)
+    FloatingActionButton open_photo;
+
+    @Bind(R.id.delete_photo)
+    FloatingActionButton delete_photo;
+
+    @Bind(R.id.change_photo)
+    FloatingActionButton change_photo;
+
+    @Bind(R.id.plus_button)
+    FloatingActionButton plus_button;
+
+    @Bind(R.anim.fab_open)
+    Animation FabOpen;
+
+    @Bind(R.anim.fab_close)
+    Animation FabClose;
+
+    @Bind(R.anim.rotate_clockwise)
+    Animation FabRClockwise;
+
+    @Bind(R.anim.rotate_anticlockwise)
+    Animation FabRAnticlockwise;
+
+    private boolean isOpen = false;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -66,9 +89,6 @@ public class Account extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       // ButterKnife.bind(plusButton);
-
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -82,12 +102,6 @@ public class Account extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         ButterKnife.bind(this, view);
-        plusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.err.println("button pressed");
-            }
-        });
 
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +112,39 @@ public class Account extends Fragment {
 
         // inflate the layout using the cloned inflater, not default inflater
         //return inflater.inflate(R.layout.fragment_account, container, false);
+
+        plus_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isOpen){
+
+                    delete_photo.startAnimation(FabClose);
+                    change_photo.startAnimation(FabClose);
+                    open_photo.startAnimation(FabClose);
+                    plus_button.startAnimation(FabRAnticlockwise);
+
+                    delete_photo.setClickable(false);
+                    change_photo.setClickable(false);
+                    open_photo.setClickable(false);
+
+                    isOpen = false;
+
+                }else{
+                    delete_photo.startAnimation(FabOpen);
+                    change_photo.startAnimation(FabOpen);
+                    open_photo.startAnimation(FabOpen);
+                    plus_button.startAnimation(FabRClockwise);
+
+                    delete_photo.setClickable(true);
+                    change_photo.setClickable(true);
+                    open_photo.setClickable(true);
+
+                    isOpen = true;
+                }
+            }
+        });
+
         return view;
 
         // Inflate the layout for this fragment

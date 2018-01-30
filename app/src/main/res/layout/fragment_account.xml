@@ -1,69 +1,118 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/accent"
     tools:context="fatproject.fragments.Account">
+
     <RelativeLayout
+        android:id="@+id/profilePhotoAndButtoms"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/profilePhotoAndButtoms">
+        android:layout_height="match_parent">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/picture"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/picture" />
 
-    <TextView
-        android:id="@+id/profile_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_image"
-        android:text="Vitia"
-        android:textSize="35dp"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:layout_alignEnd="@+id/profile_image"
-        android:layout_alignStart="@+id/profile_image" />
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/profile_image"
+            android:layout_alignStart="@+id/profile_image"
+            android:layout_below="@+id/profile_image"
+            android:gravity="center"
+            android:text="Vitia"
+            android:textColor="@color/black"
+            android:textSize="35dp" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profile_name"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:text="Student of UCU"
-        android:layout_alignEnd="@+id/profile_name"
-        android:layout_alignStart="@+id/profile_name" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/profile_name"
+            android:layout_alignStart="@+id/profile_name"
+            android:layout_below="@+id/profile_name"
+            android:gravity="center"
+            android:text="Student of UCU"
+            android:textColor="@color/black" />
 
-    <ImageButton
-        android:id="@+id/plusButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerInside"
-        android:padding="60dp"
-        android:background="@android:color/transparent"
-        android:layout_above="@+id/profile_name"
-        android:layout_alignEnd="@+id/profile_image"
-        android:src="@drawable/plus_button" />
+        <ImageButton
+            android:id="@+id/chatButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignStart="@+id/profile_image"
+            android:layout_alignTop="@+id/profile_image"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:padding="47dp"
+            android:rotation="180"
+            android:scaleType="centerInside"
+            android:src="@drawable/chat_button" />
 
-    <ImageButton
-        android:id="@+id/chatButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerInside"
-        android:padding="47dp"
-        android:rotation="180"
-        android:background="@android:color/transparent"
-        android:src="@drawable/chat_button"
-        android:layout_alignTop="@+id/profile_image"
-        android:layout_alignStart="@+id/profile_image" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/open_photo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
+            android:layout_alignEnd="@+id/change_photo"
+
+            android:layout_below="@+id/profile_image"
+            android:layout_marginEnd="24dp"
+            android:elevation="6dp"
+            android:src="@drawable/ic_action_open"
+            android:visibility="invisible"
+            app:pressedTranslationZ="12dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/change_photo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
+            android:layout_alignStart="@+id/delete_photo"
+            android:layout_alignTop="@+id/plus_button"
+            android:elevation="6dp"
+            android:src="@drawable/ic_action_changephoto"
+            android:visibility="invisible"
+            app:pressedTranslationZ="12dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/delete_photo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
+            android:elevation="6dp"
+
+            android:src="@drawable/ic_action_deletephoto"
+            android:visibility="invisible"
+            app:pressedTranslationZ="12dp"
+            android:layout_above="@+id/change_photo"
+            android:layout_toEndOf="@+id/profile_image"
+            android:layout_marginStart="13dp"
+            android:layout_marginBottom="17dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/plus_button"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
+            android:layout_above="@+id/profile_name"
+            android:layout_alignEnd="@+id/profile_image"
+            android:layout_marginBottom="15dp"
+
+            android:layout_marginEnd="15dp"
+
+            android:layout_marginRight="16dp"
+            android:elevation="6dp"
+            android:src="@drawable/ic_action_plus"
+            app:pressedTranslationZ="12dp" />
+
     </RelativeLayout>
+
 
 </FrameLayout>
