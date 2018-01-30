@@ -4,11 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import fatproject.findatutor.R;
 
 /**
@@ -16,6 +21,9 @@ import fatproject.findatutor.R;
  */
 
 public class Account extends Fragment {
+    @Bind(R.id.plusButton)
+    AppCompatButton plusButton;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,6 +61,10 @@ public class Account extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+       // ButterKnife.bind(plusButton);
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -63,13 +75,20 @@ public class Account extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppTheme_White);
 
-        // clone the inflater using the ContextThemeWrapper
-        LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
+        ButterKnife.bind(this, view);
+        plusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.err.println("button pressed");
+            }
+        });
+
 
         // inflate the layout using the cloned inflater, not default inflater
-        return localInflater.inflate(R.layout.fragment_account, container, false);
+        //return inflater.inflate(R.layout.fragment_account, container, false);
+        return view;
 
         // Inflate the layout for this fragment
 
