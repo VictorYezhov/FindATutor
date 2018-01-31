@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.Helpers.LocaleManager;
 import fatproject.findatutor.R;
@@ -18,7 +18,7 @@ import fatproject.findatutor.R;
 public class MainActivity extends AppCompatActivity {
 
 
-    @Bind(R.id.restart)
+    @BindView(R.id.restart)
     Button button;
 
 
@@ -32,13 +32,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
         Intent intent = new Intent(this, LoginActivity.class);

@@ -20,7 +20,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.findatutor.R;
 import fatproject.validation.LoginValidator;
@@ -38,15 +38,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private  GoogleSignInClient googleSignInClient;
 
 
-    @Bind(R.id.input_email)
+    @BindView(R.id.input_email)
     EditText _emailText;
-    @Bind(R.id.input_password)
+    @BindView(R.id.input_password)
     EditText _passwordText;
-    @Bind(R.id.btn_login)
+    @BindView(R.id.btn_login)
     Button _loginButton;
-    @Bind(R.id.link_signup)
+    @BindView(R.id.link_signup)
     TextView _signupLink;
-    @Bind(R.id.google_login)
+    @BindView(R.id.google_login)
     SignInButton SingIn;
 
     @Override

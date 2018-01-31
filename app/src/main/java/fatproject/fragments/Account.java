@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
 
-
-import butterknife.Bind;
+import butterknife.BindAnim;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.findatutor.R;
 
@@ -22,31 +22,31 @@ import fatproject.findatutor.R;
 
 public class Account extends Fragment {
 
-    @Bind(R.id.chatButton)
+    @BindView(R.id.chatButton)
     ImageButton chatButton;
 
-    @Bind(R.id.open_photo)
+    @BindView(R.id.open_photo)
     FloatingActionButton open_photo;
 
-    @Bind(R.id.delete_photo)
+    @BindView(R.id.delete_photo)
     FloatingActionButton delete_photo;
 
-    @Bind(R.id.change_photo)
+    @BindView(R.id.change_photo)
     FloatingActionButton change_photo;
 
-    @Bind(R.id.plus_button)
+    @BindView(R.id.plus_button)
     FloatingActionButton plus_button;
 
-    @Bind(R.anim.fab_open)
+    @BindAnim(R.anim.fab_open)
     Animation FabOpen;
 
-    @Bind(R.anim.fab_close)
+    @BindAnim(R.anim.fab_close)
     Animation FabClose;
 
-    @Bind(R.anim.rotate_clockwise)
+    @BindAnim(R.anim.rotate_clockwise)
     Animation FabRClockwise;
 
-    @Bind(R.anim.rotate_anticlockwise)
+    @BindAnim(R.anim.rotate_anticlockwise)
     Animation FabRAnticlockwise;
 
     private boolean isOpen = false;
