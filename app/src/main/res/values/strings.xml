@@ -31,6 +31,8 @@
     <string name="lang">Language</string>
     <string name="notification">Notification</string>
     <string name="skills">Skills</string>
+    <string name="tittle">Tittle</string>
+    <string name="chose_please">Choose Category</string>
 
 
 </resources>

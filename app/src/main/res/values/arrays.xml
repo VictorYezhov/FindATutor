@@ -10,4 +10,14 @@
         <item>ru</item>
         <item>uk</item>
     </string-array>
+
+
+    <string-array name="categories">
+        <item>@string/chose_please</item>
+        <item>Math</item>
+        <item>English</item>
+        <item>Physics</item>
+        <item>Biology</item>
+        <item>Chemistry</item>
+    </string-array>
 </resources>

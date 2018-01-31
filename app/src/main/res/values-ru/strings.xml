@@ -22,4 +22,6 @@
     <string name="lang">Язык</string>
     <string name="notification">Оповещения</string>
     <string name="skills">Навыки</string>
+    <string name="tittle">Заголовок</string>
+    <string name="chose_please">Выберите категорию</string>
 </resources>

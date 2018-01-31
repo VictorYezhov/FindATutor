@@ -23,7 +23,6 @@ import fatproject.validation.Validator;
 
 public class SingUpActivity  extends AppCompatActivity {
 
-
     private static final String TAG = "SignUpActivity";
 
     @BindView(R.id.input_name)
@@ -42,8 +41,6 @@ public class SingUpActivity  extends AppCompatActivity {
     EditText _reEnterPasswordText;
     @BindView(R.id.btn_signup)
     Button _signupButton;
-
-
     @BindView(R.id.link_login)
     TextView _loginLink;
 
@@ -66,6 +63,7 @@ public class SingUpActivity  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Finish the registration screen and return to the Login activity
+                onPause();
                 Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
                 finish();

@@ -28,9 +28,10 @@ public class ProcessingActivity extends AppCompatActivity {
         progressDialog1.dismiss();
 
 
+        onPause();
         Intent intent = new Intent(getApplicationContext(), FragmentDispatcher.class);
         startActivity(intent);
-
+        finish();
 
 
     }

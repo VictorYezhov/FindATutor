@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return false;
         }
         progressDialog1.dismiss();
+        onPause();
         Intent intent = new Intent(getApplicationContext(), FragmentDispatcher.class);
         startActivityForResult(intent, REQUEST_SIGNUP);
 

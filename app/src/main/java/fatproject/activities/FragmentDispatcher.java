@@ -44,17 +44,14 @@ public class FragmentDispatcher extends AppCompatActivity {
            System.out.println("EXEPTION");
         }
         setUpNavigationDrawer(navigationView);
-        Fragment fragment = null;
-        Class fragmentClass = Account.class;
-
 
         try {
-            fragment = (Fragment) fragmentClass.newInstance();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.frame, Account.class.newInstance()).commit();
         }catch (Exception e){
             e.printStackTrace();
         }
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
+
 
 
     }
