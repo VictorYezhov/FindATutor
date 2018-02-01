@@ -51,7 +51,6 @@ public class Account extends Fragment {
 
     private boolean isOpen = false;
 
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -95,7 +94,6 @@ public class Account extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -123,14 +121,12 @@ public class Account extends Fragment {
         return view;
 
         // Inflate the layout for this fragment
-
     }
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
     }
 
     @Override

@@ -5,129 +5,173 @@
     android:layout_height="match_parent"
     android:background="#F0F0F0"
     tools:context="fatproject.fragments.Account">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="7dp">
-    <RelativeLayout
-        android:id="@+id/profilePhotoAndButtoms"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|top"
-        android:background="@color/white"
-        >
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/picture" />
-
-        <TextView
-            android:id="@+id/profile_name"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/profilePhotoAndButtoms"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/profile_image"
-            android:layout_alignStart="@+id/profile_image"
-            android:layout_below="@+id/profile_image"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="Vitia"
-            android:textColor="@color/black"
-            android:textSize="35dp" />
+            android:layout_gravity="center|top"
+            android:background="@color/white">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/picture" />
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/profile_image"
+                android:layout_alignStart="@+id/profile_image"
+                android:layout_below="@+id/profile_image"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="Vitia"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/profile_name"
+                android:layout_alignStart="@+id/profile_name"
+                android:layout_below="@+id/profile_name"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="Student of UCU"
+                android:textColor="@color/black" />
+
+            <ImageButton
+                android:id="@+id/chatButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignStart="@+id/profile_image"
+                android:layout_alignTop="@+id/profile_image"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:padding="47dp"
+                android:rotation="180"
+                android:scaleType="centerInside"
+                android:src="@drawable/chat_button" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/open_photo"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_above="@+id/textView2"
+
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@+id/profile_image"
+                android:backgroundTint="@color/blue"
+                android:elevation="6dp"
+                android:src="@drawable/ic_action_open"
+                android:visibility="invisible"
+                app:pressedTranslationZ="12dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/change_photo"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+
+                android:layout_above="@+id/open_photo"
+                android:layout_marginBottom="13dp"
+                android:layout_marginStart="21dp"
+                android:layout_toEndOf="@+id/profile_image"
+                android:backgroundTint="@color/blue"
+                android:elevation="6dp"
+                android:src="@drawable/ic_action_changephoto"
+                android:visibility="invisible"
+                app:pressedTranslationZ="12dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/delete_photo"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+
+                android:layout_above="@+id/change_photo"
+                android:layout_marginBottom="13dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/profile_image"
+                android:backgroundTint="@color/blue"
+                android:elevation="6dp"
+                android:src="@drawable/ic_action_deletephoto"
+                android:visibility="invisible"
+                app:pressedTranslationZ="12dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/plus_button"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_above="@+id/profile_name"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/open_photo"
+                android:backgroundTint="@color/blue"
+                android:elevation="6dp"
+                android:src="@drawable/ic_action_plus"
+                app:pressedTranslationZ="12dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Skills"
+                    android:textColor="@color/black"
+                    android:textSize="23sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/profile_name"
-            android:layout_alignStart="@+id/profile_name"
-            android:layout_below="@+id/profile_name"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="Student of UCU"
-            android:textColor="@color/black" />
+            android:layout_marginTop="7dp"
+            android:background="@color/white">
 
-        <ImageButton
-            android:id="@+id/chatButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignStart="@+id/profile_image"
-            android:layout_alignTop="@+id/profile_image"
-            android:adjustViewBounds="true"
-            android:background="@android:color/transparent"
-            android:padding="47dp"
-            android:rotation="180"
-            android:scaleType="centerInside"
-            android:src="@drawable/chat_button" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/open_photo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/black"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="University and Job "
+                    android:textColor="@color/black"
+                    android:textSize="23sp" />
 
-            android:elevation="6dp"
-            android:src="@drawable/ic_action_open"
-            android:visibility="invisible"
-            app:pressedTranslationZ="12dp"
-            android:layout_below="@+id/profile_image"
-            android:layout_alignEnd="@+id/change_photo"
-            android:layout_marginEnd="25dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/change_photo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/black"
-
-            android:elevation="6dp"
-            android:src="@drawable/ic_action_changephoto"
-            android:visibility="invisible"
-            app:pressedTranslationZ="12dp"
-            android:layout_below="@+id/delete_photo"
-            android:layout_toEndOf="@+id/profile_image" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/delete_photo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/black"
-
-            android:elevation="6dp"
-
-            android:src="@drawable/ic_action_deletephoto"
-            android:visibility="invisible"
-            app:pressedTranslationZ="12dp"
-            android:layout_marginBottom="14dp"
-            android:layout_above="@+id/plus_button"
-            android:layout_toEndOf="@+id/profile_image" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/plus_button"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/black"
-            android:elevation="6dp"
-            android:src="@drawable/ic_action_plus"
-            app:pressedTranslationZ="12dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginBottom="16dp"
-            android:layout_above="@+id/profile_name"
-            android:layout_alignEnd="@+id/profile_image" />
-<!--ghggg-->
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/universityAndJobs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Des` tam v Palitehu vchivsia
+chot tam na iakis cursi teg hodiv
+teper ot v ucu vchusia"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
-
-
 </FrameLayout>
