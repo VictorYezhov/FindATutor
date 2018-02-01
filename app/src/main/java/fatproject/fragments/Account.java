@@ -116,32 +116,7 @@ public class Account extends Fragment {
         plus_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (isOpen){
-
-                    delete_photo.startAnimation(FabClose);
-                    change_photo.startAnimation(FabClose);
-                    open_photo.startAnimation(FabClose);
-                    plus_button.startAnimation(FabRAnticlockwise);
-
-                    delete_photo.setClickable(false);
-                    change_photo.setClickable(false);
-                    open_photo.setClickable(false);
-
-                    isOpen = false;
-
-                }else{
-                    delete_photo.startAnimation(FabOpen);
-                    change_photo.startAnimation(FabOpen);
-                    open_photo.startAnimation(FabOpen);
-                    plus_button.startAnimation(FabRClockwise);
-
-                    delete_photo.setClickable(true);
-                    change_photo.setClickable(true);
-                    open_photo.setClickable(true);
-
-                    isOpen = true;
-                }
+                plusButtonAnimation(isOpen);
             }
         });
 
@@ -179,6 +154,32 @@ public class Account extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    public void plusButtonAnimation(boolean checker){
+        if (checker){
 
+            delete_photo.startAnimation(FabClose);
+            change_photo.startAnimation(FabClose);
+            open_photo.startAnimation(FabClose);
+            plus_button.startAnimation(FabRAnticlockwise);
+
+            delete_photo.setClickable(false);
+            change_photo.setClickable(false);
+            open_photo.setClickable(false);
+
+            isOpen = false;
+
+        }else{
+            delete_photo.startAnimation(FabOpen);
+            change_photo.startAnimation(FabOpen);
+            open_photo.startAnimation(FabOpen);
+            plus_button.startAnimation(FabRClockwise);
+
+            delete_photo.setClickable(true);
+            change_photo.setClickable(true);
+            open_photo.setClickable(true);
+
+            isOpen = true;
+        }
+    }
 
 }
