@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:textColor="@color/title"
+        android:textColor="@color/almostBlack"
         android:textSize="16dp"
         android:textStyle="bold" />
 
@@ -32,8 +32,8 @@
         android:id="@+id/application_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/year" />
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/red" />
 
 
 </RelativeLayout>

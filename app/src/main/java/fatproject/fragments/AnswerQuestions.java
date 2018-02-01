@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +22,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.Helpers.ApplicationAdapter;
+import fatproject.Helpers.ApplicationListListener;
+import fatproject.Helpers.Listener;
+import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.entity.Application;
 import fatproject.findatutor.R;
+import io.paperdb.Paper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -96,6 +102,7 @@ public class AnswerQuestions extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_answer_questions, container, false);
         ButterKnife.bind(this, view);
+        Paper.init(this.getContext());
 
 
         setApplicationsData();
@@ -103,9 +110,24 @@ public class AnswerQuestions extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
-        System.err.print("ya");
+        recyclerView.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayoutManager.VERTICAL));
+        recyclerView.addOnItemTouchListener(new ApplicationListListener(this.getContext(), recyclerView, new Listener() {
+            @Override
+            public void onClick(View view, int position) {
+                Application application= applicationList.get(position);
+                Paper.book().write(AnswerQuestions.this.getResources().getString(R.string.current_dicription_choise),
+                        application.getDiscription() );
+                FragmentDispatcher.launchFragment(ApplicationDiscription.class);
+                Toast.makeText(AnswerQuestions.this.getContext(), application.getTittle() + " is selected!", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
+        recyclerView.setAdapter(mAdapter);
 
         return view;
     }
@@ -142,41 +164,41 @@ public class AnswerQuestions extends Fragment {
 
     //TODO: Delete this after testing
     private void setApplicationsData(){
-        Application app = new Application("Computer Vision", "IT",56);
+        Application app = new Application("Computer Vision", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_2", "IT",56);
+        app = new Application("Computer Vision_2", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_3", "IT",56);
+        app = new Application("Computer Vision_3", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_4", "IT",56);
+        app = new Application("Computer Vision_4", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_5", "IT",56);
+        app = new Application("Computer Vision_5", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_6", "IT",56);
+        app = new Application("Computer Vision_6", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_7", "IT",56);
+        app = new Application("Computer Vision_7", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_8", "IT",56);
+        app = new Application("Computer Vision_8", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_9", "IT",56);
+        app = new Application("Computer Vision_9", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_10", "IT",56);
+        app = new Application("Computer Vision_10", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_11", "IT",56);
+        app = new Application("Computer Vision_11", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_12", "IT",56);
+        app = new Application("Computer Vision_12", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_13", "IT",56);
+        app = new Application("Computer Vision_13", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_14", "IT",56);
+        app = new Application("Computer Vision_14", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_15", "IT",56);
+        app = new Application("Computer Vision_15", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_16", "IT",56);
+        app = new Application("Computer Vision_16", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_17", "IT",56);
+        app = new Application("Computer Vision_17", "IT","DISCRIPTION",56);
         applicationList.add(app);
-        app = new Application("Computer Vision_18", "IT",56);
+        app = new Application("Computer Vision_18", "IT","DISCRIPTION",56);
         applicationList.add(app);
 
     }

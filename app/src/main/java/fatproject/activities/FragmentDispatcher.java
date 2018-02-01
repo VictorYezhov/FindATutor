@@ -27,11 +27,13 @@ import fatproject.fragments.Settings;
 public class FragmentDispatcher extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    private static FragmentManager fragmentManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        fragmentManager =getSupportFragmentManager();
         setContentView(R.layout.fragments_manager);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -46,7 +48,7 @@ public class FragmentDispatcher extends AppCompatActivity {
         setUpNavigationDrawer(navigationView);
 
         try {
-            FragmentManager fragmentManager = getSupportFragmentManager();
+
             fragmentManager.beginTransaction().replace(R.id.frame, Account.class.newInstance()).commit();
         }catch (Exception e){
             e.printStackTrace();
@@ -110,7 +112,7 @@ public class FragmentDispatcher extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-        FragmentManager fragmentManager = getSupportFragmentManager();
+
         fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
         item.setCheckable(true);
         setTitle(item.getTitle());
@@ -129,6 +131,20 @@ public class FragmentDispatcher extends AppCompatActivity {
 
 
 
+    }
+
+    public static boolean launchFragment(Class fragmentClass){
+
+        Fragment fragment = null;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
+
+        return true;
     }
 
     private void logout(){

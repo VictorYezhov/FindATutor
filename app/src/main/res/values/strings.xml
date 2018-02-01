@@ -24,6 +24,7 @@
     <string name="aboutUs">About Us</string>
     <string name="contacts">My Contacts</string>
     <string name="account">Account</string>
+    <string name="current_dicription_choise">Current Choice</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -10,6 +10,7 @@ import java.util.List;
 
 import fatproject.entity.Application;
 import fatproject.findatutor.R;
+import fatproject.fragments.AnswerQuestions;
 
 /**
  * Created by Victor on 01.02.2018.
@@ -21,6 +22,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
     private List<Application> applicationList;
 
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, application_price, category;
 
@@ -29,11 +31,13 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
             title = (TextView) view.findViewById(R.id.title);
             category = (TextView) view.findViewById(R.id.application_category);
             application_price= (TextView) view.findViewById(R.id.application_price);
+
         }
     }
 
     public ApplicationAdapter(List<Application> applicationList) {
         this.applicationList = applicationList;
+
     }
 
 
@@ -50,7 +54,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Application application = applicationList.get(position);
         holder.title.setText(application.getTittle());
-        holder.application_price.setText(Integer.toString(application.getPrice()));
+        holder.application_price.setText(Integer.toString(application.getPrice())+"$");
         holder.category.setText(application.getCategory());
     }
 

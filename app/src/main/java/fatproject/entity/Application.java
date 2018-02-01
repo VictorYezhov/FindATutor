@@ -15,6 +15,7 @@ public class Application {
     private String tittle;
     private String category;
     private int price;
+    private String discription;
     private List<String> skills;
 
     public Application(String tittle, String category, int price, List<String> skills) {
@@ -24,10 +25,11 @@ public class Application {
         this.skills = skills;
     }
 
-    public Application(String tittle, String category, int price) {
+    public Application(String tittle, String category,String discription, int price) {
         this.tittle = tittle;
         this.category = category;
         this.price = price;
+        this.discription = discription;
     }
 
     public String getTittle() {
@@ -60,5 +62,13 @@ public class Application {
 
     public void setSkills(List<String> skills) {
         this.skills = skills;
+    }
+
+    public String getDiscription() {
+        return discription;
+    }
+
+    public void setDiscription(String discription) {
+        this.discription = discription;
     }
 }
