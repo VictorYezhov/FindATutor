@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,8 @@ public class AskQuestions extends Fragment {
     Spinner spinner;
     @BindView(R.id.ask_discript)
     EditText discription;
+    @BindView(R.id.category_text)
+    TextView textView;
 
 
     // TODO: Rename and change types of parameters
@@ -83,7 +86,17 @@ public class AskQuestions extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_ask_questions, container, false);
+
+
+
+        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.Theme_Design_Light);
+
+        // clone the inflater using the ContextThemeWrapper
+        LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+
+        // inflate the layout using the cloned inflater, not default inflater
+        View view = localInflater.inflate(R.layout.fragment_ask_questions, container, false);
+
         ButterKnife.bind(this, view);
 
         discription.setActivated(false);
@@ -110,6 +123,8 @@ public class AskQuestions extends Fragment {
                             equals(AskQuestions.this.getContext().getResources().getString(R.string.chose_please))){
                         discription.setActivated(false);
                     }else {
+                        textView.setVisibility(View.GONE);
+               //         discription.setBackgroundColor(AskQuestions.this.getContext().getResources().getColor(R.color.accent));
                         discription.setActivated(true);
                     }
                     Toast.makeText(AskQuestions.this.getContext(), spinner.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
