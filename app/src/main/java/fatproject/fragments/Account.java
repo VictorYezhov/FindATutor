@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import butterknife.BindAnim;
 import butterknife.BindView;
@@ -104,7 +105,32 @@ public class Account extends Fragment {
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.err.println("chat_button pressed");
+                Toast.makeText(getActivity().getApplicationContext(), "Chat button works", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        delete_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "Delete photo button works", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        change_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "Change photo button works", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        open_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "Open photo button works", Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -115,6 +141,8 @@ public class Account extends Fragment {
             @Override
             public void onClick(View v) {
                 plusButtonAnimation(isOpen);
+                Toast.makeText(getActivity().getApplicationContext(), "Plus button works", Toast.LENGTH_LONG).show();
+
             }
         });
 
