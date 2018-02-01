@@ -152,5 +152,19 @@ public class FragmentDispatcher extends AppCompatActivity {
         return;
     }
 
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = null;
+        Class fragmentClass=Account.class;
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
+
+    }
 }
 
