@@ -104,6 +104,7 @@ public class AnswerQuestions extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+        System.err.print("ya");
 
 
         return view;
