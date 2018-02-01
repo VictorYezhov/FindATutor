@@ -4,15 +4,24 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import fatproject.Helpers.myRecycleViewAdapter;
+import fatproject.Helpers.ApplicationAdapter;
+import fatproject.activities.MainAplication;
+import fatproject.entity.Application;
 import fatproject.findatutor.R;
 
 /**
@@ -30,10 +39,12 @@ public class AnswerQuestions extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
 
-    @BindView(R.id.answer_recycler_view)
-    RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private List<Application> applicationList = new ArrayList<>();
+
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+
+    private ApplicationAdapter mAdapter;
 
 
     // TODO: Rename and change types of parameters
@@ -41,6 +52,10 @@ public class AnswerQuestions extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+
+
+
 
     public AnswerQuestions() {
         // Required empty public constructor
@@ -71,15 +86,6 @@ public class AnswerQuestions extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        mRecyclerView = (RecyclerView) getView().findViewById(R.id.answer_recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this.getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        // specify an adapter (see also next example)
-        String m[]= {"First","Second","Third"};
-        mAdapter = new myRecycleViewAdapter(m);
-        mRecyclerView.setAdapter(mAdapter);
 
 
     }
@@ -87,13 +93,19 @@ public class AnswerQuestions extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_answer_questions, container, false);
-        mRecyclerView = (RecyclerView) getView().findViewById(R.id.answer_recycler_view);
         ButterKnife.bind(this, view);
 
 
+        setApplicationsData();
+        mAdapter = new ApplicationAdapter(applicationList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
 
-        // Inflate the layout for this fragment
+
         return view;
     }
 
@@ -125,4 +137,49 @@ public class AnswerQuestions extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+    //TODO: Delete this after testing
+    private void setApplicationsData(){
+        Application app = new Application("Computer Vision", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_2", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_3", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_4", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_5", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_6", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_7", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_8", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_9", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_10", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_11", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_12", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_13", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_14", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_15", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_16", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_17", "IT",56);
+        applicationList.add(app);
+        app = new Application("Computer Vision_18", "IT",56);
+        applicationList.add(app);
+
+    }
+
+
+
 }
