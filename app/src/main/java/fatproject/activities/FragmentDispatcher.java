@@ -162,9 +162,7 @@ public class FragmentDispatcher extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-
         fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
-
     }
 }
 
