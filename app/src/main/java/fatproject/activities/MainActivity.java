@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import fatproject.Helpers.LocaleManager;
 import fatproject.findatutor.R;
 
+
 public class MainActivity extends AppCompatActivity {
 
 
