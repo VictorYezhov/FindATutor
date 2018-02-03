@@ -19,6 +19,24 @@ public class Message {
     public Message() {
     }
 
+    public Message(int id,
+                   String from,
+                   String subject,
+                   String message,
+                   String timestamp,
+                   String picture,
+                   boolean isImportant,
+                   boolean isRead){
+        this.id = id;
+        this.from = from;
+        this.subject = subject;
+        this.message = message;
+        this.timestamp = timestamp;
+        this.picture = picture;
+        this.isImportant = isImportant;
+        this.isRead = isRead;
+    }
+
     public int getId() {
         return id;
     }
@@ -33,14 +51,6 @@ public class Message {
 
     public void setFrom(String from) {
         this.from = from;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
     }
 
     public String getMessage() {
@@ -89,5 +99,13 @@ public class Message {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 }
