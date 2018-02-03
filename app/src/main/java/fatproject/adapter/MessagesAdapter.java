@@ -29,7 +29,7 @@ import java.util.List;
 import fatproject.Helpers.CircleTransform;
 import fatproject.Helpers.FlipAnimator;
 import fatproject.findatutor.R;
-import fatproject.model.Message;
+import fatproject.entity.Message;
 
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyViewHolder> {
     private Context mContext;

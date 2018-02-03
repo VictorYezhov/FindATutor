@@ -1,4 +1,4 @@
-package fatproject.Helpers;
+package fatproject.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import java.util.List;
 
 import fatproject.entity.Application;
 import fatproject.findatutor.R;
-import fatproject.fragments.AnswerQuestions;
 
 /**
  * Created by Victor on 01.02.2018.

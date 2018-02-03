@@ -1,4 +1,4 @@
-package fatproject.Helpers;
+package fatproject.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

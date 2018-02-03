@@ -8,12 +8,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,11 +18,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import fatproject.Helpers.ApplicationAdapter;
+import fatproject.adapter.ApplicationAdapter;
 import fatproject.Helpers.ApplicationListListener;
 import fatproject.Helpers.Listener;
 import fatproject.activities.FragmentDispatcher;
-import fatproject.activities.MainAplication;
 import fatproject.entity.Application;
 import fatproject.findatutor.R;
 import io.paperdb.Paper;

@@ -1,4 +1,4 @@
-package fatproject.model;
+package fatproject.entity;
 
 /**
  * Created by Max Komarenski on 03.02.2018.
