@@ -223,6 +223,7 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 
     private void getInbox() {
         Message message = new Message(1, "Max Komarensky","Find a tutor", "hello", "15:34", "xcvxc", true, false);
+        message.setColor(getRandomMaterialColor("400"));
         messages.add(message);
     }
 

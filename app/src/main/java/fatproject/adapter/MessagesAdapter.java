@@ -6,6 +6,7 @@ package fatproject.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.graphics.drawable.Icon;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -158,16 +159,18 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
 
     private void applyProfilePicture(MyViewHolder holder, Message message) {
         if (!TextUtils.isEmpty(message.getPicture())) {
-            Glide.with(mContext).load(message.getPicture())
-                    .thumbnail(0.5f)
-                    .crossFade()
-                    .transform(new CircleTransform(mContext))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(holder.imgProfile);
-            holder.imgProfile.setColorFilter(null);
-            holder.iconText.setVisibility(View.GONE);
+//            Glide.with(mContext).load(message.getPicture())
+//                    .thumbnail(0.5f)
+//                    .crossFade()
+//                    .transform(new CircleTransform(mContext))
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                    .into(holder.imgProfile);
+//            holder.imgProfile.setColorFilter(null);
+//            holder.iconText.setVisibility(View.GONE);
+            holder.imgProfile.setImageResource(R.drawable.noavatar);
         } else {
-            holder.imgProfile.setImageResource(R.drawable.max);
+
+            holder.imgProfile.setImageResource(R.drawable.max);//TODO
             holder.imgProfile.setColorFilter(message.getColor());
             holder.iconText.setVisibility(View.VISIBLE);
         }
