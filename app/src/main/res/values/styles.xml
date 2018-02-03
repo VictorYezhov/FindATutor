@@ -17,7 +17,7 @@
         <item name="android:textColorHint">@color/iron</item>
 
         <item name="colorButtonNormal">@color/dark_grey</item>
-        <item name="android:colorButtonNormal">@color/dark_grey</item>
+
     </style>
    <style name="AppTheme.AskTheme">
        <item name="colorPrimary">@color/grey</item>
@@ -33,5 +33,25 @@
         <item name="android:textColorPrimary">@color/iron</item>
         <item name="android:background">@color/blue</item>
     </style>
+
+    <!-- Base application theme. -->
+    <style name="AppThemeContacts" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/dark_blue</item>
+        <item name="colorAccent">#FFFFFF</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:actionModeBackground">@color/grey</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 
 </resources>
