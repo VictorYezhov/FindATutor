@@ -23,6 +23,11 @@
   <color name="almostBlack">#222222</color>
 
   <color name="row_activated">#e0e0e0</color>
+  <color name="subject">#111111</color>
+  <color name="message">#7a7a7a</color>
+  <color name="from">#000000</color>
+  <color name="icon_tint_normal">#7a7a7a</color>
+  <color name="icon_tint_selected">#fed776</color>
 
 
 </resources>
