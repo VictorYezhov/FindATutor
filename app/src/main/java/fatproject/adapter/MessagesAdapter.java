@@ -167,7 +167,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
             holder.imgProfile.setColorFilter(null);
             holder.iconText.setVisibility(View.GONE);
         } else {
-            holder.imgProfile.setImageResource(R.drawable.bg_circle);
+            holder.imgProfile.setImageResource(R.drawable.max);
             holder.imgProfile.setColorFilter(message.getColor());
             holder.iconText.setVisibility(View.VISIBLE);
         }

@@ -83,6 +83,7 @@
             <ImageView
                 android:id="@+id/icon_profile"
                 android:layout_width="40dp"
+                android:src="@drawable/max"
                 android:layout_height="40dp" />
 
             <TextView

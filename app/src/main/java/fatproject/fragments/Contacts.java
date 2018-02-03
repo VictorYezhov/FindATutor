@@ -131,6 +131,7 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
+        getInbox();
         mAdapter = new MessagesAdapter(this.getContext(), messages, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -141,15 +142,7 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         actionModeCallback = new ActionModeCallback();
 
         // show loader and fetch messages
-        swipeRefreshLayout.post(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        getInbox();
-                    }
-                }
-        );
-        //-----------------------------------
+
 
         return view;
     }
@@ -229,7 +222,7 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     }
 
     private void getInbox() {
-        Message message = new Message(1, "asd","hjvhj", "afdsf", "adfg", "xcvxc", false, false);
+        Message message = new Message(1, "Max Komarensky","Find a tutor", "hello", "15:34", "xcvxc", true, false);
         messages.add(message);
     }
 
