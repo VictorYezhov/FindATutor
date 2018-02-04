@@ -25,6 +25,7 @@ public class Settings extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
+
         addPreferencesFromResource(R.xml.fragment_settings);
         Paper.init(this.getContext());
         listOfPreferensesInit();

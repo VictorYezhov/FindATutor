@@ -30,4 +30,11 @@
   <color name="icon_tint_selected">#fed776</color>
 
 
+  <color name="colorPrimary">#db4437</color>
+  <color name="colorPrimaryDark">#b93221</color>
+  <color name="colorAccent">#FFFFFF</color>
+  <color name="bg_action_mode">#757575</color>
+  <color name="bg_circle_default">#666666</color>
+
+
 </resources>

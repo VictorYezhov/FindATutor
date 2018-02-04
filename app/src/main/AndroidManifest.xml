@@ -26,7 +26,7 @@
             android:theme="@style/AppTheme.Dark" />
         <activity
             android:name="fatproject.activities.FragmentDispatcher"
-            android:theme="@style/AppTheme.Dark" />
+            android:theme="@style/AppThemeMy" />
         <activity
             android:name="fatproject.activities.ProcessingActivity"
             android:theme="@style/AppTheme.Dark"
