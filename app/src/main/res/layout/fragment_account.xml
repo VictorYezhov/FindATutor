@@ -154,9 +154,6 @@
                     android:layout_height="wrap_content"
                     app:mcv_chipText="Python" />
 
-
-
-
              </LinearLayout>
             </LinearLayout>
 
