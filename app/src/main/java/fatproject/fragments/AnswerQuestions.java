@@ -107,6 +107,7 @@ public class AnswerQuestions extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayoutManager.VERTICAL));
+
         recyclerView.addOnItemTouchListener(new ApplicationListListener(this.getContext(), recyclerView, new Listener() {
             @Override
             public void onClick(View view, int position) {

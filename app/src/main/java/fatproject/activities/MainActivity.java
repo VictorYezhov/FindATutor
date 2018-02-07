@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
 
-        Intent intent = new Intent(this, FragmentDispatcher.class);//TODO Replace FragmentDispatcher with LoginActivity
+        Intent intent = new Intent(this, LoginActivity.class);//TODO Replace FragmentDispatcher with LoginActivity
         startActivity(intent);
     }
 
