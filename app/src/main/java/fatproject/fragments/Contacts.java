@@ -1,6 +1,7 @@
 package fatproject.fragments;
 
 import android.content.Context;
+import android.graphics.LightingColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,12 +30,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.activities.MainAplication;
 import fatproject.findatutor.R;
 
 import fatproject.adapter.MessagesAdapter;
 import fatproject.Helpers.DividerItemDecoration;
 import fatproject.entity.Message;
 
+import fatproject.internet.ServerConnector;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -222,9 +225,37 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     }
 
     private void getInbox() {
-        Message message = new Message(1, "Max Komarensky","Find a tutor", "hello", "15:34", "xcvxc", true, false);
-        message.setColor(getRandomMaterialColor("400"));
-        messages.add(message);
+        swipeRefreshLayout.setRefreshing(true);
+        messages.clear();
+        MainAplication.getServerRequests().getMessages().enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+
+                if(response.body()!=null){
+                    for (Message m :
+                         response.body()) {
+                        System.out.println(m.getFrom());
+                        messages.add(new Message(m));
+                    }
+
+                    mAdapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+
+                else {
+                    System.err.println("NULL RESPONSE BODY");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+
+
     }
 
     //-----------------------------------

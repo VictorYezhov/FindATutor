@@ -6,7 +6,7 @@
     android:background="@drawable/books"
     android:padding="20dp">
     <ImageView
-        android:src="@drawable/picture"
+        android:src="@drawable/max"
         android:layout_width="80dp"
         android:layout_height="80dp" />
     <TextView

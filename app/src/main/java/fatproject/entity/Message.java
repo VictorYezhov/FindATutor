@@ -36,6 +36,21 @@ public class Message {
         this.isImportant = isImportant;
         this.isRead = isRead;
     }
+    public Message(Message m){
+        this.id = m.getId();
+        this.from = m.getFrom();
+        this.subject = m.getSubject();
+        this.message = m.getMessage();
+        this.timestamp = m.timestamp;
+        this.picture = m.getPicture();
+        this.isImportant = m.isImportant;
+        this.isRead = m.isRead;
+
+
+
+
+
+    }
 
     public int getId() {
         return id;

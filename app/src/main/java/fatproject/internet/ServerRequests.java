@@ -1,6 +1,9 @@
 package fatproject.internet;
 
+import java.util.List;
+
 import fatproject.entity.Greeting;
+import fatproject.entity.Message;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -16,4 +19,7 @@ public interface ServerRequests {
     Call<Greeting> requestGreeting();
     @GET("/index")
     Call<String> index();
+
+    @GET("/getMessages")
+    Call<List<Message>> getMessages();
 }
