@@ -3,6 +3,7 @@
         android:title="Settings">
         <CheckBoxPreference
             android:title="@string/notification"
+            android:textColor="@color/black"
             android:defaultValue="false"
             android:summary="Enable or disable notifications"
             android:key="checkboxPref" />

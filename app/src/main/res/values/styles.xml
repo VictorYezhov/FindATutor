@@ -37,6 +37,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:listDivider">@drawable/divider_items_decoration</item>
+        <item name="android:textColor">@color/black</item>
 
     </style>
 
