@@ -62,6 +62,7 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 //----------------------------------------------------
     private List<Message> messages = new ArrayList<>();
     private MessagesAdapter mAdapter;
+    private View thisView;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -118,6 +119,7 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
+        thisView = view;
         ButterKnife.bind(this, view);
 
         //-----------------------------------
@@ -251,6 +253,10 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
             @Override
             public void onFailure(Call<List<Message>> call, Throwable t) {
                 t.printStackTrace();
+
+                Snackbar.make(thisView, "Can`t access to server, check your connection", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
