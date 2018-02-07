@@ -9,6 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import fatproject.activities.MainAplication;
+import fatproject.findatutor.R;
+
 /**
  * Created by Max Komarenski on 03.02.2018.
  */
@@ -28,7 +31,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     public DividerItemDecoration(Context context, int orientation) {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
-        mDivider = a.getDrawable(0);
+        mDivider = MainAplication.getContext().getResources().getDrawable(R.drawable.divider_items_decoration);
         a.recycle();
         setOrientation(orientation);
     }

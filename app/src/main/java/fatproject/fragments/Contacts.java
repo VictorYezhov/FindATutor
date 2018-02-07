@@ -116,6 +116,8 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
         thisView = view;
         ButterKnife.bind(this, view);
@@ -228,7 +230,6 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                 if(response.body()!=null){
                     for (Message m :
                          response.body()) {
-                        System.out.println(m.getFrom());
                         messages.add(new Message(m));
                     }
 
