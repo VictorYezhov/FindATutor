@@ -35,13 +35,10 @@
         <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryDark">@color/very_dark_blue</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/base</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:listDivider">@drawable/divider_items_decoration</item>
 
     </style>
-
-
-
-
 
 
     <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">

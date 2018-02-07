@@ -59,7 +59,7 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-//----------------------------------------------------
+
     private List<Message> messages = new ArrayList<>();
     private MessagesAdapter mAdapter;
     private View thisView;
@@ -79,8 +79,6 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     private ActionModeCallback actionModeCallback;
     private ActionMode actionMode;
 
-
-//----------------------------------------------------
     private OnFragmentInteractionListener mListener;
 
     public Contacts() {
@@ -122,8 +120,6 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         thisView = view;
         ButterKnife.bind(this, view);
 
-        //-----------------------------------
-
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -145,13 +141,9 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         recyclerView.setAdapter(mAdapter);
 
         actionModeCallback = new ActionModeCallback();
-
         // show loader and fetch messages
-
-
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -264,15 +256,14 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 
     }
 
-    //-----------------------------------
     private int getRandomMaterialColor(String typeColor) {
-        int returnColor = Color.GRAY;
+        int returnColor = Color.BLUE;
         int arrayId = getResources().getIdentifier("mdcolor_" + typeColor, "array", getActivity().getPackageName());
 
         if (arrayId != 0) {
             TypedArray colors = getResources().obtainTypedArray(arrayId);
             int index = (int) (Math.random() * colors.length());
-            returnColor = colors.getColor(index, Color.GRAY);
+            returnColor = colors.getColor(index, Color.BLUE);
             colors.recycle();
         }
         return returnColor;
