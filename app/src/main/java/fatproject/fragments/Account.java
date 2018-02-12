@@ -1,8 +1,10 @@
 package fatproject.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,18 +12,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import butterknife.BindAnim;
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.findatutor.R;
+import retrofit2.http.Url;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Victor on 30.01.2018.
  */
 
 public class Account extends Fragment {
+
+    @BindView(R.id.profile_image)
+    ImageView profile_image;
 
     @BindView(R.id.chatButton)
     ImageButton chatButton;
@@ -51,6 +61,9 @@ public class Account extends Fragment {
     Animation FabRAnticlockwise;
 
     private boolean isOpen = false;
+
+    private static final int PICK_IMAGE = 100;
+    Uri imageUri;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -121,8 +134,7 @@ public class Account extends Fragment {
         change_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Change photo button works", Toast.LENGTH_LONG).show();
-
+                openGallery();
             }
         });
 
@@ -203,6 +215,21 @@ public class Account extends Fragment {
             open_photo.setClickable(true);
 
             isOpen = true;
+        }
+    }
+
+    private void openGallery(){
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
+            imageUri = data.getData();
+            profile_image.setImageURI(imageUri);
         }
     }
 
