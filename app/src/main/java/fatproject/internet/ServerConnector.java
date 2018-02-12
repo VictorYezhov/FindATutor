@@ -24,6 +24,7 @@ public class ServerConnector {
 
     private static RequestResult result;
 
+
         public static boolean checkConnection(){
         ConnectivityManager connectivityManager =(ConnectivityManager)MainAplication.getContext().
                 getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -40,40 +41,31 @@ public class ServerConnector {
 
     public static RequestResult singUpNewUser(User user){
 
-
         MainAplication.getServerRequests().registerNewUser(user).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if(response.body()!=null)
-                    result=RequestResult.RESULT_OK;
-                else
-                    result=RequestResult.RESULT_NULL_ANSWER;
+                if(response.body()!=null) {
+                    result = RequestResult.RESULT_OK;
+                    System.err.println(result.name());
+                }
+                else {
+                    result = RequestResult.RESULT_NULL_ANSWER;
+
+                    System.err.println(result.name());
+                }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 result = RequestResult.RESULT_ERROR;
 
+                System.err.println(result.name());
+
             }
         });
-        return  result;
+
+        return result;
     }
-
-
-
-
-
-//    App.getApi().getData("bash", 50).enqueue(new Callback<List<PostModel>>() {
-//        @Override
-//        public void onResponse(Call<List<PostModel>> call, Response<List<PostModel>> response) {
-//            //Данные успешно пришли, но надо проверить response.body() на null
-//        }
-//        @Override
-//        public void onFailure(Call<List<PostModel>> call, Throwable t) {
-//            //Произошла ошибка
-//        }
-//    });
-
 
 
 }

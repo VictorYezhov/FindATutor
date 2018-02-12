@@ -119,31 +119,17 @@ public class SingUpActivity  extends AppCompatActivity {
         user.setAddress(_addressText.getText().toString());
         user.setRating(0);
 
-       if(ServerConnector.singUpNewUser(user)== RequestResult.RESULT_OK){
-           new android.os.Handler().postDelayed(
-                   new Runnable() {
-                       public void run() {
-                           // On complete call either onSignupSuccess or onSignupFailed
-                           // depending on success
-                           onSignupSuccess();
-                           // onSignupFailed();
-                           progressDialog.dismiss();
-                       }
-                   }, 3000);
-       }else {
-           new android.os.Handler().postDelayed(
-                   new Runnable() {
-                       public void run() {
-                           // On complete call either onSignupSuccess or onSignupFailed
-                           // depending on success
-                           onSignupFailed();
-                           onRestart();
-                           // onSignupFailed();
-                           progressDialog.dismiss();
-                       }
-                   }, 3000);
-           onRestart();
-       }
+       ServerConnector.singUpNewUser(user);
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        // On complete call either onSignupSuccess or onSignupFailed
+                        // depending on success
+                        onSignupSuccess();
+                        progressDialog.dismiss();
+                    }
+                }, 3000);
+
 
         // TODO:  email валідація.
 
@@ -161,9 +147,6 @@ public class SingUpActivity  extends AppCompatActivity {
     public void onSignupFailed() {
         Toast.makeText(getBaseContext(), "Registration failed", Toast.LENGTH_LONG).show();
         onStop();
-
-       // Intent intent = new Intent(getApplicationContext(),SingUpActivity.class);
-       // startActivity(intent);
         _signupButton.setEnabled(true);
     }
 
