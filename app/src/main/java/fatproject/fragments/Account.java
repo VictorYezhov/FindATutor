@@ -34,7 +34,7 @@ public class Account extends Fragment {
     ImageView profile_image;
 
     @BindView(R.id.chatButton)
-    ImageButton chatButton;
+    FloatingActionButton chatButton;
 
     @BindView(R.id.open_photo)
     FloatingActionButton open_photo;
