@@ -26,6 +26,9 @@ public interface ServerRequests {
     @GET("/index")
     Call<String> index();
 
+    @POST("/login")
+    Call<User> login();
+
     @POST("/user/add")
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Call<User> registerNewUser(@Body User user);
