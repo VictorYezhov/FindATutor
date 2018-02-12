@@ -22,9 +22,14 @@ import com.google.android.gms.tasks.Task;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.entity.LoginForm;
+import fatproject.entity.User;
 import fatproject.findatutor.R;
 import fatproject.validation.LoginValidator;
 import fatproject.validation.Validator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Victor on 31.12.2017.
@@ -107,6 +112,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
+        MainAplication.getServerRequests().login(new LoginForm(email, password)).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                System.out.println(response.body());
+                if(response.body() != null){
+                    System.out.println(response.body().getName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
 
         // TODO: Implement your own authentication logic here.
 

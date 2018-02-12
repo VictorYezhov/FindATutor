@@ -3,6 +3,7 @@ package fatproject.internet;
 import java.util.List;
 
 import fatproject.entity.Greeting;
+import fatproject.entity.LoginForm;
 import fatproject.entity.Message;
 import fatproject.entity.User;
 import retrofit2.Call;
@@ -27,7 +28,7 @@ public interface ServerRequests {
     Call<String> index();
 
     @POST("/login")
-    Call<User> login();
+    Call<User> login(@Body LoginForm loginForm);
 
     @POST("/user/add")
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
