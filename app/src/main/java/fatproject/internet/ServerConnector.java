@@ -10,6 +10,7 @@ import java.util.List;
 
 import fatproject.activities.MainAplication;
 import fatproject.entity.Message;
+import fatproject.entity.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,6 +21,8 @@ import retrofit2.Response;
 
 public class ServerConnector {
 
+
+    private static RequestResult result;
 
         public static boolean checkConnection(){
         ConnectivityManager connectivityManager =(ConnectivityManager)MainAplication.getContext().
@@ -34,33 +37,29 @@ public class ServerConnector {
         }
     }
 
-    public static  boolean getMessages(final List<Message> input){
+
+    public static RequestResult singUpNewUser(User user){
 
 
-            MainAplication.getServerRequests().getMessages().enqueue(new Callback<List<Message>>() {
-                @Override
-                public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+        MainAplication.getServerRequests().registerNewUser(user).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.body()!=null)
+                    result=RequestResult.RESULT_OK;
+                else
+                    result=RequestResult.RESULT_NULL_ANSWER;
+            }
 
-                    if(response.body()!=null){
-                        input.addAll(response.body());
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                result = RequestResult.RESULT_ERROR;
 
-                    }
-                    else {
-                        System.err.println("NULL RESPONSE BODY");
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<List<Message>> call, Throwable t) {
-
-                    t.printStackTrace();
-                }
-            });
-
-        return true;
-
+            }
+        });
+        return  result;
     }
+
+
 
 
 

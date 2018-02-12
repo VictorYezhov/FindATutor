@@ -13,9 +13,15 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.entity.User;
 import fatproject.findatutor.R;
+import fatproject.internet.RequestResult;
+import fatproject.internet.ServerConnector;
 import fatproject.validation.SingUpValidator;
 import fatproject.validation.Validator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Victor on 30.12.2017.
@@ -74,11 +80,18 @@ public class SingUpActivity  extends AppCompatActivity {
 
     public boolean signUp() {
         Log.d(TAG, "SignUp");
-        //TODO Dependency injection using Dagger 2
-        Validator singUpValidator = new SingUpValidator();
-
         final ProgressDialog progressDialog = new ProgressDialog(SingUpActivity.this,
                 R.style.AppTheme_Dark_Dialog);
+
+        if(!ServerConnector.checkConnection()){
+            Toast.makeText(getBaseContext(), "No internet connection", Toast.LENGTH_LONG).show();
+            Log.d(TAG, "No connection");
+            onStop();
+            onRestart();
+
+        }
+        //TODO Dependency injection using Dagger 2
+        Validator singUpValidator = new SingUpValidator();
         progressDialog.setMessage("Validating information...");
         progressDialog.show();
 
@@ -93,31 +106,48 @@ public class SingUpActivity  extends AppCompatActivity {
 
         _signupButton.setEnabled(false);
 
-
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        String name = _nameText.getText().toString();
-        String address = _addressText.getText().toString();
-        String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
-        String password = _passwordText.getText().toString();
-        String reEnterPassword = _reEnterPasswordText.getText().toString();
+        User user = new User();
+        user.setName(_nameText.getText().toString());
+        user.setFamilyName(_surnamenameText.getText().toString());
+        user.setEmail(_emailText.getText().toString());
+        user.setPassword(_passwordText.getText().toString());
+        user.setMobileNumber(_mobileText.getText().toString());
+        user.setAddress(_addressText.getText().toString());
+        user.setRating(0);
 
-        System.out.println(name+"\n"+address+"\n"+email+"\n"+mobile+"\n"+password+"\n"+reEnterPassword);
-        // TODO: Відправка даних на сервер та збереження в БД + email валідація.
+       if(ServerConnector.singUpNewUser(user)== RequestResult.RESULT_OK){
+           new android.os.Handler().postDelayed(
+                   new Runnable() {
+                       public void run() {
+                           // On complete call either onSignupSuccess or onSignupFailed
+                           // depending on success
+                           onSignupSuccess();
+                           // onSignupFailed();
+                           progressDialog.dismiss();
+                       }
+                   }, 3000);
+       }else {
+           new android.os.Handler().postDelayed(
+                   new Runnable() {
+                       public void run() {
+                           // On complete call either onSignupSuccess or onSignupFailed
+                           // depending on success
+                           onSignupFailed();
+                           onRestart();
+                           // onSignupFailed();
+                           progressDialog.dismiss();
+                       }
+                   }, 3000);
+           onRestart();
+       }
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+        // TODO:  email валідація.
+
+
         return true;
     }
 
