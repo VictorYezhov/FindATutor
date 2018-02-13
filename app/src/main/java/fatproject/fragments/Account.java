@@ -7,19 +7,34 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindAnim;
 import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.adapter.ChipAdapter;
+import fatproject.entity.User;
 import fatproject.findatutor.R;
+import io.paperdb.Paper;
 import retrofit2.http.Url;
 
 import static android.app.Activity.RESULT_OK;
@@ -59,6 +74,15 @@ public class Account extends Fragment {
 
     @BindAnim(R.anim.rotate_anticlockwise)
     Animation FabRAnticlockwise;
+
+    @BindView(R.id.skillset)
+    RecyclerView recyclerView;
+
+
+
+
+    @BindView(R.id.profile_name)
+    TextView username;
 
     private boolean isOpen = false;
 
@@ -115,6 +139,46 @@ public class Account extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         ButterKnife.bind(this, view);
 
+
+        //ONLY FOR TESTING
+        //-------------------------------------------------------------------------------------
+        List<String> skill  = new ArrayList<>();
+        skill.add("Java");
+        skill.add("C++");
+        skill.add("English");
+        skill.add("English");
+        skill.add("English");
+        skill.add("English");
+        skill.add("English");
+        skill.add("English");
+        skill.add("English");
+        skill.add("English");
+        skill.add("English");
+        skill.add("English");
+        skill.add("English");
+
+
+
+        //-----------------------------------------------------------------------
+        ChipAdapter chipAdapter = new ChipAdapter(skill);
+
+
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        layoutManager.setFlexDirection(FlexDirection.ROW);
+        layoutManager.setJustifyContent(JustifyContent.CENTER);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(chipAdapter);
+
+
+
+        //--------------------------------------------------------------------------------------
+        if(Paper.book().read("currentUser")!=null) {
+            username.setText(((User) Paper.book().read("currentUser")).getName());
+        }else{
+            username.setText("User");
+        }
+        //--------------------------------------------------------------------------------------
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -27,6 +27,7 @@ import fatproject.entity.User;
 import fatproject.findatutor.R;
 import fatproject.validation.LoginValidator;
 import fatproject.validation.Validator;
+import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        Paper.init(this);
         _loginButton.setOnClickListener(this);
         _signupLink.setOnClickListener(this);
         SingIn.setOnClickListener(this);
@@ -98,9 +100,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return false;
         }
         progressDialog1.dismiss();
-        onPause();
-        Intent intent = new Intent(getApplicationContext(), FragmentDispatcher.class);
-        startActivityForResult(intent, REQUEST_SIGNUP);
 
         _loginButton.setEnabled(false);
 
@@ -110,34 +109,51 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
-        MainAplication.getServerRequests().login(new LoginForm(email, password)).enqueue(new Callback<User>() {
+
+
+        MainAplication.getServerRequests().login(new LoginForm( _emailText.getText().toString(),
+                _passwordText.getText().toString())).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 System.out.println(response.body());
                 if(response.body() != null){
-                    System.out.println(response.body().getName());
+                    Paper.book().write("currentUser", response.body());
+                    System.err.println(response.body().getName());
+                    new android.os.Handler().postDelayed(
+                            new Runnable() {
+                                public void run() {
+                                    onLoginSuccess();
+                                    progressDialog.dismiss();
+                                    Intent intent = new Intent(getApplicationContext(), FragmentDispatcher.class);
+                                    startActivityForResult(intent, REQUEST_SIGNUP);
+                                }
+                            }, 3000);
+
+                }else {
+                    new android.os.Handler().postDelayed(
+                            new Runnable() {
+                                public void run() {
+                                    onLoginFailed();
+                                    onRestart();
+                                    progressDialog.dismiss();
+                                }
+                            }, 3000);
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-
+                new android.os.Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                onLoginFailed();
+                                onRestart();
+                                progressDialog.dismiss();
+                            }
+                        }, 3000);
             }
         });
 
-        // TODO: Implement your own authentication logic here.
-
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
         return true;
     }
 

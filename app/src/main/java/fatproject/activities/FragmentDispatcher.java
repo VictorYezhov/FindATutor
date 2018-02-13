@@ -19,6 +19,7 @@ import fatproject.fragments.AnswerQuestions;
 import fatproject.fragments.AskQuestions;
 import fatproject.fragments.Contacts;
 import fatproject.fragments.Settings;
+import io.paperdb.Paper;
 
 /**
  * Created by Victor on 09.01.2018.
@@ -32,6 +33,7 @@ public class FragmentDispatcher extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Paper.init(this);//TODO delete when login activity starts first
 
         fragmentManager =getSupportFragmentManager();
         setContentView(R.layout.fragments_manager);

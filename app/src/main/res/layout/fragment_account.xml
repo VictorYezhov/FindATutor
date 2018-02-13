@@ -129,6 +129,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:orientation="vertical">
 
                 <TextView
@@ -137,22 +139,12 @@
                     android:text="Skills"
                     android:textColor="@color/black"
                     android:textSize="23sp" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <com.robertlevonyan.views.chip.Chip
-                    android:id="@+id/chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:mcv_chipText="Java" />
-                <com.robertlevonyan.views.chip.Chip
-                    android:id="@+id/chip_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:mcv_chipText="Python" />
 
-             </LinearLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/skillset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
             </LinearLayout>
 
         </RelativeLayout>
