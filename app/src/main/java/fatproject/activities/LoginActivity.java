@@ -1,17 +1,30 @@
 package fatproject.activities;
 
 import android.app.ProgressDialog;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -19,6 +32,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +66,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private  GoogleSignInClient googleSignInClient;
 
-
     @BindView(R.id.input_email)
     EditText _emailText;
     @BindView(R.id.input_password)
@@ -54,6 +76,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextView _signupLink;
     @BindView(R.id.google_login)
     SignInButton SingIn;
+    @BindView(R.id.facebook_login)
+    LoginButton facebook_login;
+
+
+
+    CallbackManager callbackManager;
+
+    TextView email;
+    ProgressDialog mDialog;
+    ImageView imgAvatar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,8 +101,52 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        callbackManager = CallbackManager.Factory.create();
 
-        //--------------------------
+        facebook_login.setReadPermissions(Arrays.asList("public_profile", "email"));
+
+        facebook_login.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                mDialog = new ProgressDialog(LoginActivity.this);
+                mDialog.setMessage("Retrieving data...");
+                mDialog.show();
+
+                String accessToken = loginResult.getAccessToken().getToken();
+
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+
+                        mDialog.dismiss();
+
+                        Log.d("response", response.toString());
+                        getData(object);
+                    }
+                });
+
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,email");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+
+        //------------
+        if(AccessToken.getCurrentAccessToken() != null){
+
+        }
+
     }
 
     @Override
@@ -79,6 +155,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account != null){
             System.err.println("onStart method");
+        }
+    }
+
+    private void getData(JSONObject object){
+        try{
+            URL profile_picture = new URL("https://graph.facebook.com/"+object.getString("id")+"/picture?width=250&height=250");
+            Picasso.with(this).load(profile_picture.toString()).into(imgAvatar);
+
+            Toast.makeText(getApplicationContext(), object.getString("email"), Toast.LENGTH_LONG).show();
+
+
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -157,8 +249,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return true;
     }
 
-
-
     @Override
     public void onBackPressed() {
         // disable going back to the MainActivity
@@ -175,13 +265,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         onStop();
         _loginButton.setEnabled(true);
     }
+
     private void signIn() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        callbackManager.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
@@ -195,7 +289,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             System.err.println(account.getEmail() + " " + account.getDisplayName() + account.getFamilyName() + account.getGivenName());
-//            Paper.book().write("email", account.getEmail());
+            //Paper.book().write("email", account.getEmail());
             // Signed in successfully, show authenticated UI.
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -207,9 +301,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-
-
-    //-------------------
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -227,9 +318,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-
-
-
     public EditText get_emailText() {
         return _emailText;
     }
@@ -238,7 +326,4 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return _passwordText;
     }
 
-
-
-    //-------------------
 }
