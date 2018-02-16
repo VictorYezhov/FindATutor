@@ -14,6 +14,7 @@ import java.util.List;
 
 import fatproject.activities.MainAplication;
 import fatproject.entity.Application;
+import fatproject.entity.Skill;
 import fatproject.findatutor.R;
 
 /**
@@ -23,7 +24,7 @@ import fatproject.findatutor.R;
 public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ChipViewHolder> {
 
 
-    private List<String> skillList;
+    private List<Skill> skillList;
 
 
     public class ChipViewHolder extends RecyclerView.ViewHolder {
@@ -35,7 +36,7 @@ public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ChipViewHolder
         }
     }
 
-    public ChipAdapter(List<String> skillList) {
+    public ChipAdapter(List<Skill> skillList) {
         this.skillList = skillList;
     }
 
@@ -50,7 +51,7 @@ public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ChipViewHolder
 
     @Override
     public void onBindViewHolder(ChipAdapter.ChipViewHolder holder, int position) {
-        String skill = skillList.get(position);
+        String skill = skillList.get(position).getName();
         holder.skillChip.setChipText(skill);
         holder.skillChip.setTextColor(MainAplication.getContext().getResources().getColor(R.color.accent));
         holder.skillChip.changeBackgroundColor(MainAplication.getContext().getResources().getColor(R.color.blue));

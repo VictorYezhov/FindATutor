@@ -26,15 +26,21 @@ import com.google.android.flexbox.JustifyContent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindAnim;
 import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.activities.MainAplication;
 import fatproject.adapter.ChipAdapter;
+import fatproject.entity.Skill;
 import fatproject.entity.User;
 import fatproject.findatutor.R;
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.http.Url;
 
 import static android.app.Activity.RESULT_OK;
@@ -142,27 +148,33 @@ public class Account extends Fragment {
 
         //ONLY FOR TESTING
         //-------------------------------------------------------------------------------------
-        List<String> skill  = new ArrayList<>();
-        skill.add("Java");
-        skill.add("C++");
-        skill.add("English");
-        skill.add("English");
-        skill.add("English");
-        skill.add("English");
-        skill.add("English");
-        skill.add("English");
-        skill.add("English");
-        skill.add("English");
-        skill.add("English");
-        skill.add("English");
-        skill.add("English");
+        final List<Skill> skill  = new ArrayList<>();
 
+        User user = Paper.book().read("currentUser");
+        final ChipAdapter chipAdapter = new ChipAdapter(skill);
+        MainAplication.getServerRequests().getSkills(String.valueOf(user.getId())).enqueue(new Callback<Set<Skill>>() {
+            @Override
+            public void onResponse(Call<Set<Skill>> call, Response<Set<Skill>> response) {
+                if(response.body()!=null) {
+                    for (Skill s :
+                            response.body()) {
+                        skill.add(s);
 
+                    }
+                    chipAdapter.notifyDataSetChanged();
+                }else {
+                    //TODO smth if data is null
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Set<Skill>> call, Throwable t) {
+
+                System.err.println("FAILERE DURING DOWNLOADING SKILLS");
+            }
+        });
 
         //-----------------------------------------------------------------------
-        ChipAdapter chipAdapter = new ChipAdapter(skill);
-
-
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());
         recyclerView.setLayoutManager(layoutManager);
         layoutManager.setFlexDirection(FlexDirection.ROW);

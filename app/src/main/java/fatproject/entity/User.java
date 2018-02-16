@@ -1,10 +1,16 @@
 package fatproject.entity;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * Created by Victor on 11.02.2018.
  */
 
 public class User {
+
 
     private Long id;
 
@@ -16,6 +22,27 @@ public class User {
     private String address;
     private String mobileNumber;
 
+    private Set<Skill> skills;
+
+    public User() {
+        skills = new HashSet<>();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
 
     public Long getId() {
         return id;
@@ -65,19 +92,11 @@ public class User {
         this.rating = rating;
     }
 
-    public String getAddress() {
-        return address;
+    public Set<Skill> getSkills() {
+        return skills;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
     }
 }

@@ -15,7 +15,6 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.Helpers.LocaleManager;
-import fatproject.entity.Greeting;
 import fatproject.entity.User;
 import fatproject.findatutor.R;
 
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Intent intent = new Intent(this, FragmentDispatcher.class);//TODO Replace FragmentDispatcher with LoginActivity
+        Intent intent = new Intent(this, LoginActivity.class);//TODO Replace FragmentDispatcher with LoginActivity
         startActivity(intent);
     }
 

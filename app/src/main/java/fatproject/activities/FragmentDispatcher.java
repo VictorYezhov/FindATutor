@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import fatproject.entity.User;
 import fatproject.findatutor.R;
 import fatproject.fragments.AboutUs;
 import fatproject.fragments.Account;
@@ -29,6 +30,7 @@ public class FragmentDispatcher extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private static FragmentManager fragmentManager;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
