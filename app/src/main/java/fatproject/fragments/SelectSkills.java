@@ -8,10 +8,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SearchView;
 
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
@@ -46,6 +51,11 @@ public class SelectSkills extends Fragment {
     RecyclerView recyclerView;
     @BindView(R.id.saveSkillsButton)
     Button button;
+
+    @BindView(R.id.search_skills)
+    EditText search;
+
+
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -102,13 +112,27 @@ public class SelectSkills extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_select_skills, container, false);
         ButterKnife.bind(this, view);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                chipAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (Skill s:
-                     skillsToAdd) {
-                    System.err.println(s.getName());
-                }
+
                 MainAplication.getServerRequests()
                         .sendNewSkills(new SendSkillsForm(skillsToAdd,((User)Paper.book().read("currentUser")).getId()))
                         .enqueue(new Callback<String>() {
@@ -124,8 +148,6 @@ public class SelectSkills extends Fragment {
                 });
             }
         });
-        // Inflate the layout for this fragment
-
 
         MainAplication.getServerRequests().getAllAvailableSkills().enqueue(new Callback<List<Skill>>() {
             @Override
@@ -191,4 +213,9 @@ public class SelectSkills extends Fragment {
     public static void setSkillsToAdd(List<Skill> skillsToAdd) {
         SelectSkills.skillsToAdd = skillsToAdd;
     }
+
+
+
+
+
 }
