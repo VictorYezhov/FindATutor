@@ -3,7 +3,8 @@ package fatproject.internet;
 import java.util.List;
 import java.util.Set;
 
-import fatproject.entity.LoginForm;
+import fatproject.SendingForms.LoginForm;
+import fatproject.SendingForms.SendSkillsForm;
 import fatproject.entity.Message;
 import fatproject.entity.Skill;
 import fatproject.entity.User;
@@ -30,6 +31,13 @@ public interface ServerRequests {
 
     @GET("/skills")
     Call<Set<Skill>> getSkills(@Query("id") String id);
+
+    @GET("/getAllSkills")
+    Call<List<Skill>> getAllAvailableSkills();
+
+
+    @POST("/sendNewSkills")
+    Call<String> sendNewSkills(@Body SendSkillsForm form);
 
 
     @POST("/login")

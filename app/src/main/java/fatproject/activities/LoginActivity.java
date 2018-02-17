@@ -1,12 +1,8 @@
 package fatproject.activities;
 
 import android.app.ProgressDialog;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
 
 import android.content.Intent;
@@ -39,13 +35,11 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import fatproject.entity.LoginForm;
+import fatproject.SendingForms.LoginForm;
 import fatproject.entity.User;
 import fatproject.findatutor.R;
 import fatproject.validation.LoginValidator;
@@ -92,7 +86,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        Paper.init(this);
         _loginButton.setOnClickListener(this);
         _signupLink.setOnClickListener(this);
         SingIn.setOnClickListener(this);
@@ -216,6 +209,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 public void run() {
                                     onLoginSuccess();
                                     progressDialog.dismiss();
+                                    finish();
                                     Intent intent = new Intent(getApplicationContext(), FragmentDispatcher.class);
                                     startActivityForResult(intent, REQUEST_SIGNUP);
                                 }

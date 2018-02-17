@@ -7,10 +7,14 @@ import android.net.NetworkInfo;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import fatproject.activities.MainAplication;
+import fatproject.adapter.ChipAdapter;
 import fatproject.entity.Message;
+import fatproject.entity.Skill;
 import fatproject.entity.User;
+import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,7 +29,7 @@ public class ServerConnector {
     private static RequestResult result;
 
 
-        public static boolean checkConnection(){
+    public static boolean checkConnection(){
         ConnectivityManager connectivityManager =(ConnectivityManager)MainAplication.getContext().
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         try {
@@ -66,6 +70,7 @@ public class ServerConnector {
 
         return result;
     }
+
 
 
 }

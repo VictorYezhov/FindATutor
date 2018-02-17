@@ -35,7 +35,6 @@ public class FragmentDispatcher extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Paper.init(this);//TODO delete when login activity starts first
 
         fragmentManager =getSupportFragmentManager();
         setContentView(R.layout.fragments_manager);

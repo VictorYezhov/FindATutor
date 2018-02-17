@@ -1,4 +1,4 @@
-package fatproject.entity;
+package fatproject.SendingForms;
 
 /**
  * Created by Max Komarenski on 12.02.2018.

@@ -28,6 +28,7 @@ public class MainAplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Paper.init(this);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(URLs.BASE.getUrl()) //Базовая часть адреса

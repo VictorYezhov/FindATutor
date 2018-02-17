@@ -133,17 +133,38 @@
                 android:layout_alignParentTop="true"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="370dp"
                     android:layout_height="wrap_content"
-                    android:text="Skills"
-                    android:textColor="@color/black"
-                    android:textSize="23sp" />
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Skills"
+                        android:textColor="@color/black"
+                        android:textSize="23sp" />
+
+                    <com.robertlevonyan.views.chip.Chip
+                        android:id="@+id/addSkills"
+                        android:layout_width="34dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@+id/chatButton"
+                        android:layout_alignParentTop="true"
+
+                        android:layout_marginEnd="13dp"
+                        app:mcv_chipIcon="@drawable/ic_action_plus"
+                        app:mcv_hasIcon="true">
+
+                    </com.robertlevonyan.views.chip.Chip>
+                </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/skillset"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:scrollbars="vertical" />
             </LinearLayout>
 

@@ -75,7 +75,6 @@ public class ApplicationDiscription extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_appication_discription, container, false);
         ButterKnife.bind(this, view);
-        Paper.init(this.getContext());
         String key = this.getResources().getString(R.string.current_dicription_choise);
         textView.setText((String)Paper.book().read(key));
         return view;

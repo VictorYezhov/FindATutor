@@ -23,6 +23,9 @@ import android.widget.Toast;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
+import com.robertlevonyan.views.chip.Chip;
+import com.robertlevonyan.views.chip.OnChipClickListener;
+import com.robertlevonyan.views.chip.OnIconClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,7 @@ import butterknife.BindAnim;
 import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ChipAdapter;
 import fatproject.entity.Skill;
@@ -84,6 +88,9 @@ public class Account extends Fragment {
     @BindView(R.id.skillset)
     RecyclerView recyclerView;
 
+    @BindView(R.id.addSkills)
+    Chip addSkillsChip;
+
 
 
 
@@ -91,6 +98,8 @@ public class Account extends Fragment {
     TextView username;
 
     private boolean isOpen = false;
+    final List<Skill> skill;
+    final ChipAdapter chipAdapter;
 
     private static final int PICK_IMAGE = 100;
     Uri imageUri;
@@ -107,25 +116,9 @@ public class Account extends Fragment {
     private AboutUs.OnFragmentInteractionListener mListener;
 
     public Account() {
+        skill  = new ArrayList<>();
+        chipAdapter = new ChipAdapter(skill);
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AboutUs.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AboutUs newInstance(String param1, String param2) {
-        AboutUs fragment = new AboutUs();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -145,22 +138,13 @@ public class Account extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         ButterKnife.bind(this, view);
 
-
-        //ONLY FOR TESTING
-        //-------------------------------------------------------------------------------------
-        final List<Skill> skill  = new ArrayList<>();
-
         User user = Paper.book().read("currentUser");
-        final ChipAdapter chipAdapter = new ChipAdapter(skill);
+
         MainAplication.getServerRequests().getSkills(String.valueOf(user.getId())).enqueue(new Callback<Set<Skill>>() {
             @Override
             public void onResponse(Call<Set<Skill>> call, Response<Set<Skill>> response) {
                 if(response.body()!=null) {
-                    for (Skill s :
-                            response.body()) {
-                        skill.add(s);
-
-                    }
+                    skill.addAll(response.body());
                     chipAdapter.notifyDataSetChanged();
                 }else {
                     //TODO smth if data is null
@@ -173,7 +157,7 @@ public class Account extends Fragment {
                 System.err.println("FAILERE DURING DOWNLOADING SKILLS");
             }
         });
-
+        addListenersToObj();
         //-----------------------------------------------------------------------
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -182,57 +166,12 @@ public class Account extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(chipAdapter);
 
+        //--------------------------------------------------------------------------------------
 
+        username.setText(user.getName());
 
         //--------------------------------------------------------------------------------------
-        if(Paper.book().read("currentUser")!=null) {
-            username.setText(((User) Paper.book().read("currentUser")).getName());
-        }else{
-            username.setText("User");
-        }
-        //--------------------------------------------------------------------------------------
-        chatButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Chat button works", Toast.LENGTH_LONG).show();
 
-            }
-        });
-
-        delete_photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Delete photo button works", Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-        change_photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
-
-        open_photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Open photo button works", Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-        // inflate the layout using the cloned inflater, not default inflater
-        //return inflater.inflate(R.layout.fragment_account, container, false);
-
-        plus_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                plusButtonAnimation(isOpen);
-                Toast.makeText(getActivity().getApplicationContext(), "Plus button works", Toast.LENGTH_LONG).show();
-
-            }
-        });
 
         return view;
 
@@ -250,17 +189,6 @@ public class Account extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
@@ -308,5 +236,71 @@ public class Account extends Fragment {
             profile_image.setImageURI(imageUri);
         }
     }
+
+
+    /**
+     * Adding Listeners mus`t be done in this function
+     * In order to make code more clear
+     * 17.02.2018 Victor
+     */
+    private void addListenersToObj(){
+
+
+
+        addSkillsChip.setOnIconClickListener(new OnIconClickListener() {
+            @Override
+            public void onIconClick(View v) {
+                FragmentDispatcher.launchFragment(SelectSkills.class);
+            }
+        });
+
+
+
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "Chat button works", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        delete_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "Delete photo button works", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        change_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
+
+        open_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "Open photo button works", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        // inflate the layout using the cloned inflater, not default inflater
+        //return inflater.inflate(R.layout.fragment_account, container, false);
+
+        plus_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                plusButtonAnimation(isOpen);
+                Toast.makeText(getActivity().getApplicationContext(), "Plus button works", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+    }
+
 
 }

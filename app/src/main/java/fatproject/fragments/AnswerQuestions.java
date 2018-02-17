@@ -98,8 +98,6 @@ public class AnswerQuestions extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_answer_questions, container, false);
         ButterKnife.bind(this, view);
-        Paper.init(this.getContext());
-
 
         setApplicationsData();
         mAdapter = new ApplicationAdapter(applicationList);
