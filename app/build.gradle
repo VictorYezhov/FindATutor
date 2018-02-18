@@ -75,5 +75,11 @@ dependencies {
     //Library for facebook
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.facebook.android:facebook-android-sdk:4.30.0'
+
+    compile "com.hootsuite.android:nachos:1.1.1"
+
+    compile 'com.github.michael-rapp:android-material-views:2.1.10'
+
+
 }
 

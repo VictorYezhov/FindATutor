@@ -146,6 +146,7 @@ public class SelectSkills extends Fragment {
 
                     }
                 });
+                FragmentDispatcher.launchFragment(Account.class);
             }
         });
 
@@ -166,6 +167,7 @@ public class SelectSkills extends Fragment {
                 System.err.println("FAILERE DURING DOWNLOADING SKILLS");
             }
         });
+
 
 
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());

@@ -6,7 +6,7 @@ package fatproject.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.graphics.drawable.Icon;
+
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -19,15 +19,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
 import java.util.ArrayList;
 import java.util.List;
-
-
-import fatproject.Helpers.CircleTransform;
 import fatproject.Helpers.FlipAnimator;
 import fatproject.findatutor.R;
 import fatproject.entity.Message;
@@ -54,17 +47,17 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
 
         public MyViewHolder(View view) {
             super(view);
-            from = (TextView) view.findViewById(R.id.from);
-            subject = (TextView) view.findViewById(R.id.txt_primary);
-            message = (TextView) view.findViewById(R.id.txt_secondary);
-            iconText = (TextView) view.findViewById(R.id.icon_text);
-            timestamp = (TextView) view.findViewById(R.id.timestamp);
-            iconBack = (RelativeLayout) view.findViewById(R.id.icon_back);
-            iconFront = (RelativeLayout) view.findViewById(R.id.icon_front);
-            iconImp = (ImageView) view.findViewById(R.id.icon_star);
-            imgProfile = (ImageView) view.findViewById(R.id.icon_profile);
-            messageContainer = (LinearLayout) view.findViewById(R.id.message_container);
-            iconContainer = (RelativeLayout) view.findViewById(R.id.icon_container);
+            from =  view.findViewById(R.id.from);
+            subject =  view.findViewById(R.id.txt_primary);
+            message =  view.findViewById(R.id.txt_secondary);
+            iconText =  view.findViewById(R.id.icon_text);
+            timestamp =  view.findViewById(R.id.timestamp);
+            iconBack =  view.findViewById(R.id.icon_back);
+            iconFront =  view.findViewById(R.id.icon_front);
+            iconImp =  view.findViewById(R.id.icon_star);
+            imgProfile =  view.findViewById(R.id.icon_profile);
+            messageContainer =  view.findViewById(R.id.message_container);
+            iconContainer =  view.findViewById(R.id.icon_container);
             view.setOnLongClickListener(this);
         }
 
