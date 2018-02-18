@@ -138,7 +138,7 @@ public class Account extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         ButterKnife.bind(this, view);
 
-        User user = Paper.book().read("currentUser");
+        User user = FragmentDispatcher.getCurrentUser();
 
         MainAplication.getServerRequests().getSkills(String.valueOf(user.getId())).enqueue(new Callback<Set<Skill>>() {
             @Override

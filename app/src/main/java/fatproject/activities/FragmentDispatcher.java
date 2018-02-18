@@ -167,5 +167,9 @@ public class FragmentDispatcher extends AppCompatActivity {
         }
         fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
     }
+
+    public static User getCurrentUser(){
+        return Paper.book().read("currentUser");
+    }
 }
 
