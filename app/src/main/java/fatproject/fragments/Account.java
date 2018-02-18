@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import com.google.android.flexbox.JustifyContent;
 import com.robertlevonyan.views.chip.Chip;
 import com.robertlevonyan.views.chip.OnChipClickListener;
 import com.robertlevonyan.views.chip.OnIconClickListener;
+import com.willy.ratingbar.ScaleRatingBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +92,31 @@ public class Account extends Fragment {
 
     @BindView(R.id.addSkills)
     Chip addSkillsChip;
+
+    //------------------
+    //Variables for voting
+    @BindView(R.id.button1)
+    Button button1;
+
+    @BindView(R.id.button2)
+    Button button2;
+
+    @BindView(R.id.button3)
+    Button button3;
+
+    @BindView(R.id.button4)
+    Button button4;
+
+    @BindView(R.id.button5)
+    Button button5;
+
+    @BindView(R.id.RatingBar)
+    ScaleRatingBar ratingBar;
+
+    double sumOfVotes = 0;
+    int amountOfVotes = 0;
+
+    //------------------
 
 
 
@@ -171,7 +198,51 @@ public class Account extends Fragment {
         username.setText(user.getName());
 
         //--------------------------------------------------------------------------------------
+        // Button for voting
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                amountOfVotes += 1;
+                sumOfVotes += 1;
+                ratingBar.setRating((float)sumOfVotes/amountOfVotes);
+            }
+        });
 
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                amountOfVotes += 1;
+                sumOfVotes += 2;
+                ratingBar.setRating((float)sumOfVotes/amountOfVotes);
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                amountOfVotes += 1;
+                sumOfVotes += 3;
+                ratingBar.setRating((float)sumOfVotes/amountOfVotes);
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                amountOfVotes += 1;
+                sumOfVotes += 4;
+                ratingBar.setRating((float)sumOfVotes/amountOfVotes);
+            }
+        });
+
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                amountOfVotes += 1;
+                sumOfVotes += 5;
+                ratingBar.setRating((float)sumOfVotes/amountOfVotes);
+            }
+        });
 
         return view;
 

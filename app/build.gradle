@@ -80,6 +80,9 @@ dependencies {
 
     compile 'com.github.michael-rapp:android-material-views:2.1.10'
 
+    //Library for rating
+    compile 'com.github.ome450901:SimpleRatingBar:1.3.6'
+
 
 }
 
