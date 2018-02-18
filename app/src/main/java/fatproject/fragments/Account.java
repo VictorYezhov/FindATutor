@@ -95,21 +95,6 @@ public class Account extends Fragment {
 
     //------------------
     //Variables for voting
-    @BindView(R.id.button1)
-    Button button1;
-
-    @BindView(R.id.button2)
-    Button button2;
-
-    @BindView(R.id.button3)
-    Button button3;
-
-    @BindView(R.id.button4)
-    Button button4;
-
-    @BindView(R.id.button5)
-    Button button5;
-
     @BindView(R.id.RatingBar)
     ScaleRatingBar ratingBar;
 
@@ -192,58 +177,13 @@ public class Account extends Fragment {
         layoutManager.setJustifyContent(JustifyContent.CENTER);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(chipAdapter);
+        ratingBar.setRating(FragmentDispatcher.getCurrentUser().getRating());
 
         //--------------------------------------------------------------------------------------
 
         username.setText(user.getName());
 
         //--------------------------------------------------------------------------------------
-        // Button for voting
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                amountOfVotes += 1;
-                sumOfVotes += 1;
-                ratingBar.setRating((float)sumOfVotes/amountOfVotes);
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                amountOfVotes += 1;
-                sumOfVotes += 2;
-                ratingBar.setRating((float)sumOfVotes/amountOfVotes);
-            }
-        });
-
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                amountOfVotes += 1;
-                sumOfVotes += 3;
-                ratingBar.setRating((float)sumOfVotes/amountOfVotes);
-            }
-        });
-
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                amountOfVotes += 1;
-                sumOfVotes += 4;
-                ratingBar.setRating((float)sumOfVotes/amountOfVotes);
-            }
-        });
-
-        button5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                amountOfVotes += 1;
-                sumOfVotes += 5;
-                ratingBar.setRating((float)sumOfVotes/amountOfVotes);
-            }
-        });
-
         return view;
 
         // Inflate the layout for this fragment
