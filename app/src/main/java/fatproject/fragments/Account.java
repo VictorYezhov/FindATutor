@@ -98,8 +98,7 @@ public class Account extends Fragment {
     @BindView(R.id.RatingBar)
     ScaleRatingBar ratingBar;
 
-    double sumOfVotes = 0;
-    int amountOfVotes = 0;
+
 
     //------------------
 
