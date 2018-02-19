@@ -297,7 +297,10 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
     }
 
-
+    /**
+     * Method performs refreshing of user information
+     * and updated user info
+     */
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
@@ -326,6 +329,11 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
 
     }
+
+    /**
+     * Fill all user  data in this method
+     * Call after every update
+     */
 
     private void fillUsersData(){
 
