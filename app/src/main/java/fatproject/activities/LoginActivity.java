@@ -280,11 +280,58 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Authenticating...");
+        progressDialog.show();
+
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             System.err.println(account.getEmail() + " " + account.getDisplayName() + account.getFamilyName() + account.getGivenName());
-            //Paper.book().write("email", account.getEmail());
-            // Signed in successfully, show authenticated UI.
+
+            User googleUser = new User();
+            googleUser.setName(account.getDisplayName());
+            googleUser.setEmail(account.getEmail());
+            googleUser.setFamilyName(account.getFamilyName());
+            googleUser.setPassword(account.getIdToken());
+            googleUser.setMobileNumber("");
+            googleUser.setAddress("");
+            googleUser.setRating(0);
+
+            MainAplication.getServerRequests().sendGoogleUser(googleUser).enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+
+                    if(response.body() != null) {
+                        Paper.book().write("currentUser", response.body());
+                        new android.os.Handler().postDelayed(
+                                new Runnable() {
+                                    public void run() {
+                                        onLoginSuccess();
+                                        progressDialog.dismiss();
+                                        finish();
+                                        Intent intent = new Intent(getApplicationContext(), FragmentDispatcher.class);
+                                        startActivityForResult(intent, REQUEST_SIGNUP);
+                                    }
+                                }, 3000);
+                    }else {
+                        new android.os.Handler().postDelayed(
+                                new Runnable() {
+                                    public void run() {
+                                        onLoginFailed();
+                                        onRestart();
+                                        progressDialog.dismiss();
+                                    }
+                                }, 3000);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+
+                }
+            });
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.

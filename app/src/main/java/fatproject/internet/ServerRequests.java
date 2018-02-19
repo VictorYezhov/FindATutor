@@ -39,7 +39,6 @@ public interface ServerRequests {
     @POST("/sendNewSkills")
     Call<String> sendNewSkills(@Body SendSkillsForm form);
 
-
     @POST("/login")
     Call<User> login(@Body LoginForm loginForm);
 
@@ -52,4 +51,8 @@ public interface ServerRequests {
 
     @GET("/getMessages")
     Call<List<Message>> getMessages();
+
+    @POST("/googleLogin")
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    Call<User> sendGoogleUser(@Body User user);
 }
