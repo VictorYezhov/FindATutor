@@ -82,4 +82,7 @@ public class MainAplication extends Application {
     public static void saveCurrentUser(User user){
         Paper.book().write("currentUser",user);
     }
+    public static void deleteCurrentUser(){
+        Paper.book().delete("currentUser");
+    }
 }

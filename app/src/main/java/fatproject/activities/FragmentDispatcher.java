@@ -1,6 +1,7 @@
 package fatproject.activities;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
@@ -24,6 +25,8 @@ import io.paperdb.Paper;
 
 /**
  * Created by Victor on 09.01.2018.
+ * Class which is holder for all fragments
+ * Performs fragment changing if needed
  */
 
 public class FragmentDispatcher extends AppCompatActivity {
@@ -71,6 +74,9 @@ public class FragmentDispatcher extends AppCompatActivity {
 
 
 
+    /**
+     * When option from a side selected this function called
+     */
     private void optionSelect(MenuItem item){
 
         Fragment fragment = null;
@@ -136,6 +142,11 @@ public class FragmentDispatcher extends AppCompatActivity {
 
     }
 
+    /**
+     * static function that launches fragments
+     * @param fragmentClass - class of fragment which need to be launched
+     * @return
+     */
     public static boolean launchFragment(Class fragmentClass){
 
         Fragment fragment = null;
@@ -150,22 +161,20 @@ public class FragmentDispatcher extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Logout user from app, and redirect him to LoginActivity
+     * Performs delete  user from Paper database
+     */
     private void logout(){
-        //TODO LOGOUT LOGIC
-        return;
+        MainAplication.deleteCurrentUser();
+        finish();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void onBackPressed() {
-        Fragment fragment = null;
-        Class fragmentClass=Account.class;
-
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        fragmentManager.beginTransaction().replace(R.id.frame, fragment).commit();
+        launchFragment(Account.class);
     }
 
 
