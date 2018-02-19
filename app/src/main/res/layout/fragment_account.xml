@@ -148,6 +148,8 @@
             app:srb_drawableFilled="@drawable/ic_star_black_24dp">
         </com.willy.ratingbar.ScaleRatingBar>
 
+        <include layout="@layout/expansion_panel" />
+
 
         <RelativeLayout
             android:layout_width="match_parent"
