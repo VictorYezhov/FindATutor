@@ -202,7 +202,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(Call<User> call, Response<User> response) {
                 System.out.println(response.body());
                 if(response.body() != null){
-                    Paper.book().write("currentUser", response.body());
+                    MainAplication.saveCurrentUser(response.body());
                     System.err.println(response.body().getName());
                     new android.os.Handler().postDelayed(
                             new Runnable() {
@@ -304,7 +304,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onResponse(Call<User> call, Response<User> response) {
 
                     if(response.body() != null) {
-                        Paper.book().write("currentUser", response.body());
+                        MainAplication.saveCurrentUser(response.body());
                         new android.os.Handler().postDelayed(
                                 new Runnable() {
                                     public void run() {

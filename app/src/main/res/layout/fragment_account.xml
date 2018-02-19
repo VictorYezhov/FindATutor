@@ -6,6 +6,14 @@
     android:background="#F0F0F0"
     tools:context="fatproject.fragments.Account">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout_account"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -221,4 +229,5 @@ teper ot v ucu vchusia"
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

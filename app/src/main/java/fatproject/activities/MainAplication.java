@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import java.util.Locale;
 
+import fatproject.entity.User;
 import fatproject.internet.ServerConnector;
 import fatproject.internet.ServerRequests;
 import fatproject.internet.URLs;
@@ -74,4 +75,11 @@ public class MainAplication extends Application {
     }
 
 
+    public static User getCurrentUser(){
+        return Paper.book().read("currentUser");
+    }
+
+    public static void saveCurrentUser(User user){
+        Paper.book().write("currentUser",user);
+    }
 }

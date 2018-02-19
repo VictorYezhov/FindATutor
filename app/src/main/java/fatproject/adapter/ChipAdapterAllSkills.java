@@ -58,7 +58,6 @@ implements Filterable{
 
         String skill = filtredSkillList.get(position).getName();
 
-        System.err.println("SKILL "+skill+" position "+position);
 
         holder.skillChip.setText(skill);
         holder.skillChip.setTextColor(MainAplication.getContext().getResources().getColor(R.color.accent));

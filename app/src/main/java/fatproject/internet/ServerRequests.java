@@ -23,17 +23,13 @@ import retrofit2.http.Query;
 
 public interface ServerRequests {
 
-
-
-
-    @GET("/index")
-    Call<String> index();
-
     @GET("/skills")
     Call<Set<Skill>> getSkills(@Query("id") String id);
 
     @GET("/getAllSkills")
     Call<List<Skill>> getAllAvailableSkills();
+
+
 
 
     @POST("/sendNewSkills")
@@ -55,4 +51,7 @@ public interface ServerRequests {
     @POST("/googleLogin")
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Call<User> sendGoogleUser(@Body User user);
+
+    @POST("/updateUser")
+    Call<User> updateUser(@Body LoginForm loginForm);
 }

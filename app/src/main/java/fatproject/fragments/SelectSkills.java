@@ -134,7 +134,7 @@ public class SelectSkills extends Fragment {
             public void onClick(View view) {
 
                 MainAplication.getServerRequests()
-                        .sendNewSkills(new SendSkillsForm(skillsToAdd,FragmentDispatcher.getCurrentUser().getId()))
+                        .sendNewSkills(new SendSkillsForm(skillsToAdd,MainAplication.getCurrentUser().getId()))
                         .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {

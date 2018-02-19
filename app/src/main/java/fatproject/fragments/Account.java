@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,6 +38,7 @@ import butterknife.BindAnim;
 import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.SendingForms.LoginForm;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ChipAdapter;
@@ -55,7 +57,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by Victor on 30.01.2018.
  */
 
-public class Account extends Fragment {
+public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshListener{
 
     @BindView(R.id.profile_image)
     ImageView profile_image;
@@ -97,6 +99,10 @@ public class Account extends Fragment {
     //Variables for voting
     @BindView(R.id.RatingBar)
     ScaleRatingBar ratingBar;
+
+
+    @BindView(R.id.swipe_refresh_layout_account)
+    SwipeRefreshLayout swipeRefreshLayout;
 
 
 
@@ -149,25 +155,7 @@ public class Account extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         ButterKnife.bind(this, view);
 
-        User user = FragmentDispatcher.getCurrentUser();
-
-        MainAplication.getServerRequests().getSkills(String.valueOf(user.getId())).enqueue(new Callback<Set<Skill>>() {
-            @Override
-            public void onResponse(Call<Set<Skill>> call, Response<Set<Skill>> response) {
-                if(response.body()!=null) {
-                    skill.addAll(response.body());
-                    chipAdapter.notifyDataSetChanged();
-                }else {
-                    //TODO smth if data is null
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Set<Skill>> call, Throwable t) {
-
-                System.err.println("FAILERE DURING DOWNLOADING SKILLS");
-            }
-        });
+        fillUsersData();
         addListenersToObj();
         //-----------------------------------------------------------------------
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());
@@ -176,11 +164,7 @@ public class Account extends Fragment {
         layoutManager.setJustifyContent(JustifyContent.CENTER);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(chipAdapter);
-        ratingBar.setRating(FragmentDispatcher.getCurrentUser().getRating());
 
-        //--------------------------------------------------------------------------------------
-
-        username.setText(user.getName());
 
         //--------------------------------------------------------------------------------------
         return view;
@@ -257,6 +241,7 @@ public class Account extends Fragment {
 
 
 
+        swipeRefreshLayout.setOnRefreshListener(this);
         addSkillsChip.setOnIconClickListener(new OnIconClickListener() {
             @Override
             public void onIconClick(View v) {
@@ -313,4 +298,66 @@ public class Account extends Fragment {
     }
 
 
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(true);
+
+
+
+        MainAplication.getServerRequests().updateUser(new LoginForm(MainAplication.getCurrentUser().getEmail(),
+                MainAplication.getCurrentUser().getPassword())).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.body() != null){
+                    System.err.println("USER UPDATED");
+                    MainAplication.saveCurrentUser(response.body());
+                    fillUsersData();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+                System.err.println("FAILURE");
+            }
+        });
+
+
+
+    }
+
+    private void fillUsersData(){
+
+        User user = MainAplication.getCurrentUser();
+
+        MainAplication.getServerRequests().getSkills(String.valueOf(user.getId())).enqueue(new Callback<Set<Skill>>() {
+            @Override
+            public void onResponse(Call<Set<Skill>> call, Response<Set<Skill>> response) {
+                if(response.body()!=null) {
+                    skill.clear();
+                    skill.addAll(response.body());
+                    chipAdapter.notifyDataSetChanged();
+                }else {
+                    //TODO smth if data is null
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Set<Skill>> call, Throwable t) {
+
+                System.err.println("FAILERE DURING DOWNLOADING SKILLS");
+            }
+        });
+
+        ratingBar.setRating(MainAplication.getCurrentUser().getRating());
+
+        //--------------------------------------------------------------------------------------
+
+        username.setText(user.getName());
+
+
+
+
+    }
 }
