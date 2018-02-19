@@ -291,10 +291,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             System.err.println(account.getEmail() + " " + account.getDisplayName() + account.getFamilyName() + account.getGivenName());
 
             User googleUser = new User();
-            googleUser.setName(account.getDisplayName());
+            googleUser.setName(account.getGivenName());
             googleUser.setEmail(account.getEmail());
             googleUser.setFamilyName(account.getFamilyName());
-            googleUser.setPassword(account.getIdToken());
+            googleUser.setPassword(account.getId());
             googleUser.setMobileNumber("");
             googleUser.setAddress("");
             googleUser.setRating(0);
