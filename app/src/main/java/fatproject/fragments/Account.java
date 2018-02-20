@@ -94,7 +94,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     RecyclerView recyclerView;
 
     @BindView(R.id.addSkills)
-    Chip addSkillsChip;
+    ImageButton addSkills;
 
     //------------------
     //Variables for voting
@@ -255,9 +255,9 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     private void addListenersToObj(){
 
         swipeRefreshLayout.setOnRefreshListener(this);
-        addSkillsChip.setOnIconClickListener(new OnIconClickListener() {
+        addSkills.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onIconClick(View v) {
+            public void onClick(View view) {
                 FragmentDispatcher.launchFragment(SelectSkills.class);
             }
         });
