@@ -48,7 +48,6 @@
                 android:layout_below="@+id/profile_image"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:text="Vitia"
                 android:textColor="@color/black"
                 android:textSize="35sp" />
 
@@ -61,7 +60,6 @@
                 android:layout_below="@+id/profile_name"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:text="Student of UCU"
                 android:textColor="@color/black" />
 
             <android.support.design.widget.FloatingActionButton
@@ -153,7 +151,6 @@
         </com.willy.ratingbar.ScaleRatingBar>
 
         <include layout="@layout/expansion_panel" />
-
 
         <RelativeLayout
             android:layout_width="match_parent"

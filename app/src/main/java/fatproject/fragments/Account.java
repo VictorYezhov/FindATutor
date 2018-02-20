@@ -104,15 +104,16 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     @BindView(R.id.swipe_refresh_layout_account)
     SwipeRefreshLayout swipeRefreshLayout;
 
-
-
     //------------------
-
-
-
-
+    // Variables for user's information
     @BindView(R.id.profile_name)
     TextView username;
+
+    @BindView(R.id.userNumber)
+    TextView userNumber;
+
+    @BindView(R.id.userCity)
+    TextView userCity;
 
     private boolean isOpen = false;
     final List<Skill> skill;
@@ -168,10 +169,8 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
         //--------------------------------------------------------------------------------------
         return view;
-
         // Inflate the layout for this fragment
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -231,15 +230,12 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         }
     }
 
-
     /**
      * Adding Listeners mus`t be done in this function
      * In order to make code more clear
      * 17.02.2018 Victor
      */
     private void addListenersToObj(){
-
-
 
         swipeRefreshLayout.setOnRefreshListener(this);
         addSkillsChip.setOnIconClickListener(new OnIconClickListener() {
@@ -248,8 +244,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
                 FragmentDispatcher.launchFragment(SelectSkills.class);
             }
         });
-
-
 
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -293,8 +287,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
             }
         });
-
-
     }
 
     /**
@@ -304,8 +296,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
-
-
 
         MainAplication.getServerRequests().updateUser(new LoginForm(MainAplication.getCurrentUser().getEmail(),
                 MainAplication.getCurrentUser().getPassword())).enqueue(new Callback<User>() {
@@ -325,9 +315,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
                 System.err.println("FAILURE");
             }
         });
-
-
-
     }
 
     /**
@@ -361,9 +348,9 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         ratingBar.setRating(MainAplication.getCurrentUser().getRating());
 
         //--------------------------------------------------------------------------------------
-
         username.setText(user.getName());
-
+        userNumber.setText(user.getMobileNumber());
+        userCity.setText(user.getAddress());
 
 
 

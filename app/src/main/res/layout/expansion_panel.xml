@@ -25,15 +25,8 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="Information"
-                android:textColor="#3E3E3E" />
-
-            <TextView
-                android:layout_centerVertical="true"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="120dp"
-                android:layout_width="wrap_content"
-                android:text="press to know more"
-                android:textColor="#AAA" />
+                android:textSize="15sp"
+                android:textColor="@color/black" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:adjustViewBounds="true"
@@ -59,14 +52,44 @@
             android:id="@+id/container"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#EEE">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
             <TextView
-                android:background="#EEE"
-                android:gravity="center"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/number"
+                android:gravity="start"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/userNumber"
+                android:text="some number"
+                android:gravity="end"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:text="pshov v pizdu" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/City"
+                    android:gravity="start"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userCity"
+                    android:text="some city"
+                    android:gravity="end"/>
+            </LinearLayout>
 
         </LinearLayout>
 
