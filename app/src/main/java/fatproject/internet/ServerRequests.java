@@ -23,35 +23,70 @@ import retrofit2.http.Query;
 
 public interface ServerRequests {
 
+
+    /**
+     * Method returns users skills whith specified id
+     * @param id - user id
+     * @return set of skills
+     */
     @GET("/skills")
     Call<Set<Skill>> getSkills(@Query("id") String id);
 
+    /**
+     * Method returns all available skill names
+     * @return
+     */
     @GET("/getAllSkills")
     Call<List<Skill>> getAllAvailableSkills();
 
 
-
-
+    /**
+     * Used when user add`s to himself new skills
+     * @param form - form which contains list of skills
+     * @return state
+     */
     @POST("/sendNewSkills")
     Call<String> sendNewSkills(@Body SendSkillsForm form);
 
+    /**
+     * Method for user login to server
+     * @param loginForm
+     * @return
+     */
     @POST("/login")
     Call<User> login(@Body LoginForm loginForm);
 
+    /**
+     * Registration method
+     * @param user
+     * @return
+     */
     @POST("/user/add")
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Call<User> registerNewUser(@Body User user);
 
-    @POST("/simplepost")
-    Call<String> simplePost();
 
+    /**
+     * Downloads list of usser messages
+     * @return
+     */
     @GET("/getMessages")
     Call<List<Message>> getMessages();
 
+    /**
+     * Register or login google user
+     * @param user
+     * @return
+     */
     @POST("/googleLogin")
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Call<User> sendGoogleUser(@Body User user);
 
+    /**
+     * download changes
+     * @param loginForm userame and password
+     * @return updated user
+     */
     @POST("/updateUser")
     Call<User> updateUser(@Body LoginForm loginForm);
 }

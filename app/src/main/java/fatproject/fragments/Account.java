@@ -2,10 +2,13 @@ package fatproject.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -31,6 +34,7 @@ import com.robertlevonyan.views.chip.OnChipClickListener;
 import com.robertlevonyan.views.chip.OnIconClickListener;
 import com.willy.ratingbar.ScaleRatingBar;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -50,6 +54,7 @@ import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Multipart;
 import retrofit2.http.Url;
 
 import static android.app.Activity.RESULT_OK;
@@ -173,6 +178,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(chipAdapter);
 
+
         //--------------------------------------------------------------------------------------
         //Font stuffs
         Typeface nameFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Light.otf");
@@ -243,6 +249,11 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
         if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
             imageUri = data.getData();
+            File img = new File(imageUri.getPath());
+
+
+
+
             profile_image.setImageURI(imageUri);
         }
     }
