@@ -2,6 +2,7 @@ package fatproject.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -115,6 +116,12 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     @BindView(R.id.userCity)
     TextView userCity;
 
+    @BindView(R.id.city)
+    TextView city;
+
+    @BindView(R.id.number)
+    TextView number;
+
     private boolean isOpen = false;
     final List<Skill> skill;
     final ChipAdapter chipAdapter;
@@ -158,7 +165,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
         fillUsersData();
         addListenersToObj();
-        //-----------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());
         recyclerView.setLayoutManager(layoutManager);
         layoutManager.setFlexDirection(FlexDirection.ROW);
@@ -166,6 +173,16 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(chipAdapter);
 
+        //--------------------------------------------------------------------------------------
+        //Font stuffs
+        Typeface nameFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Light.otf");
+        username.setTypeface(nameFont);
+
+        Typeface informationFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/wider.ttf");
+        userNumber.setTypeface(informationFont);
+        userCity.setTypeface(informationFont);
+        number.setTypeface(informationFont);
+        city.setTypeface(informationFont);
 
         //--------------------------------------------------------------------------------------
         return view;

@@ -63,14 +63,16 @@
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:id="@+id/number"
                 android:text="@string/number"
-                android:gravity="start"/>
+                android:textSize="20sp"
+                android:layout_gravity="left"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/userNumber"
-                android:text="some number"
-                android:gravity="end"/>
+                android:textSize="20sp"
+                android:layout_gravity="right"/>
             </LinearLayout>
 
             <LinearLayout
@@ -82,12 +84,14 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="@string/City"
+                    android:textSize="20sp"
+                    android:id="@+id/city"
                     android:gravity="start"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="17sp"
                     android:id="@+id/userCity"
-                    android:text="some city"
                     android:gravity="end"/>
             </LinearLayout>
 
