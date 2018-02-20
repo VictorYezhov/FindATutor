@@ -13,6 +13,10 @@
         tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="8dp">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +37,7 @@
                 android:layout_height="200dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/max" />
+                android:src="@drawable/noavatar" />
 
             <TextView
                 android:id="@+id/profile_name"
@@ -231,5 +235,7 @@ teper ot v ucu vchusia"
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
+    </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
+
 </FrameLayout>
