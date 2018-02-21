@@ -2,6 +2,7 @@ package fatproject.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.JsonReader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,9 @@ import fatproject.entity.Job;
 import fatproject.entity.Skill;
 import fatproject.entity.User;
 import fatproject.findatutor.R;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -274,18 +279,40 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
         if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
             imageUri = data.getData();
-            File img = new File(imageUri.getPath());
-//            MainAplication.getServerRequests().updateUserPhoto(img,MainAplication.getCurrentUser().getId()).enqueue(new Callback<String>() {
-//                @Override
-//                public void onResponse(Call<String> call, Response<String> response) {
-//
-//                }
-//
-//                @Override
-//                public void onFailure(Call<String> call, Throwable t) {
-//
-//                }
-//            });
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+            Cursor cursor = getActivity().getContentResolver().query(imageUri, filePathColumn, null, null, null);
+            assert cursor != null;
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String mediaPath = cursor.getString(columnIndex);
+
+
+            File file = new File(mediaPath);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
+            MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("img", file.getName(), requestBody);
+            RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), file.getName());
+
+            System.err.println(filename+"  " + fileToUpload);
+            MainAplication.getServerRequests().updateUserPhoto(fileToUpload)
+                    .enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            if(response.body()!=null){
+                                System.err.println(response.body());
+                            }else{
+                                System.err.println("RESPONSE BODY NULL");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            System.err.println("UPDATE PHOTO FAIL " +t.getMessage());
+                        }
+                    });
+
+
 
 
 

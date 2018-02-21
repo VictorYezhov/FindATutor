@@ -87,9 +87,10 @@ public interface ServerRequests {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Call<User> sendGoogleUser(@Body User user);
 
-//    @Multipart
-//    @POST("/updatePhoto")
-//    Call<String> updateUserPhoto(@Part File image, @Part("id") Long id);
+
+    @POST("/updatePhoto")
+    @Multipart
+    Call<String> updateUserPhoto(@Part MultipartBody.Part img);
 
 
 

@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.view.MenuItem;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.Locale;
 
 import fatproject.entity.User;
@@ -31,9 +34,12 @@ public class MainAplication extends Application {
         super.onCreate();
         Paper.init(this);
 
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
         retrofit = new Retrofit.Builder()
                 .baseUrl(URLs.BASE.getUrl()) //Базовая часть адреса
-                .addConverterFactory(GsonConverterFactory.create()) //Конвертер, необходимый для преобразования JSON'а в объекты
+                .addConverterFactory(GsonConverterFactory.create(gson)) //Конвертер, необходимый для преобразования JSON'а в объекты
                 .build();
         serverRequests = retrofit.create(ServerRequests.class);
 
