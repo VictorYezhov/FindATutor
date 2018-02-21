@@ -174,7 +174,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Skills"
+                        android:id="@+id/skill_text"
+                        android:text="@string/skills"
                         android:textColor="@color/black"
                         android:textSize="23sp" />
 
@@ -185,9 +186,7 @@
                         android:src="@drawable/ic_action_plus"
                         android:backgroundTint="@color/blue"
                         android:padding="1dp"
-                        android:gravity="right"
                         >
-
                     </ImageButton>
                 </LinearLayout>
 
@@ -215,17 +214,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="University and Job "
+                    android:id="@+id/job_text"
+                    android:text="@string/Job"
                     android:textColor="@color/black"
                     android:textSize="23sp" />
 
-                <TextView
-                    android:id="@+id/universityAndJobs"
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_jobs"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Text"
-                    android:textColor="@color/black"
-                    android:textSize="17sp" />
+                    android:scrollbars="vertical" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

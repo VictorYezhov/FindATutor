@@ -2,25 +2,20 @@ package fatproject.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,9 +24,6 @@ import android.widget.Toast;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
-import com.robertlevonyan.views.chip.Chip;
-import com.robertlevonyan.views.chip.OnChipClickListener;
-import com.robertlevonyan.views.chip.OnIconClickListener;
 import com.willy.ratingbar.ScaleRatingBar;
 
 import java.io.File;
@@ -40,24 +32,23 @@ import java.util.List;
 import java.util.Set;
 
 import butterknife.BindAnim;
-import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.SendingForms.LoginForm;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ChipAdapter;
+import fatproject.adapter.JobAdapter;
+import fatproject.entity.Job;
 import fatproject.entity.Skill;
 import fatproject.entity.User;
 import fatproject.findatutor.R;
-import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Multipart;
-import retrofit2.http.Url;
 
 import static android.app.Activity.RESULT_OK;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Victor on 30.01.2018.
@@ -101,6 +92,9 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     @BindView(R.id.addSkills)
     ImageButton addSkills;
 
+    @BindView(R.id.skill_text)
+    TextView skill_text;
+
     //------------------
     //Variables for voting
     @BindView(R.id.RatingBar)
@@ -126,6 +120,17 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
     @BindView(R.id.number)
     TextView number;
+
+    @BindView(R.id.job_text)
+    TextView job_text;
+
+    //private RecyclerView recyclerView;
+    @BindView(R.id.recycler_view_jobs)
+    RecyclerView recyclerViewJob;
+
+    private List<Job> jobList = new ArrayList<>();
+
+    private JobAdapter jAdapter;
 
     private boolean isOpen = false;
     final List<Skill> skill;
@@ -178,11 +183,22 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(chipAdapter);
 
+        //--------------------------------------------------------------------------------------
+        // Jobs stuffs
+        jAdapter = new JobAdapter(jobList);
+        RecyclerView.LayoutManager jLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerViewJob.setLayoutManager(jLayoutManager);
+        recyclerViewJob.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewJob.setAdapter(jAdapter);
+
+        prepareJobData();
 
         //--------------------------------------------------------------------------------------
         //Font stuffs
         Typeface nameFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Light.otf");
         username.setTypeface(nameFont);
+        skill_text.setTypeface(nameFont);
+        job_text.setTypeface(nameFont);
 
         Typeface informationFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/wider.ttf");
         userNumber.setTypeface(informationFont);
@@ -193,6 +209,15 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         //--------------------------------------------------------------------------------------
         return view;
         // Inflate the layout for this fragment
+    }
+
+    private void prepareJobData(){
+        Job job = new Job("2015", "SoftServe");
+        jobList.add(job);
+        Job job1 = new Job("2014", ".UCU");
+        jobList.add(job1);
+
+        jAdapter.notifyDataSetChanged();
     }
 
     @Override
