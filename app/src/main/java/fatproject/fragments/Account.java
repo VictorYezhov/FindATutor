@@ -275,6 +275,17 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
             imageUri = data.getData();
             File img = new File(imageUri.getPath());
+//            MainAplication.getServerRequests().updateUserPhoto(img,MainAplication.getCurrentUser().getId()).enqueue(new Callback<String>() {
+//                @Override
+//                public void onResponse(Call<String> call, Response<String> response) {
+//
+//                }
+//
+//                @Override
+//                public void onFailure(Call<String> call, Throwable t) {
+//
+//                }
+//            });
 
 
 

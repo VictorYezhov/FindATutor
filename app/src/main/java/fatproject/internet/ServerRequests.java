@@ -1,5 +1,6 @@
 package fatproject.internet;
 
+import java.io.File;
 import java.util.List;
 import java.util.Set;
 
@@ -8,13 +9,17 @@ import fatproject.SendingForms.SendSkillsForm;
 import fatproject.entity.Message;
 import fatproject.entity.Skill;
 import fatproject.entity.User;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -81,6 +86,12 @@ public interface ServerRequests {
     @POST("/googleLogin")
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Call<User> sendGoogleUser(@Body User user);
+
+//    @Multipart
+//    @POST("/updatePhoto")
+//    Call<String> updateUserPhoto(@Part File image, @Part("id") Long id);
+
+
 
     /**
      * download changes
