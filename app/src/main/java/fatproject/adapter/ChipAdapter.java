@@ -6,12 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.robertlevonyan.views.chip.Chip;
 
 import org.w3c.dom.ls.LSException;
 
 import java.util.List;
 
+import de.mrapp.android.view.Chip;
 import fatproject.activities.MainAplication;
 import fatproject.entity.Application;
 import fatproject.entity.Skill;
@@ -28,11 +28,11 @@ public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ChipViewHolder
 
 
     public class ChipViewHolder extends RecyclerView.ViewHolder {
-        public  Chip skillChip;
+        public Chip skillChip;
 
         public ChipViewHolder(View view) {
             super(view);
-            skillChip =  view.findViewById(R.id.chipSkill);
+            skillChip =  view.findViewById(R.id.chip);
         }
     }
 
@@ -44,7 +44,7 @@ public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ChipViewHolder
     @Override
     public ChipAdapter.ChipViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.skill_in_account, parent, false);
+                .inflate(R.layout.chip_simple, parent, false);
 
         return new ChipAdapter.ChipViewHolder(itemView);
     }
@@ -52,9 +52,9 @@ public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ChipViewHolder
     @Override
     public void onBindViewHolder(ChipAdapter.ChipViewHolder holder, int position) {
         String skill = skillList.get(position).getName();
-        holder.skillChip.setChipText(skill);
+        holder.skillChip.setText(skill);
         holder.skillChip.setTextColor(MainAplication.getContext().getResources().getColor(R.color.accent));
-        holder.skillChip.changeBackgroundColor(MainAplication.getContext().getResources().getColor(R.color.blue));
+        holder.skillChip.setBackgroundColor(MainAplication.getContext().getResources().getColor(R.color.blue));
     }
 
 
