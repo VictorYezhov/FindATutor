@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.Locale;
 
+import fatproject.Helpers.StrConstansts;
 import fatproject.entity.User;
 import fatproject.internet.ServerConnector;
 import fatproject.internet.ServerRequests;
@@ -45,7 +46,7 @@ public class MainAplication extends Application {
 
 
 
-        System.err.println("!!!!!!!!!!!FIRST!!!!!!!!  "+ServerConnector.checkConnection());
+        System.err.println("!!!!!!!!!!!FIRST!!!!!!!!  ");
     }
     public MainAplication(){
         instance = this;
@@ -55,7 +56,7 @@ public class MainAplication extends Application {
 
 
         String lang = Paper.book().read("language");
-        System.err.println(Paper.book().getAllKeys());
+
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
         // Create a new configuration object
@@ -82,13 +83,12 @@ public class MainAplication extends Application {
 
 
     public static User getCurrentUser(){
-        return Paper.book().read("currentUser");
+        return Paper.book().read(StrConstansts.CURRENTUSER.getParameter());
     }
-
     public static void saveCurrentUser(User user){
-        Paper.book().write("currentUser",user);
+        Paper.book().write(StrConstansts.CURRENTUSER.getParameter(),user);
     }
     public static void deleteCurrentUser(){
-        Paper.book().delete("currentUser");
+        Paper.book().delete(StrConstansts.CURRENTUSER.getParameter());
     }
 }

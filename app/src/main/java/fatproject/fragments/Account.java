@@ -3,6 +3,7 @@ package fatproject.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,6 +37,8 @@ import java.util.Set;
 import butterknife.BindAnim;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.Helpers.ImageSaver;
+import fatproject.Helpers.StrConstansts;
 import fatproject.SendingForms.LoginForm;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
@@ -280,22 +283,20 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         if(resultCode == RESULT_OK && requestCode == PICK_IMAGE){
             imageUri = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
             Cursor cursor = getActivity().getContentResolver().query(imageUri, filePathColumn, null, null, null);
             assert cursor != null;
             cursor.moveToFirst();
-
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             String mediaPath = cursor.getString(columnIndex);
-
-
             File file = new File(mediaPath);
             RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
             MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("img", file.getName(), requestBody);
+            ImageSaver.saveToInternalStorage(BitmapFactory.decodeFile(mediaPath));
             RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), file.getName());
 
+
             System.err.println(filename+"  " + fileToUpload);
-            MainAplication.getServerRequests().updateUserPhoto(fileToUpload)
+            MainAplication.getServerRequests().updateUserPhoto(fileToUpload, MainAplication.getCurrentUser().getId())
                     .enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
@@ -311,12 +312,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
                             System.err.println("UPDATE PHOTO FAIL " +t.getMessage());
                         }
                     });
-
-
-
-
-
-
             profile_image.setImageURI(imageUri);
         }
     }
@@ -412,7 +407,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
      * Fill all user  data in this method
      * Call after every update
      */
-
     private void fillUsersData(){
 
         User user = MainAplication.getCurrentUser();
@@ -442,8 +436,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         username.setText(user.getName());
         userNumber.setText(user.getMobileNumber());
         userCity.setText(user.getAddress());
-
-
 
     }
 }

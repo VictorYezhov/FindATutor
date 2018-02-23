@@ -20,6 +20,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -88,9 +89,9 @@ public interface ServerRequests {
     Call<User> sendGoogleUser(@Body User user);
 
 
-    @POST("/updatePhoto")
+    @POST("/updatePhoto{id}")
     @Multipart
-    Call<String> updateUserPhoto(@Part MultipartBody.Part img);
+    Call<String> updateUserPhoto(@Part MultipartBody.Part img, @Path("id") Long id);
 
 
 
