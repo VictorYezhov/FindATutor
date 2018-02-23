@@ -6,6 +6,7 @@ import java.util.Set;
 
 import fatproject.SendingForms.LoginForm;
 import fatproject.SendingForms.SendSkillsForm;
+import fatproject.entity.Job;
 import fatproject.entity.Message;
 import fatproject.entity.Skill;
 import fatproject.entity.User;
@@ -102,4 +103,10 @@ public interface ServerRequests {
      */
     @POST("/updateUser")
     Call<User> updateUser(@Body LoginForm loginForm);
+
+    /**
+     * Get list of jobs
+     */
+    @GET("/jobs")
+    Call<Set<Job>> getJobs(@Query("id") String id);
 }

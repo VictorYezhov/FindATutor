@@ -199,8 +199,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         recyclerViewJob.setItemAnimator(new DefaultItemAnimator());
         recyclerViewJob.setAdapter(jAdapter);
 
-        prepareJobData();
-
         //--------------------------------------------------------------------------------------
         //Font stuffs
         Typeface nameFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Light.otf");
@@ -217,15 +215,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         //--------------------------------------------------------------------------------------
         return view;
         // Inflate the layout for this fragment
-    }
-
-    private void prepareJobData(){
-        Job job = new Job("2015", "SoftServe");
-        jobList.add(job);
-        Job job1 = new Job("2014", ".UCU");
-        jobList.add(job1);
-
-        jAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -431,6 +420,29 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         });
 
         ratingBar.setRating(MainAplication.getCurrentUser().getRating());
+
+        MainAplication.getServerRequests().getJobs(String.valueOf(user.getId())).enqueue(new Callback<Set<Job>>() {
+            @Override
+            public void onResponse(Call<Set<Job>> call, Response<Set<Job>> response) {
+                if(response.body() != null){
+                    jobList.clear();
+                    for (Job job:response.body()
+                         ) {
+                        System.err.println(job.getName());
+                    }
+                    jobList.addAll(response.body());
+
+                    jAdapter.notifyDataSetChanged();
+                }else {
+                    //TODO: make something
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Set<Job>> call, Throwable t) {
+                System.err.println("FAILERE DURING DOWNLOADING JOBS");
+            }
+        });
 
         //--------------------------------------------------------------------------------------
         username.setText(user.getName());

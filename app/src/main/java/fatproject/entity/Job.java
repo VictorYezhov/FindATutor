@@ -5,15 +5,43 @@ package fatproject.entity;
  */
 
 public class Job {
-    private String year, job;
 
-    public Job(){
+    private Long id;
+    private String name;
+    private String year;
 
+
+    public Job() {
     }
 
-    public Job(String year, String job){
+    public Job(String name, String year) {
+        this.name = name;
         this.year = year;
-        this.job = job;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Job{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     public String getYear() {
@@ -22,13 +50,5 @@ public class Job {
 
     public void setYear(String year) {
         this.year = year;
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public void setJob(String job) {
-        this.job = job;
     }
 }

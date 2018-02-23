@@ -20,115 +20,119 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="7dp">
+        >
 
-        <RelativeLayout
+        <android.support.v7.widget.CardView
             android:id="@+id/profilePhotoAndButtoms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center|top"
-            android:background="@color/white">
+            android:backgroundTint="@color/white">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/noavatar" />
-
-            <TextView
-                android:id="@+id/profile_name"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/profile_image"
-                android:layout_alignStart="@+id/profile_image"
-                android:layout_below="@+id/profile_image"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="35sp" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/profile_name"
-                android:layout_alignStart="@+id/profile_name"
-                android:layout_below="@+id/profile_name"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:textColor="@color/black" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/chatButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignStart="@+id/profile_image"
-                android:layout_alignTop="@+id/profile_image"
-                android:adjustViewBounds="true"
-                android:backgroundTint="@color/blue"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_chat_button" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/open_photo"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_above="@+id/textView2"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
 
-                android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@+id/profile_image"
-                android:backgroundTint="@color/blue"
-                android:elevation="6dp"
-                android:src="@drawable/ic_action_open"
-                android:visibility="invisible"
-                app:pressedTranslationZ="12dp" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/noavatar" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/change_photo"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
 
-                android:layout_above="@+id/open_photo"
-                android:layout_marginBottom="13dp"
-                android:layout_marginStart="21dp"
-                android:layout_toEndOf="@+id/profile_image"
-                android:backgroundTint="@color/blue"
-                android:elevation="6dp"
-                android:src="@drawable/ic_action_changephoto"
-                android:visibility="invisible"
-                app:pressedTranslationZ="12dp" />
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/open_photo"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="11dp"
+                        android:layout_toEndOf="@+id/profile_image"
+                        android:backgroundTint="@color/blue"
+                        android:elevation="6dp"
+                        android:src="@drawable/ic_action_open"
+                        android:visibility="invisible"
+                        app:pressedTranslationZ="12dp" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/delete_photo"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/change_photo"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:backgroundTint="@color/blue"
+                        android:elevation="6dp"
+                        android:src="@drawable/ic_action_changephoto"
+                        android:visibility="invisible"
+                        app:pressedTranslationZ="12dp" />
 
-                android:layout_above="@+id/change_photo"
-                android:layout_marginBottom="13dp"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@+id/profile_image"
-                android:backgroundTint="@color/blue"
-                android:elevation="6dp"
-                android:src="@drawable/ic_action_deletephoto"
-                android:visibility="invisible"
-                app:pressedTranslationZ="12dp" />
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/delete_photo"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_alignStart="@+id/open_photo"
+                        android:layout_alignTop="@+id/chatButton"
+                        android:backgroundTint="@color/blue"
+                        android:elevation="6dp"
+                        android:src="@drawable/ic_action_deletephoto"
+                        android:visibility="invisible"
+                        app:pressedTranslationZ="12dp" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/plus_button"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_above="@+id/profile_name"
-                android:layout_marginEnd="10dp"
-                android:layout_toStartOf="@+id/open_photo"
-                android:backgroundTint="@color/blue"
-                android:elevation="6dp"
-                android:src="@drawable/ic_action_plus"
-                app:pressedTranslationZ="12dp" />
-        </RelativeLayout>
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/plus_button"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_alignEnd="@+id/profile_image"
+                        android:layout_alignParentBottom="true"
+                        android:backgroundTint="@color/blue"
+                        android:elevation="6dp"
+                        android:src="@drawable/ic_action_plus"
+                        app:pressedTranslationZ="12dp" />
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/chatButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignBottom="@+id/open_photo"
+                        android:layout_alignStart="@+id/profile_image"
+                        android:adjustViewBounds="true"
+                        android:backgroundTint="@color/blue"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_chat_button" />
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="35sp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+
+
+        </android.support.v7.widget.CardView>
 
         <com.willy.ratingbar.ScaleRatingBar
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -152,80 +156,98 @@
 
         <include layout="@layout/expansion_panel" />
 
-        <RelativeLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:background="@color/white">
+            android:backgroundTint="@color/white"
+            android:layout_marginTop="1dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:orientation="vertical">
+                android:background="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:orientation="horizontal">
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/skill_text"
+                            android:text="@string/skills"
+                            android:textColor="@color/black"
+                            android:textSize="23sp" />
+
+                        <ImageButton
+                            android:id="@+id/addSkills"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:backgroundTint="@color/blue"
+                            android:padding="1dp"
+                            android:src="@drawable/ic_action_plus">
+                        </ImageButton>
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/skillset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:scrollbars="vertical" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:backgroundTint="@color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/skill_text"
-                        android:text="@string/skills"
+                        android:id="@+id/job_text"
+                        android:text="@string/Job"
                         android:textColor="@color/black"
                         android:textSize="23sp" />
 
-                    <ImageButton
-                        android:id="@+id/addSkills"
-                        android:layout_width="wrap_content"
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view_jobs"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_action_plus"
-                        android:backgroundTint="@color/blue"
-                        android:padding="1dp"
-                        >
-                    </ImageButton>
+                        android:scrollbars="vertical" />
                 </LinearLayout>
+            </RelativeLayout>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/skillset"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:scrollbars="vertical" />
-            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:background="@color/white">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/job_text"
-                    android:text="@string/Job"
-                    android:textColor="@color/black"
-                    android:textSize="23sp" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view_jobs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="vertical" />
-            </LinearLayout>
-        </RelativeLayout>
     </LinearLayout>
     </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
