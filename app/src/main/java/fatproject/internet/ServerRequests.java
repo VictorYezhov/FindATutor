@@ -12,7 +12,9 @@ import fatproject.entity.Skill;
 import fatproject.entity.User;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -109,4 +111,7 @@ public interface ServerRequests {
      */
     @GET("/jobs")
     Call<Set<Job>> getJobs(@Query("id") String id);
+
+    @GET("/getImage{id}")
+    Call<ResponseBody> getUserImage(@Path("id") Long id);
 }

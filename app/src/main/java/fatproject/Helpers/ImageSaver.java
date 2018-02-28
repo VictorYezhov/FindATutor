@@ -27,6 +27,7 @@ public class ImageSaver {
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
         File mypath= new File(directory,"profile.jpg");
         System.err.println(mypath.getPath());
+        MainAplication.savePathToPhoto(mypath.getPath());
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(mypath);
@@ -48,7 +49,7 @@ public class ImageSaver {
     {
         Bitmap b = null;
         try {
-            File f=new File(path, "profile.jpg");
+            File f=new File(path);
              b = BitmapFactory.decodeStream(new FileInputStream(f));
         }
         catch (FileNotFoundException e)

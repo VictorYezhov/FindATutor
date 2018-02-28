@@ -3,6 +3,7 @@ package fatproject.activities;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.view.MenuItem;
 
 import com.google.gson.Gson;
@@ -90,5 +91,14 @@ public class MainAplication extends Application {
     }
     public static void deleteCurrentUser(){
         Paper.book().delete(StrConstansts.CURRENTUSER.getParameter());
+    }
+    public static String getUsersPhoto(){
+        return Paper.book().read(StrConstansts.PATHTOPHOTO.getParameter());
+    }
+    public static void  savePathToPhoto(String path){
+        Paper.book().write(StrConstansts.PATHTOPHOTO.getParameter(),path);
+    }
+    public static void deleteUsersPhoto(){
+        Paper.book().delete(StrConstansts.PATHTOPHOTO.getParameter());
     }
 }

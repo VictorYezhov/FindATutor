@@ -6,7 +6,7 @@ package fatproject.Helpers;
 
 public enum StrConstansts {
 
-    PATHTOPHOTO(""), CURRENTUSER("currentUser");
+    PATHTOPHOTO("pathToPhoto"), CURRENTUSER("currentUser");
 
 
     private String parameter;
