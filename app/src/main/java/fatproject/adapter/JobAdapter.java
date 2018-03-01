@@ -20,12 +20,11 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
     private List<Job> jobsList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView place, year;
+        public TextView place;
 
         public MyViewHolder(View view) {
             super(view);
             place = (TextView) view.findViewById(R.id.place_job);
-            year = (TextView) view.findViewById(R.id.year_job);
         }
     }
 
@@ -46,7 +45,6 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Job job = jobsList.get(position);
         holder.place.setText(job.getName());
-        holder.year.setText(job.getYear());
     }
 
     @Override

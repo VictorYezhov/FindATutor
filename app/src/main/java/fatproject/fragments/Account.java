@@ -108,7 +108,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     @BindView(R.id.RatingBar)
     ScaleRatingBar ratingBar;
 
-
     @BindView(R.id.swipe_refresh_layout_account)
     SwipeRefreshLayout swipeRefreshLayout;
 
@@ -135,6 +134,9 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     //private RecyclerView recyclerView;
     @BindView(R.id.recycler_view_jobs)
     RecyclerView recyclerViewJob;
+
+    @BindView(R.id.addJob)
+    ImageButton addJob;
 
     private List<Job> jobList = new ArrayList<>();
 
@@ -317,6 +319,13 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
             @Override
             public void onClick(View view) {
                 FragmentDispatcher.launchFragment(SelectSkills.class);
+            }
+        });
+
+        addJob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentDispatcher.launchFragment(AddJob.class);
             }
         });
 

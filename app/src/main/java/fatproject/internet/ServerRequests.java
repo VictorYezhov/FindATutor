@@ -104,6 +104,9 @@ public interface ServerRequests {
     @POST("/updateUser")
     Call<User> updateUser(@Body LoginForm loginForm);
 
+    @POST("/sendNewJob{id}")
+    Call<String> updateJobs(@Body Job job, @Path("id") Long id);
+
     /**
      * Get list of jobs
      */

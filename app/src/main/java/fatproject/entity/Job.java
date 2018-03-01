@@ -8,15 +8,13 @@ public class Job {
 
     private Long id;
     private String name;
-    private String year;
 
 
     public Job() {
     }
 
-    public Job(String name, String year) {
+    public Job(String name) {
         this.name = name;
-        this.year = year;
     }
 
 
@@ -44,11 +42,4 @@ public class Job {
                 '}';
     }
 
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
 }
