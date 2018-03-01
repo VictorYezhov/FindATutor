@@ -3,6 +3,7 @@ package fatproject.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -30,6 +31,7 @@ import com.google.android.flexbox.JustifyContent;
 import com.willy.ratingbar.ScaleRatingBar;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -51,6 +53,7 @@ import fatproject.findatutor.R;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -170,6 +173,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        System.err.println("ACCOUNT ON CREATE");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -282,6 +286,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
             File file = new File(mediaPath);
             RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
             MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("img", file.getName(), requestBody);
+            MainAplication.savePathToPhoto(mediaPath);
             ImageSaver.saveToInternalStorage(BitmapFactory.decodeFile(mediaPath));
             RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), file.getName());
 
@@ -454,9 +459,44 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         });
 
         //--------------------------------------------------------------------------------------
+        if(MainAplication.getUsersPhoto()!=null){
+            loadPhotoFromMemory();
+        }else {
+            loadPhotoFromServer();
+        }
         username.setText(user.getName());
         userNumber.setText(user.getMobileNumber());
         userCity.setText(user.getAddress());
 
+    }
+
+
+    private  void loadPhotoFromServer(){
+        MainAplication.getServerRequests().getUserImage(MainAplication.getCurrentUser().getId()).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    byte byteForm[] = response.body().bytes();
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(byteForm, 0, byteForm.length);
+                    profile_image.setImageBitmap(bitmap);
+                    ImageSaver.saveToInternalStorage(bitmap);
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+    private  void loadPhotoFromMemory(){
+        Bitmap bitmap = ImageSaver.loadImageFromStorage(MainAplication.getUsersPhoto());
+        if(bitmap!=null){
+            profile_image.setImageBitmap(bitmap);
+        }else {
+            profile_image.setImageResource(R.drawable.noavatar);
+        }
     }
 }

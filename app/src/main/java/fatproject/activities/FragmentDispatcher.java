@@ -167,6 +167,7 @@ public class FragmentDispatcher extends AppCompatActivity {
      */
     private void logout(){
         MainAplication.deleteCurrentUser();
+        MainAplication.deleteUsersPhoto();
         finish();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
