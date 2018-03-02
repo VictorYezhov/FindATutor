@@ -79,5 +79,15 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!--Floating label text style-->
+    <style name="MyHintText" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <!--Input field style-->
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/blue</item>
+        <item name="colorControlActivated">@color/blue</item>
+    </style>
 
 </resources>
