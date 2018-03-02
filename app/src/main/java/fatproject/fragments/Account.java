@@ -117,6 +117,9 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     @BindView(R.id.profile_name)
     TextView username;
 
+    @BindView(R.id.profile_surname)
+    TextView userSurname;
+
     @BindView(R.id.userNumber)
     TextView userNumber;
 
@@ -210,6 +213,8 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         //Font stuffs
         Typeface nameFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Light.otf");
         username.setTypeface(nameFont);
+        userSurname.setTypeface(nameFont);
+
         skill_text.setTypeface(nameFont);
         job_text.setTypeface(nameFont);
 
@@ -474,6 +479,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
             loadPhotoFromServer();
         }
         username.setText(user.getName());
+        userSurname.setText(user.getFamilyName());
         userNumber.setText(user.getMobileNumber());
         userCity.setText(user.getAddress());
 
