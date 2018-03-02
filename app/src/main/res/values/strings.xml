@@ -12,6 +12,9 @@
 
     <string name="Job">University and Job</string>
 
+    <string name="error">Please full the field</string>
+    <string name="addJob">ADD JOB</string>>
+
     <string name="action_settings">Settings</string>
     <string name="login">Login</string>
     <string name="name">Name</string>

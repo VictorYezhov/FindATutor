@@ -3,16 +3,23 @@ package fatproject.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.activities.MainActivity;
 import fatproject.activities.MainAplication;
 import fatproject.entity.Job;
 import fatproject.findatutor.R;
@@ -25,12 +32,13 @@ public class AddJob extends Fragment {
     @BindView(R.id.addJobButton)
     Button addJobButton;
 
-    @BindView(R.id.inputPlace)
-    EditText inputPlace;
+    @BindView(R.id.placeOfJobInputLayout)
+    TextInputLayout placeOfJobInputLayout;
 
-    @BindView(R.id.inputYear)
-    EditText inputYear;
+    @BindView(R.id.editTextJob)
+    EditText editTextJob;
 
+    private static final String EMPTY_STRING = "";
     private AnswerQuestions.OnFragmentInteractionListener mListener;
 
     @Override
@@ -47,8 +55,13 @@ public class AddJob extends Fragment {
         addJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendNewJob(new Job(inputPlace.getText().toString()));
-
+                if(editTextJob.getText().toString().equals("")) {
+                    placeOfJobInputLayout.setError("Enter place of the job");
+                }else {
+                    sendNewJob(new Job(editTextJob.getText().toString()));
+                    Toast.makeText(getActivity().getApplicationContext(), editTextJob.getText().toString()+" was added.", Toast.LENGTH_LONG).show();
+                    editTextJob.setText("");
+                }
             }
         });
         return view;
@@ -85,8 +98,5 @@ public class AddJob extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-
-
 
 }
