@@ -15,7 +15,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.JsonReader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +39,6 @@ import butterknife.BindAnim;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.Helpers.ImageSaver;
-import fatproject.Helpers.StrConstansts;
 import fatproject.SendingForms.LoginForm;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
@@ -140,6 +138,9 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
     @BindView(R.id.addJob)
     ImageButton addJob;
+
+    @BindView(R.id.setUserInformation)
+    ImageButton setUserInformation;
 
     private List<Job> jobList = new ArrayList<>();
 
@@ -320,6 +321,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     private void addListenersToObj(){
 
         swipeRefreshLayout.setOnRefreshListener(this);
+
         addSkills.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -331,6 +333,13 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
             @Override
             public void onClick(View view) {
                 FragmentDispatcher.launchFragment(AddJob.class);
+            }
+        });
+
+        setUserInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentDispatcher.launchFragment(SetUserInformation.class);
             }
         });
 

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="fatproject.fragments.SetUserInformation"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/numberInputLayout"
+                app:hintTextAppearance="@style/MyHintText"
+                app:errorEnabled="true"
+                android:textColorHint="@color/black">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/MyEditText"
+                    android:id="@+id/editTextNumber"
+                    android:imeOptions="actionGo"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:hint="Number"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/cityInputLayout"
+                app:hintTextAppearance="@style/MyHintText"
+                app:errorEnabled="true"
+                android:textColorHint="@color/black">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/MyEditText"
+                    android:id="@+id/editTextCity"
+                    android:imeOptions="actionGo"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:hint="City"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:id="@+id/addNumberOrCityButton"
+                android:layout_gravity="center"
+                android:text="@string/addJob"
+                android:textColor="@color/white"
+                android:background="@color/blue"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
