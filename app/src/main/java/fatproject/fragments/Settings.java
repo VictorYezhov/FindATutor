@@ -25,9 +25,8 @@ public class Settings extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
-
         addPreferencesFromResource(R.xml.fragment_settings);
-        Paper.init(this.getContext());
+
         listOfPreferensesInit();
     }
 
@@ -47,7 +46,6 @@ public class Settings extends PreferenceFragmentCompat {
                         Locale locale = new Locale(newLang);
                         Locale.setDefault(locale);
                         MainAplication.translate();
-                        startIntent();
                         return true;
                     }
 
@@ -60,9 +58,5 @@ public class Settings extends PreferenceFragmentCompat {
 
     }
 
-    private void startIntent() {
-        Intent intent = new Intent(this.getContext(), ProcessingActivity.class);
-        startActivity(intent);
-    }
 
 }

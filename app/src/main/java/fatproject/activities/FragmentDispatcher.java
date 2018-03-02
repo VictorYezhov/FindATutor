@@ -84,8 +84,11 @@ public class FragmentDispatcher extends AppCompatActivity {
         switch (item.getItemId()){
 
             case R.id.settings: {
-                fragmentClass = Settings.class;
-                break;
+                //fragmentClass = Settings.class;
+                finish();
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return;
             }
             case R.id.aboutUs: {
                 fragmentClass = AboutUs.class;

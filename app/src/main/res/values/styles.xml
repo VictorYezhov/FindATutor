@@ -18,6 +18,18 @@
         <item name="colorButtonNormal">@color/dark_grey</item>
 
     </style>
+
+    <style name="AppTheme.PreferenceTheme" parent="AppTheme.Dark">
+        <item name="colorPrimary">@color/very_dark_blue</item>
+        <item name="colorPrimaryDark">@color/blue</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+        <item name="windowActionModeOverlay">false</item>
+
+
+    </style>
+
    <style name="AppTheme.AskTheme">
        <item name="colorPrimary">@color/grey</item>
        <item name="colorPrimaryDark">@color/accent</item>
