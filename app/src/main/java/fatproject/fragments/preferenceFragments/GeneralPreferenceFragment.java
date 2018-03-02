@@ -36,7 +36,7 @@ public class GeneralPreferenceFragment extends PreferenceFragment {
         listPreference =  findPreference("lang");
         android.preference.ListPreference actualList = (android.preference.ListPreference) listPreference;
 
-        int index = actualList.findIndexOfValue( actualList.getValue());
+        int index = actualList.findIndexOfValue( (String) Paper.book().read("language"));
         listPreference.setSummary(
                 index >= 0
                         ? actualList.getEntries()[index]
@@ -83,13 +83,17 @@ public class GeneralPreferenceFragment extends PreferenceFragment {
                                     ? listPreference.getEntries()[index]
                                     : null);
                     String newLang = (String) o;
-                    Paper.book().write("language", newLang);
-                    Locale locale = new Locale(newLang);
-                    Locale.setDefault(locale);
+
+                    Paper.book().write("language", listPreference.getEntryValues()[index]);
+                    System.err.println("LANG " + listPreference.getEntryValues()[index]);
+
                     MainAplication.translate();
+                    startActivity(new Intent(getActivity(), SettingsActivity.class));
+                    return true;
+
 
                 }
-                return true;
+                return false;
             }
         });
     }

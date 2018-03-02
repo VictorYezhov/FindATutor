@@ -39,6 +39,7 @@ public class FragmentDispatcher extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        MainAplication.translate();
         fragmentManager =getSupportFragmentManager();
         setContentView(R.layout.fragments_manager);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);

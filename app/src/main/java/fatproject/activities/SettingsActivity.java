@@ -21,6 +21,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 
 import fatproject.findatutor.R;
+import fatproject.fragments.Account;
 import fatproject.fragments.preferenceFragments.DataSyncPreferenceFragment;
 import fatproject.fragments.preferenceFragments.GeneralPreferenceFragment;
 import fatproject.fragments.preferenceFragments.NotificationPreferenceFragment;
@@ -126,6 +127,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
+
     }
 
     @Override
@@ -179,8 +181,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 || NotificationPreferenceFragment.class.getName().equals(fragmentName);
     }
 
-    /**
-     * This fragment shows general preferences only. It is used when the
-     * activity is showing a two-pane settings UI.
-     */
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent intent = new Intent(this, FragmentDispatcher.class);
+        startActivity(intent);
+    }
 }

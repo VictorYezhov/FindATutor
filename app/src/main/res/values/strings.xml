@@ -33,7 +33,7 @@
     <string name="aboutUs">About Us</string>
     <string name="contacts">My Contacts</string>
     <string name="account">Account</string>
-    <string name="current_dicription_choise" translatable="false">Current Choice</string>
+    <string name="current_dicription_choise">Current Choice</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -55,7 +55,7 @@
     </string>
 
     <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
+    <string name="pref_default_display_name" translatable="false">John Smith</string>
 
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">
