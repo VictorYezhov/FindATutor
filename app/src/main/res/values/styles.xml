@@ -40,7 +40,7 @@
 
 
     <!-- Base application theme. -->
-    <style name="AppThemeMy" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppThemeMy" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
         <item name="preferenceTheme">@style/AppTheme.Dark</item>
         <item name="android:preferenceCategoryStyle">@color/black</item>
