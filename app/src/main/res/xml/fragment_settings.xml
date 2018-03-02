@@ -1,18 +1,19 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
-        android:title="Settings">
-        <CheckBoxPreference
-            android:title="@string/notification"
-            android:textColor="@color/black"
-            android:defaultValue="false"
-            android:summary="Enable or disable notifications"
-            android:key="checkboxPref" />
-        <ListPreference
-            android:title="@string/lang"
-            android:summary="Choose language"
-            android:key="lang"
-            android:defaultValue="en"
-            android:entries="@array/listArray"
-            android:entryValues="@array/listValues" />
-    </PreferenceCategory>
+<PreferenceScreen
+xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceCategory
+    android:title="Settings">
+    <CheckBoxPreference
+        android:title="@string/notification"
+        android:textColor="@color/black"
+        android:defaultValue="false"
+        android:summary="Enable or disable notifications"
+        android:key="checkboxPref" />
+    <ListPreference
+        android:title="@string/lang"
+        android:summary="Choose language"
+        android:key="lang"
+        android:defaultValue="en"
+        android:entries="@array/listArray"
+        android:entryValues="@array/listValues" />
+</PreferenceCategory>
 </PreferenceScreen>

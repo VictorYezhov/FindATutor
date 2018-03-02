@@ -24,4 +24,20 @@
     <string name="skills">Навички</string>
     <string name="tittle">Заголовок</string>
     <string name="chose_please">Оберіть категорію</string>
+    <string name="City">Місто:</string>
+    <string name="Job">Освіта та робота:</string>
+    <string name="error">Будь ласка заповніть поле</string>
+    <string name="addJob">Додати</string>
+    <string name="current_dicription_choise">Поточний вибі</string>
+    <string name="title_activity_settings">Налаштування</string>
+    <string name="pref_header_general">Загальні</string>
+    <string name="pref_title_display_name">ПІБ</string>
+    <string name="pref_header_data_sync">Синхронізація даних</string>
+    <string name="pref_title_sync_frequency">Частота синхронізації</string>
+    <string name="pref_title_system_sync_settings">Системні налаштування</string>
+    <string name="pref_header_notifications">Сповіщення</string>
+    <string name="pref_title_new_message_notifications">Cповіщення про нові повідомлення</string>
+    <string name="pref_title_ringtone">Рінгтон</string>
+    <string name="pref_ringtone_silent">Тихий режим</string>
+    <string name="pref_title_vibrate">Вібрація</string>
 </resources>

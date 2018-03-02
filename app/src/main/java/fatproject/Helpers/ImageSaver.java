@@ -13,8 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import fatproject.activities.MainAplication;
-import fatproject.findatutor.R;
-import io.paperdb.Paper;
+
 
 /**
  * Created by Victor on 23.02.2018.

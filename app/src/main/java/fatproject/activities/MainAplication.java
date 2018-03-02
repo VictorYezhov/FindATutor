@@ -46,6 +46,7 @@ public class MainAplication extends Application {
         serverRequests = retrofit.create(ServerRequests.class);
 
 
+        translate();
 
         System.err.println("!!!!!!!!!!!FIRST!!!!!!!!  ");
     }

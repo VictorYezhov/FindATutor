@@ -70,8 +70,7 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+
 
     @BindView(R.id.fab)
     FloatingActionButton fab;
@@ -122,7 +121,7 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         thisView = view;
         ButterKnife.bind(this, view);
 
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+       // ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
