@@ -353,6 +353,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
             public void onClick(View v) {
                 Toast.makeText(getActivity().getApplicationContext(), "Chat button works", Toast.LENGTH_LONG).show();
 
+
             }
         });
 
@@ -386,8 +387,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
             @Override
             public void onClick(View v) {
                 plusButtonAnimation(isOpen);
-                Toast.makeText(getActivity().getApplicationContext(), "Plus button works", Toast.LENGTH_LONG).show();
-
             }
         });
     }
@@ -456,7 +455,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
                     jobList.clear();
                     for (Job job:response.body()
                          ) {
-                        System.err.println(job.getName());
+                        System.err.println(job.getName() + " " + job.getType());
                     }
                     jobList.addAll(response.body());
 

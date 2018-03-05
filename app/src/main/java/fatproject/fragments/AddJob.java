@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import fatproject.activities.MainActivity;
 import fatproject.activities.MainAplication;
 import fatproject.entity.Job;
+import fatproject.entity.Type;
 import fatproject.findatutor.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,7 +59,7 @@ public class AddJob extends Fragment {
                 if(editTextJob.getText().toString().equals(EMPTY_STRING)) {
                     placeOfJobInputLayout.setError("Enter place of the job");
                 }else {
-                    sendNewJob(new Job(editTextJob.getText().toString()));
+                    sendNewJob(new Job(editTextJob.getText().toString(), Type.JOB));
                     Toast.makeText(getActivity().getApplicationContext(), editTextJob.getText().toString()+" was added.", Toast.LENGTH_LONG).show();
                     editTextJob.setText(EMPTY_STRING);
                 }

@@ -8,6 +8,8 @@ public class Job {
 
     private Long id;
     private String name;
+    private Type type;
+
 
 
     public Job() {
@@ -17,6 +19,10 @@ public class Job {
         this.name = name;
     }
 
+    public Job(String name, Type type) {
+        this.name = name;
+        this.type = type;
+    }
 
     public String getName() {
         return name;
@@ -32,6 +38,14 @@ public class Job {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     @Override
