@@ -95,6 +95,13 @@
                     android:gravity="end"/>
             </LinearLayout>
 
+            <ImageButton
+                android:id="@+id/setUserInformation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_plus"
+                android:background="@android:color/transparent"
+                />
         </LinearLayout>
 
     </com.github.florent37.expansionpanel.ExpansionLayout>

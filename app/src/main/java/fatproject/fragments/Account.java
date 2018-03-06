@@ -15,7 +15,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.JsonReader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +39,6 @@ import butterknife.BindAnim;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.Helpers.ImageSaver;
-import fatproject.Helpers.StrConstansts;
 import fatproject.SendingForms.LoginForm;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
@@ -119,6 +117,9 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     @BindView(R.id.profile_name)
     TextView username;
 
+    @BindView(R.id.profile_surname)
+    TextView userSurname;
+
     @BindView(R.id.userNumber)
     TextView userNumber;
 
@@ -140,6 +141,9 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
     @BindView(R.id.addJob)
     ImageButton addJob;
+
+    @BindView(R.id.setUserInformation)
+    ImageButton setUserInformation;
 
     private List<Job> jobList = new ArrayList<>();
 
@@ -209,6 +213,8 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         //Font stuffs
         Typeface nameFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Light.otf");
         username.setTypeface(nameFont);
+        userSurname.setTypeface(nameFont);
+
         skill_text.setTypeface(nameFont);
         job_text.setTypeface(nameFont);
 
@@ -320,6 +326,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     private void addListenersToObj(){
 
         swipeRefreshLayout.setOnRefreshListener(this);
+
         addSkills.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -334,10 +341,18 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
             }
         });
 
+        setUserInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentDispatcher.launchFragment(SetUserInformation.class);
+            }
+        });
+
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity().getApplicationContext(), "Chat button works", Toast.LENGTH_LONG).show();
+
 
             }
         });
@@ -372,8 +387,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
             @Override
             public void onClick(View v) {
                 plusButtonAnimation(isOpen);
-                Toast.makeText(getActivity().getApplicationContext(), "Plus button works", Toast.LENGTH_LONG).show();
-
             }
         });
     }
@@ -442,7 +455,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
                     jobList.clear();
                     for (Job job:response.body()
                          ) {
-                        System.err.println(job.getName());
+                        System.err.println(job.getName() + " " + job.getType());
                     }
                     jobList.addAll(response.body());
 
@@ -465,6 +478,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
             loadPhotoFromServer();
         }
         username.setText(user.getName());
+        userSurname.setText(user.getFamilyName());
         userNumber.setText(user.getMobileNumber());
         userCity.setText(user.getAddress());
 

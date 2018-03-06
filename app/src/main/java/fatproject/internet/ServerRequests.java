@@ -7,6 +7,7 @@ import java.util.Set;
 import fatproject.IncomingForms.QuestionForm;
 import fatproject.SendingForms.LoginForm;
 import fatproject.SendingForms.SendSkillsForm;
+import fatproject.SendingForms.UserInformationForm;
 import fatproject.entity.Job;
 import fatproject.entity.Message;
 import fatproject.entity.Skill;
@@ -67,6 +68,14 @@ public interface ServerRequests {
     Call<User> login(@Body LoginForm loginForm);
 
     /**
+     * Method for changing user number and user city.
+     * @param userInformationForm
+     * @return
+     */
+    @POST("/sendUserInformation{id}")
+    Call<String> sendUserInformation(@Body UserInformationForm userInformationForm, @Path("id") Long id);
+
+    /**
      * Registration method
      * @param user
      * @return
@@ -74,7 +83,6 @@ public interface ServerRequests {
     @POST("/user/add")
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Call<User> registerNewUser(@Body User user);
-
 
     /**
      * Downloads list of usser messages

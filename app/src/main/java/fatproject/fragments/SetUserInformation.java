@@ -1,46 +1,49 @@
 package fatproject.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import fatproject.activities.MainActivity;
+import fatproject.SendingForms.UserInformationForm;
 import fatproject.activities.MainAplication;
 import fatproject.entity.Job;
-import fatproject.entity.Type;
 import fatproject.findatutor.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddJob extends Fragment {
+/**
+ * Created by Max Komarenski on 02.03.2018.
+ */
 
-    @BindView(R.id.addJobButton)
-    Button addJobButton;
+public class SetUserInformation extends Fragment {
+    @BindView(R.id.addNumberOrCityButton)
+    Button addNumberOrCityButton;
 
-    @BindView(R.id.placeOfJobInputLayout)
-    TextInputLayout placeOfJobInputLayout;
+    @BindView(R.id.numberInputLayout)
+    TextInputLayout numberInputLayout;
 
-    @BindView(R.id.editTextJob)
-    EditText editTextJob;
+    @BindView(R.id.cityInputLayout)
+    TextInputLayout cityInputLayout;
+
+    @BindView(R.id.editTextNumber)
+    EditText editTextNumber;
+
+    @BindView(R.id.editTextCity)
+    EditText editTextCity;
+
+    private Account.OnFragmentInteractionListener mListener;
 
     private static final String EMPTY_STRING = "";
-    private OnFragmentInteractionListener mListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,26 +53,29 @@ public class AddJob extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_job, container, false);
+        View view = inflater.inflate(R.layout.fragment_change_user_information, container, false);
         ButterKnife.bind(this, view);
 
-        addJobButton.setOnClickListener(new View.OnClickListener() {
+        addNumberOrCityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(editTextJob.getText().toString().equals(EMPTY_STRING)) {
-                    placeOfJobInputLayout.setError("Enter place of the job");
-                }else {
-                    sendNewJob(new Job(editTextJob.getText().toString(), Type.JOB));
-                    Toast.makeText(getActivity().getApplicationContext(), editTextJob.getText().toString()+" was added.", Toast.LENGTH_LONG).show();
-                    editTextJob.setText(EMPTY_STRING);
+                if(editTextNumber.getText().toString().equals(EMPTY_STRING) && editTextCity.getText().toString().equals(EMPTY_STRING)) {
+                    numberInputLayout.setError("Enter your number");
+                    cityInputLayout.setError("Enter your local city");
+                } else {
+                    //send number and city
+                    sendInformation(new UserInformationForm(editTextNumber.getText().toString(), editTextCity.getText().toString()));
+
+                    Toast.makeText(getActivity().getApplicationContext(), "Changes are saved", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
         return view;
     }
 
-    public void sendNewJob(Job job){
-        MainAplication.getServerRequests().updateJobs(job, MainAplication.getCurrentUser().getId()).enqueue(new Callback<String>() {
+    void sendInformation(UserInformationForm userInformationForm){
+        MainAplication.getServerRequests().sendUserInformation(userInformationForm, MainAplication.getCurrentUser().getId()).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 System.err.println(response.body());
@@ -80,8 +86,8 @@ public class AddJob extends Fragment {
 
             }
         });
-
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -94,10 +100,4 @@ public class AddJob extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-
 }

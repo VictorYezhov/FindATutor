@@ -59,6 +59,9 @@ public class MainAplication extends Application {
 
         String lang = Paper.book().read("language");
 
+        if(lang==null){
+            lang="en";
+        }
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
         // Create a new configuration object
