@@ -36,7 +36,7 @@ public class MainAplication extends Application {
         super.onCreate();
         Paper.init(this);
 
-        Gson gson = new GsonBuilder()
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
                 .setLenient()
                 .create();
         retrofit = new Retrofit.Builder()

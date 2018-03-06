@@ -4,16 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-
-import org.w3c.dom.ls.LSException;
 
 import java.util.List;
 
 import de.mrapp.android.view.Chip;
 import fatproject.activities.MainAplication;
-import fatproject.entity.Application;
 import fatproject.entity.Skill;
 import fatproject.findatutor.R;
 

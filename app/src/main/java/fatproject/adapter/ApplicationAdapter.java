@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import fatproject.entity.Application;
+import fatproject.entity.Question;
 import fatproject.findatutor.R;
 
 /**
@@ -18,7 +18,7 @@ import fatproject.findatutor.R;
 public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.MyViewHolder>  {
 
 
-    private List<Application> applicationList;
+    private List<Question> applicationList;
 
 
 
@@ -34,7 +34,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
         }
     }
 
-    public ApplicationAdapter(List<Application> applicationList) {
+    public ApplicationAdapter(List<Question> applicationList) {
         this.applicationList = applicationList;
 
     }
@@ -51,10 +51,9 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Application application = applicationList.get(position);
-        holder.title.setText(application.getTittle());
-        holder.application_price.setText(Integer.toString(application.getPrice())+"$");
-        holder.category.setText(application.getCategory());
+        Question application = applicationList.get(position);
+        holder.title.setText(application.getTitle());
+        holder.application_price.setText("50$");
     }
 
     @Override

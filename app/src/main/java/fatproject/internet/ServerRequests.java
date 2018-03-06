@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Set;
 
+import fatproject.IncomingForms.QuestionForm;
 import fatproject.SendingForms.LoginForm;
 import fatproject.SendingForms.SendSkillsForm;
 import fatproject.entity.Job;
@@ -117,4 +118,7 @@ public interface ServerRequests {
 
     @GET("/getImage{id}")
     Call<ResponseBody> getUserImage(@Path("id") Long id);
+
+    @GET("/getAllQuestions")
+    Call<List<QuestionForm>> getAllQuestions();
 }

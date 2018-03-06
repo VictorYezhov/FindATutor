@@ -13,18 +13,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.IncomingForms.QuestionForm;
+import fatproject.activities.MainAplication;
 import fatproject.adapter.ApplicationAdapter;
 import fatproject.Helpers.ApplicationListListener;
 import fatproject.Helpers.Listener;
 import fatproject.activities.FragmentDispatcher;
-import fatproject.entity.Application;
+import fatproject.entity.Question;
 import fatproject.findatutor.R;
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,7 +47,7 @@ public class AnswerQuestions extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
 
-    private List<Application> applicationList = new ArrayList<>();
+    private List<Question> applicationList = new ArrayList<>();
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -99,21 +105,24 @@ public class AnswerQuestions extends Fragment {
         View view = inflater.inflate(R.layout.fragment_answer_questions, container, false);
         ButterKnife.bind(this, view);
 
-        setApplicationsData();
+
         mAdapter = new ApplicationAdapter(applicationList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayoutManager.VERTICAL));
 
+        setApplicationsData(mAdapter);
+        mAdapter.notifyDataSetChanged();
+
         recyclerView.addOnItemTouchListener(new ApplicationListListener(this.getContext(), recyclerView, new Listener() {
             @Override
             public void onClick(View view, int position) {
-                Application application= applicationList.get(position);
+                Question application = applicationList.get(position);
                 Paper.book().write(AnswerQuestions.this.getResources().getString(R.string.current_dicription_choise),
                         application.getDiscription() );
                 FragmentDispatcher.launchFragment(ApplicationDiscription.class);
-                Toast.makeText(AnswerQuestions.this.getContext(), application.getTittle() + " is selected!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AnswerQuestions.this.getContext(), application.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -158,44 +167,28 @@ public class AnswerQuestions extends Fragment {
 
 
     //TODO: Delete this after testing
-    private void setApplicationsData(){
-        Application app = new Application("Computer Vision", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_2", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_3", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_4", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_5", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_6", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_7", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_8", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_9", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_10", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_11", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_12", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_13", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_14", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_15", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_16", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_17", "IT","DISCRIPTION",56);
-        applicationList.add(app);
-        app = new Application("Computer Vision_18", "IT","DISCRIPTION",56);
-        applicationList.add(app);
+    private void setApplicationsData(final ApplicationAdapter mAdapter){
+        MainAplication.getServerRequests().getAllQuestions().enqueue(new Callback<List<QuestionForm>>() {
+            @Override
+            public void onResponse(Call<List<QuestionForm>> call, Response<List<QuestionForm>> response) {
+                if(response.body()!=null){
+                    for (QuestionForm qf:
+                         response.body()) {
+                      //  qf.getQuestion().setDateTime(Timestamp.valueOf(qf.getQuestion().getDateTime()).toString());
+                        System.err.println(qf);
+                        applicationList.add(qf.getQuestion());
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }else
+                System.err.println("NULL");
+            }
 
+            @Override
+            public void onFailure(Call<List<QuestionForm>> call, Throwable t) {
+
+                t.printStackTrace();
+            }
+        });
     }
 
 
