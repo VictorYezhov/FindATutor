@@ -236,7 +236,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/job_text"
-                            android:text="@string/Job"
+                            android:text="@string/Univer"
                             android:textColor="@color/black"
                             android:textSize="23sp" />
 
@@ -253,7 +253,36 @@
 
                     </RelativeLayout>
 
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view_univers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="vertical" />
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/univer_text"
+                            android:text="@string/Job"
+                            android:textColor="@color/black"
+                            android:textSize="23sp" />
+
+                        <ImageButton
+                            android:id="@+id/addUniver"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:backgroundTint="@color/blue"
+                            android:padding="1dp"
+                            android:src="@drawable/ic_action_plus">
+                        </ImageButton>
+
+                    </RelativeLayout>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler_view_jobs"
