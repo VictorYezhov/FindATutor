@@ -4,11 +4,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <de.mrapp.android.view.Chip
-        android:id="@+id/chip"
+    <com.robertlevonyan.views.chip.Chip
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chip_reloyan"
         android:layout_margin="5dp"
         android:color="@color/blue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+       >
+
+    </com.robertlevonyan.views.chip.Chip>
 
 </RelativeLayout>
