@@ -59,7 +59,7 @@ public class AddJob extends Fragment {
                 if(editTextJob.getText().toString().equals(EMPTY_STRING)) {
                     placeOfJobInputLayout.setError("Enter place of the job");
                 }else {
-                    sendNewJob(new Job(editTextJob.getText().toString(), Type.JOB));
+                    sendNewJob(new Job(editTextJob.getText().toString(), Type.EDUCATION));
                     Toast.makeText(getActivity().getApplicationContext(), editTextJob.getText().toString()+" was added.", Toast.LENGTH_LONG).show();
                     editTextJob.setText(EMPTY_STRING);
                 }

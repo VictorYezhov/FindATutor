@@ -10,7 +10,8 @@
     <string name="number">Number: </string>
     <string name="City">City: </string>
 
-    <string name="Job">University and Job</string>
+    <string name="Univer">University</string>
+    <string name="Job">Job</string>
 
     <string name="error">Please full the field</string>
     <string name="addJob">ADD JOB</string>>

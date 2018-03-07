@@ -10,7 +10,7 @@ public class Job {
     private String name;
     private Type type;
 
-
+    private String description;
 
     public Job() {
     }
@@ -22,6 +22,12 @@ public class Job {
     public Job(String name, Type type) {
         this.name = name;
         this.type = type;
+    }
+
+    public Job(String name, Type type, String description) {
+        this.name = name;
+        this.type = type;
+        this.description = description;
     }
 
     public String getName() {
@@ -46,6 +52,14 @@ public class Job {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

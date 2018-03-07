@@ -46,6 +46,7 @@ import fatproject.adapter.ChipAdapter;
 import fatproject.adapter.JobAdapter;
 import fatproject.entity.Job;
 import fatproject.entity.Skill;
+import fatproject.entity.Type;
 import fatproject.entity.User;
 import fatproject.findatutor.R;
 import okhttp3.MediaType;
@@ -135,19 +136,31 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     @BindView(R.id.job_text)
     TextView job_text;
 
-    //private RecyclerView recyclerView;
+    @BindView(R.id.univer_text)
+    TextView univer_text;
+
     @BindView(R.id.recycler_view_jobs)
     RecyclerView recyclerViewJob;
+
+    @BindView(R.id.recycler_view_univers)
+    RecyclerView recyclerViewUniver;
 
     @BindView(R.id.addJob)
     ImageButton addJob;
 
+    @BindView(R.id.addUniver)
+    ImageButton addUniver;
+
     @BindView(R.id.setUserInformation)
     ImageButton setUserInformation;
 
-    private List<Job> jobList = new ArrayList<>();
+    //private List<Job> jobAndUnList = new ArrayList<>();
+
+    private List<Job> onlyJobList = new ArrayList<>();
+    private List<Job> onlyUniverList = new ArrayList<>();
 
     private JobAdapter jAdapter;
+    private JobAdapter uAdapter;
 
     private boolean isOpen = false;
     final List<Skill> skill;
@@ -203,11 +216,21 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
         //--------------------------------------------------------------------------------------
         // Jobs stuffs
-        jAdapter = new JobAdapter(jobList);
+        //jAdapter = new JobAdapter(jobAndUnList);
+        jAdapter = new JobAdapter(onlyJobList);
+        uAdapter = new JobAdapter(onlyUniverList);
+
         RecyclerView.LayoutManager jLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager uLayoutManager = new LinearLayoutManager(getApplicationContext());
+
         recyclerViewJob.setLayoutManager(jLayoutManager);
+        recyclerViewUniver.setLayoutManager(uLayoutManager);
+
         recyclerViewJob.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewUniver.setItemAnimator(new DefaultItemAnimator());
+
         recyclerViewJob.setAdapter(jAdapter);
+        recyclerViewUniver.setAdapter(uAdapter);
 
         //--------------------------------------------------------------------------------------
         //Font stuffs
@@ -217,6 +240,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
         skill_text.setTypeface(nameFont);
         job_text.setTypeface(nameFont);
+        univer_text.setTypeface(nameFont);
 
         Typeface informationFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/wider.ttf");
         userNumber.setTypeface(informationFont);
@@ -319,7 +343,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     }
 
     /**
-     * Adding Listeners mus`t be done in this function
+     * Adding Listeners must be done in this function
      * In order to make code more clear
      * 17.02.2018 Victor
      */
@@ -452,14 +476,21 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
             @Override
             public void onResponse(Call<Set<Job>> call, Response<Set<Job>> response) {
                 if(response.body() != null){
-                    jobList.clear();
-                    for (Job job:response.body()
-                         ) {
-                        System.err.println(job.getName() + " " + job.getType());
+                    //jobAndUnList.clear();
+                    onlyJobList.clear();
+                    onlyUniverList.clear();
+                    for (Job job:response.body()) {
+                        if(job.getType().equals(Type.JOB)){
+                            onlyJobList.add(job);
+                        }else if(job.getType().equals(Type.EDUCATION)){
+                            onlyUniverList.add(job);
+                        }
                     }
-                    jobList.addAll(response.body());
-
+                    //jobAndUnList.addAll(response.body());
+                    //System.err.println(onlyJobList);
+                    //System.err.println(onlyUniverList);
                     jAdapter.notifyDataSetChanged();
+                    uAdapter.notifyDataSetChanged();
                 }else {
                     //TODO: make something
                 }
