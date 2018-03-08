@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.github.florent37.expansionpanel.ExpansionHeader
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:expansion_headerIndicator="@id/headerIndicator"
+        app:expansion_layout="@id/expansionLayout"
+        app:expansion_toggleOnClick="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:background="@android:color/white"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/univer_text"
+                    android:text="@string/Job"
+                    android:textColor="@color/black"
+                    android:textSize="23sp" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:adjustViewBounds="true"
+                    android:id="@+id/headerIndicator"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="wrap_content"
+                    app:srcCompat="@drawable/ic_add_black_24dp" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_jobs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical" />
+
+
+        </LinearLayout>
+
+    </com.github.florent37.expansionpanel.ExpansionHeader>
+
+    <com.github.florent37.expansionpanel.ExpansionLayout
+        android:id="@+id/expansionLayout"
+        app:expansion_expanded="false"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/placeOfJobInput"
+                app:hintTextAppearance="@style/MyHintText"
+                app:errorEnabled="true"
+                android:textColorHint="@color/black">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/MyEditText"
+                    android:id="@+id/editTextJob"
+                    android:imeOptions="actionGo"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:hint="A Place of the job"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:id="@+id/addJobButton"
+                android:layout_gravity="center"
+                android:text="@string/addJob"
+                android:textColor="@color/white"
+                android:background="@color/blue"/>
+
+        </LinearLayout>
+
+
+    </com.github.florent37.expansionpanel.ExpansionLayout>
+</LinearLayout>

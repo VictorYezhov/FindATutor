@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -19,6 +20,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -145,16 +148,29 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     @BindView(R.id.recycler_view_univers)
     RecyclerView recyclerViewUniver;
 
-    @BindView(R.id.addJob)
-    ImageButton addJob;
-
-    @BindView(R.id.addUniver)
-    ImageButton addUniver;
-
     @BindView(R.id.setUserInformation)
     ImageButton setUserInformation;
 
-    //private List<Job> jobAndUnList = new ArrayList<>();
+    @BindView(R.id.addJobButton)
+    Button addJobButton;
+
+    @BindView(R.id.addUniverButton)
+    Button addUniverButton;
+
+    @BindView(R.id.placeOfJobInput)
+    TextInputLayout placeOfJobInputLayout;
+
+    @BindView(R.id.placeOfUniverInput)
+    TextInputLayout placeOfUniverInput;
+
+    @BindView(R.id.editTextJob)
+    EditText editTextJob;
+
+    @BindView(R.id.editTextUniver)
+    EditText editTextUniver;
+
+    private static final String EMPTY_STRING = "";
+
 
     private List<Job> onlyJobList = new ArrayList<>();
     private List<Job> onlyUniverList = new ArrayList<>();
@@ -351,17 +367,36 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
+        addUniverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editTextUniver.getText().toString().equals(EMPTY_STRING)) {
+                    placeOfUniverInput.setError("Enter name of university");
+                }else {
+                    sendNewJob(new Job(editTextUniver.getText().toString(), Type.EDUCATION));
+                    Toast.makeText(getActivity().getApplicationContext(), editTextUniver.getText().toString()+" was added.", Toast.LENGTH_LONG).show();
+                    editTextUniver.setText(EMPTY_STRING);
+                }
+            }
+        });
+
+        addJobButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editTextJob.getText().toString().equals(EMPTY_STRING)) {
+                    placeOfJobInputLayout.setError("Enter place of the job");
+                }else {
+                    sendNewJob(new Job(editTextJob.getText().toString(), Type.JOB));
+                    Toast.makeText(getActivity().getApplicationContext(), editTextJob.getText().toString()+" was added.", Toast.LENGTH_LONG).show();
+                    editTextJob.setText(EMPTY_STRING);
+                }
+            }
+        });
+
         addSkills.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentDispatcher.launchFragment(SelectSkills.class);
-            }
-        });
-
-        addJob.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentDispatcher.launchFragment(AddJob.class);
             }
         });
 
@@ -413,6 +448,21 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
                 plusButtonAnimation(isOpen);
             }
         });
+    }
+
+    public void sendNewJob(Job job){
+        MainAplication.getServerRequests().updateJobs(job, MainAplication.getCurrentUser().getId()).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.err.println(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+
     }
 
     /**
