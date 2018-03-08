@@ -47,7 +47,7 @@ public class AnswerQuestions extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
 
-    private List<Question> applicationList = new ArrayList<>();
+    private List<QuestionForm> applicationList = new ArrayList<>();
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -106,7 +106,10 @@ public class AnswerQuestions extends Fragment {
         ButterKnife.bind(this, view);
 
 
-        mAdapter = new ApplicationAdapter(applicationList);
+
+
+
+        mAdapter = new ApplicationAdapter(this.getContext(),applicationList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -118,11 +121,11 @@ public class AnswerQuestions extends Fragment {
         recyclerView.addOnItemTouchListener(new ApplicationListListener(this.getContext(), recyclerView, new Listener() {
             @Override
             public void onClick(View view, int position) {
-                Question application = applicationList.get(position);
+                QuestionForm application = applicationList.get(position);
                 Paper.book().write(AnswerQuestions.this.getResources().getString(R.string.current_dicription_choise),
-                        application.getDiscription() );
+                        application);
                 FragmentDispatcher.launchFragment(ApplicationDiscription.class);
-                Toast.makeText(AnswerQuestions.this.getContext(), application.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(AnswerQuestions.this.getContext(), application.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -175,8 +178,7 @@ public class AnswerQuestions extends Fragment {
                     for (QuestionForm qf:
                          response.body()) {
                       //  qf.getQuestion().setDateTime(Timestamp.valueOf(qf.getQuestion().getDateTime()).toString());
-                        System.err.println(qf);
-                        applicationList.add(qf.getQuestion());
+                        applicationList.add(qf);
                     }
                     mAdapter.notifyDataSetChanged();
                 }else

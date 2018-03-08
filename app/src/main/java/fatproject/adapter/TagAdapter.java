@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 
 import de.mrapp.android.view.Chip;
 import fatproject.activities.MainAplication;
@@ -16,11 +18,10 @@ import fatproject.entity.Skill;
 import fatproject.findatutor.R;
 
 /**
- * Created by Victor on 13.02.2018.
+ * Created by Victor on 07.03.2018.
  */
 
-public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ChipViewHolder> {
-
+public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ChipViewHolder> {
 
     private List<Skill> skillList;
 
@@ -34,28 +35,28 @@ public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ChipViewHolder
         }
     }
 
-    public ChipAdapter(List<Skill> skillList) {
+    public TagAdapter(List<Skill> skillList) {
         this.skillList = skillList;
     }
 
 
-    public ChipAdapter() {
+    public TagAdapter() {
     }
-    public ChipAdapter(Set<Skill> skillSet){
+    public TagAdapter(Set<Skill> skillSet){
         this.skillList = new ArrayList<>();
         skillList.addAll(skillSet);
     }
 
     @Override
-    public ChipAdapter.ChipViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TagAdapter.ChipViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.chip_simple, parent, false);
 
-        return new ChipAdapter.ChipViewHolder(itemView);
+        return new TagAdapter.ChipViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(ChipAdapter.ChipViewHolder holder, int position) {
+    public void onBindViewHolder(TagAdapter.ChipViewHolder holder, int position) {
         String skill = skillList.get(position).getName();
 
         holder.skillChip.setText(skill);
