@@ -65,6 +65,8 @@ public class SetUserInformation extends Fragment {
                 } else {
                     //send number and city
                     sendInformation(new UserInformationForm(editTextNumber.getText().toString(), editTextCity.getText().toString()));
+                    editTextNumber.setText(EMPTY_STRING);
+                    editTextCity.setText(EMPTY_STRING);
 
                     Toast.makeText(getActivity().getApplicationContext(), "Changes are saved", Toast.LENGTH_LONG).show();
                 }

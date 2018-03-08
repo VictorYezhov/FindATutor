@@ -130,12 +130,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     @BindView(R.id.userCity)
     TextView userCity;
 
-    @BindView(R.id.city)
-    TextView city;
-
-    @BindView(R.id.number)
-    TextView number;
-
     @BindView(R.id.job_text)
     TextView job_text;
 
@@ -149,7 +143,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     RecyclerView recyclerViewUniver;
 
     @BindView(R.id.setUserInformation)
-    ImageButton setUserInformation;
+    Button setUserInformation;
 
     @BindView(R.id.addJobButton)
     Button addJobButton;
@@ -261,8 +255,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         Typeface informationFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/wider.ttf");
         userNumber.setTypeface(informationFont);
         userCity.setTypeface(informationFont);
-        number.setTypeface(informationFont);
-        city.setTypeface(informationFont);
 
         //--------------------------------------------------------------------------------------
         return view;

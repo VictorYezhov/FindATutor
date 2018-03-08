@@ -7,8 +7,8 @@
     <string name="open" translatable="false">Open</string>
     <string name="close" translatable="false">Close</string>
 
-    <string name="number">Number: </string>
-    <string name="City">City: </string>
+    <string name="number">Number :   </string>
+    <string name="City">City :   </string>
 
     <string name="Univer">University</string>
     <string name="Job">Job</string>

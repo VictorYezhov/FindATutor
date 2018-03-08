@@ -24,7 +24,7 @@
                 android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Information"
+                android:text="User information"
                 android:textSize="15sp"
                 android:textColor="@color/black" />
 
@@ -53,55 +53,71 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:background="#EEE">
+            android:background="#EEE"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="17dp"
+                >
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:id="@+id/number"
-                android:text="@string/number"
-                android:textSize="20sp"
-                android:layout_gravity="left"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/userNumber"
-                android:textSize="20sp"
-                android:layout_gravity="right"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_phone_black_24dp"
+                    android:tint="@color/blue"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userNumber"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp"
+                    />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="17dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_location_on_black_24dp"
+                    android:tint="@color/blue"/>
 
                 <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="@string/City"
-                    android:textSize="20sp"
-                    android:id="@+id/city"
-                    android:gravity="start"/>
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:id="@+id/userCity"
-                    android:gravity="end"/>
+                    android:layout_marginLeft="10dp"
+                    />
             </LinearLayout>
 
-            <ImageButton
+            <Button
                 android:id="@+id/setUserInformation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_plus"
-                android:background="@android:color/transparent"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/blue"
+                android:text="Change"
+                android:textColor="@color/white"
                 />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="17dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
         </LinearLayout>
 
     </com.github.florent37.expansionpanel.ExpansionLayout>
