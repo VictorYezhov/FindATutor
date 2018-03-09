@@ -86,6 +86,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        if(MainAplication.getCurrentUser()!=null){
+
+        }
         _loginButton.setOnClickListener(this);
         _signupLink.setOnClickListener(this);
         SingIn.setOnClickListener(this);
@@ -136,8 +139,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
 
         //------------
-        if(AccessToken.getCurrentAccessToken() != null){
-
+        if(MainAplication.getCurrentUser() != null){
+            finish();
+            Intent intent = new Intent(getApplicationContext(), FragmentDispatcher.class);
+            startActivityForResult(intent, REQUEST_SIGNUP);
         }
 
     }

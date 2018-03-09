@@ -47,6 +47,7 @@ public class FragmentDispatcher extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(mToggle);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         mToggle.syncState();
+        setTitle("Find a Tutor");
         try {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }catch (NullPointerException e){
