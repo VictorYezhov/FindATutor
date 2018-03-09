@@ -567,8 +567,9 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
                     Bitmap bitmap = BitmapFactory.decodeByteArray(byteForm, 0, byteForm.length);
                     profile_image.setImageBitmap(bitmap);
                     ImageSaver.saveToInternalStorage(bitmap);
-                }catch (IOException e) {
+                }catch (Exception e) {
                     e.printStackTrace();
+                    profile_image.setImageResource(R.drawable.noavatar);
                 }
             }
 
