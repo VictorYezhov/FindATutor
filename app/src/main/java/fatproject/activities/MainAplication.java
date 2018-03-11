@@ -3,8 +3,6 @@ package fatproject.activities;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,7 +11,6 @@ import java.util.Locale;
 
 import fatproject.Helpers.StrConstansts;
 import fatproject.entity.User;
-import fatproject.internet.ServerConnector;
 import fatproject.internet.ServerRequests;
 import fatproject.internet.URLs;
 import io.paperdb.Paper;
@@ -40,7 +37,7 @@ public class MainAplication extends Application {
                 .setLenient()
                 .create();
         retrofit = new Retrofit.Builder()
-                .baseUrl(URLs.BASE.getUrl()) //Базовая часть адреса
+                .baseUrl(URLs.BASE_REMOTE.getUrl()) //Базовая часть адреса
                 .addConverterFactory(GsonConverterFactory.create(gson)) //Конвертер, необходимый для преобразования JSON'а в объекты
                 .build();
         serverRequests = retrofit.create(ServerRequests.class);
