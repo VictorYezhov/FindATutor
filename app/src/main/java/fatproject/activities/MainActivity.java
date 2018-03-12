@@ -1,5 +1,6 @@
 package fatproject.activities;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +11,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.single.PermissionListener;
+
 import java.io.IOException;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,8 +37,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.restart)
-    Button button;
+
 
 
     @Override
@@ -40,18 +50,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+
+        Dexter.withActivity(this)
+                .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        finish();
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);//TODO Replace FragmentDispatcher with LoginActivity
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        System.err.println("PESMISSION DENIED");
+                        if (response.isPermanentlyDenied()) {
+                            System.err.println(response.getPermissionName());
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
 
 
 
-        Intent intent = new Intent(this, LoginActivity.class);//TODO Replace FragmentDispatcher with LoginActivity
-        startActivity(intent);
     }
 
 

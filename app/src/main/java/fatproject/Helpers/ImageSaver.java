@@ -43,6 +43,17 @@ public class ImageSaver {
         }
         return directory.getAbsolutePath();
     }
+    public static void saveImage(Context context, Bitmap b, String imageName) {
+        FileOutputStream foStream;
+        try {
+            foStream = context.openFileOutput(imageName, Context.MODE_PRIVATE);
+            b.compress(Bitmap.CompressFormat.PNG, 100, foStream);
+            foStream.close();
+        } catch (Exception e) {
+            System.err.println("saveImage"+ "Exception 2, Something went wrong!");
+            e.printStackTrace();
+        }
+    }
 
     public static Bitmap loadImageFromStorage(String path)
     {
