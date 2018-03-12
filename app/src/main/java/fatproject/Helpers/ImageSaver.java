@@ -24,7 +24,7 @@ public class ImageSaver {
     public static  String saveToInternalStorage(Bitmap bitmapImage){
         ContextWrapper cw = new ContextWrapper(MainAplication.getContext());
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-        File mypath= new File(directory,bitmapImage.toString());
+        File mypath= new File(directory,"profile.jpg");
         System.err.println(mypath.getPath());
         MainAplication.savePathToPhoto(mypath.getPath());
         FileOutputStream fos = null;
@@ -42,6 +42,17 @@ public class ImageSaver {
             }
         }
         return directory.getAbsolutePath();
+    }
+    public static void saveImage(Context context, Bitmap b, String imageName) {
+        FileOutputStream foStream;
+        try {
+            foStream = context.openFileOutput(imageName, Context.MODE_PRIVATE);
+            b.compress(Bitmap.CompressFormat.PNG, 100, foStream);
+            foStream.close();
+        } catch (Exception e) {
+            System.err.println("saveImage"+ "Exception 2, Something went wrong!");
+            e.printStackTrace();
+        }
     }
 
     public static Bitmap loadImageFromStorage(String path)

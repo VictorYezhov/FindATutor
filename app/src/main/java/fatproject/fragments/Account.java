@@ -325,11 +325,11 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
             RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
             MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("img", file.getName(), requestBody);
             MainAplication.savePathToPhoto(mediaPath);
-            ImageSaver.saveToInternalStorage(BitmapFactory.decodeFile(mediaPath));
             RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), file.getName());
 
 
-            System.err.println(filename+"  " + fileToUpload);
+            System.err.println("ATTENTION");
+            System.err.println(mediaPath);
             MainAplication.getServerRequests().updateUserPhoto(fileToUpload, MainAplication.getCurrentUser().getId())
                     .enqueue(new Callback<String>() {
                         @Override
@@ -347,6 +347,8 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
                         }
                     });
             profile_image.setImageURI(imageUri);
+
+            ImageSaver.saveImage(this.getContext(),BitmapFactory.decodeFile(mediaPath), "profile" );
         }
     }
 
