@@ -186,7 +186,6 @@
                             android:text="@string/skills"
                             android:textColor="@color/black"
                             android:textSize="23sp" />
-
                         <ImageButton
                             android:id="@+id/addSkills"
                             android:layout_width="wrap_content"
