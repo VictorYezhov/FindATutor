@@ -118,21 +118,21 @@ public class AnswerQuestions extends Fragment {
         setApplicationsData(mAdapter);
         mAdapter.notifyDataSetChanged();
 
-        recyclerView.addOnItemTouchListener(new ApplicationListListener(this.getContext(), recyclerView, new Listener() {
-            @Override
-            public void onClick(View view, int position) {
-                QuestionForm application = applicationList.get(position);
-                Paper.book().write(AnswerQuestions.this.getResources().getString(R.string.current_dicription_choise),
-                        application);
-                FragmentDispatcher.launchFragment(ApplicationDiscription.class);
-               // Toast.makeText(AnswerQuestions.this.getContext(), application.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
+//        recyclerView.addOnItemTouchListener(new ApplicationListListener(this.getContext(), recyclerView, new Listener() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                QuestionForm application = applicationList.get(position);
+//                Paper.book().write(AnswerQuestions.this.getResources().getString(R.string.current_dicription_choise),
+//                        application);
+//                FragmentDispatcher.launchFragment(ApplicationDiscription.class);
+//               // Toast.makeText(AnswerQuestions.this.getContext(), application.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onLongClick(View view, int position) {
+//
+//            }
+//        }));
 
         recyclerView.setAdapter(mAdapter);
 

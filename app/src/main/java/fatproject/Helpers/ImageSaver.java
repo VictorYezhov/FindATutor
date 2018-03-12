@@ -24,7 +24,7 @@ public class ImageSaver {
     public static  String saveToInternalStorage(Bitmap bitmapImage){
         ContextWrapper cw = new ContextWrapper(MainAplication.getContext());
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-        File mypath= new File(directory,"profile.jpg");
+        File mypath= new File(directory,bitmapImage.toString());
         System.err.println(mypath.getPath());
         MainAplication.savePathToPhoto(mypath.getPath());
         FileOutputStream fos = null;
