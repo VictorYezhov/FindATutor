@@ -2,6 +2,8 @@ package fatproject.activities;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
@@ -12,7 +14,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import fatproject.Helpers.ImageSaver;
 import fatproject.entity.User;
 import fatproject.findatutor.R;
 import fatproject.fragments.AboutUs;
@@ -22,6 +30,10 @@ import fatproject.fragments.AskQuestions;
 import fatproject.fragments.Contacts;
 import fatproject.fragments.Settings;
 import io.paperdb.Paper;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Victor on 09.01.2018.
@@ -40,12 +52,25 @@ public class FragmentDispatcher extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         MainAplication.translate();
-        fragmentManager =getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         setContentView(R.layout.fragments_manager);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        View header = navigationView.getHeaderView(0);
+
+        TextView nameText = header.findViewById(R.id.nameNavigator);
+        nameText.setText(MainAplication.getCurrentUser().getName());
+
+        TextView sureText = header.findViewById(R.id.surenameNavigator);
+        sureText.setText(MainAplication.getCurrentUser().getFamilyName());
+
+        ImageView photo = header.findViewById(R.id.photoNavigator);
+        loadPhotoFromServer(photo);
+
+
         mToggle.syncState();
         setTitle("Find a Tutor");
         try {
@@ -61,9 +86,6 @@ public class FragmentDispatcher extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
-
     }
 
     @Override
@@ -72,6 +94,28 @@ public class FragmentDispatcher extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private  void loadPhotoFromServer(final ImageView v){
+        MainAplication.getServerRequests().getUserImage(MainAplication.getCurrentUser().getId()).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    byte byteForm[] = response.body().bytes();
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(byteForm, 0, byteForm.length);
+                    v.setImageBitmap(bitmap);
+                    ImageSaver.saveToInternalStorage(bitmap);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                    v.setImageResource(R.drawable.noavatar);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
 

@@ -1,5 +1,6 @@
 package fatproject.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +14,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,9 +26,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.florent37.expansionpanel.ExpansionHeader;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
@@ -163,6 +167,9 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     @BindView(R.id.editTextUniver)
     EditText editTextUniver;
 
+    @BindView(R.id.accountScrollView)
+    ScrollView accountScrollView;
+
     private static final String EMPTY_STRING = "";
 
 
@@ -253,6 +260,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         univer_text.setTypeface(nameFont);
 
         Typeface informationFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/wider.ttf");
+
         userNumber.setTypeface(informationFont);
         userCity.setTypeface(informationFont);
 
@@ -375,6 +383,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         addJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(editTextJob.getText().toString().equals(EMPTY_STRING)) {
                     placeOfJobInputLayout.setError("Enter place of the job");
                 }else {
@@ -551,7 +560,9 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
             loadPhotoFromServer();
         }
         username.setText(user.getName());
+       // nameNavigator.setText(user.getName());
         userSurname.setText(user.getFamilyName());
+        //surnameNavigator.setText(user.getFamilyName());
         userNumber.setText(user.getMobileNumber());
         userCity.setText(user.getAddress());
 

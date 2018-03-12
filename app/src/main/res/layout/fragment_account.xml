@@ -15,7 +15,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/accountScrollView">
 
 
     <LinearLayout
@@ -192,9 +193,9 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentTop="true"
-                            android:backgroundTint="@color/blue"
-                            android:padding="1dp"
-                            android:src="@drawable/ic_action_plus">
+                            android:background="@android:color/transparent"
+                            app:srcCompat="@drawable/ic_add_black_24dp"
+                            android:layout_marginRight="11dp">
                         </ImageButton>
                     </RelativeLayout>
 
