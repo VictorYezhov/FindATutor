@@ -106,9 +106,6 @@ public class AnswerQuestions extends Fragment {
         ButterKnife.bind(this, view);
 
 
-
-
-
         mAdapter = new ApplicationAdapter(this.getContext(),applicationList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(mLayoutManager);

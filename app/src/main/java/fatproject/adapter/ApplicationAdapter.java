@@ -32,6 +32,7 @@ import fatproject.entity.Skill;
 import fatproject.findatutor.R;
 import fatproject.fragments.AnswerQuestions;
 import fatproject.fragments.ApplicationDiscription;
+import fatproject.fragments.UserInfo;
 import io.paperdb.Paper;
 
 /**
@@ -83,7 +84,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int  position) {
-        QuestionForm application = applicationList.get(position);
+        final QuestionForm application = applicationList.get(position);
 
        // holder.recyclerView.setHasFixedSize(true);
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(context);
@@ -125,7 +126,8 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
         holder.contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO view another account
+                Paper.book().write("user_info", application.getUserId());
+                FragmentDispatcher.launchFragment(UserInfo.class);
             }
         });
 

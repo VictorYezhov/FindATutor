@@ -237,8 +237,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         ButterKnife.bind(this, view);
-
-        fillUsersData();
+        onRefresh();
         addListenersToObj();
         //-------------------------------------------------------------------------------------
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());
@@ -265,6 +264,9 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
         recyclerViewJob.setAdapter(jAdapter);
         recyclerViewUniver.setAdapter(uAdapter);
+        fillUsersData();
+        jAdapter.notifyDataSetChanged();
+        uAdapter.notifyDataSetChanged();
 
         //--------------------------------------------------------------------------------------
         //Font stuffs
@@ -280,6 +282,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
         userNumber.setTypeface(informationFont);
         userCity.setTypeface(informationFont);
+        userCountry.setTypeface(informationFont);
 
         //--------------------------------------------------------------------------------------
         return view;
@@ -540,59 +543,25 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     private void fillUsersData(){
 
         User user = MainAplication.getCurrentUser();
+        skill.clear();
+        skill.addAll(user.getSkills());
 
-        MainAplication.getServerRequests().getSkills(String.valueOf(user.getId())).enqueue(new Callback<Set<Skill>>() {
-            @Override
-            public void onResponse(Call<Set<Skill>> call, Response<Set<Skill>> response) {
-                if(response.body()!=null) {
-                    skill.clear();
-                    skill.addAll(response.body());
-                    chipAdapter.notifyDataSetChanged();
-                }else {
-                    //TODO smth if data is null
-                }
+        ratingBar.setRating(user.getRating());
+        onlyJobList.clear();
+        onlyUniverList.clear();
+        for (Job job:user.getJobs()) {
+            if(job.getType().equals(Type.JOB)){
+                System.err.println(job.getName());
+                onlyJobList.add(job);
+            }else {
+                System.err.println(job.getName());
+                onlyUniverList.add(job);
             }
+        }
+        jAdapter.notifyDataSetChanged();
+        uAdapter.notifyDataSetChanged();
 
-            @Override
-            public void onFailure(Call<Set<Skill>> call, Throwable t) {
-
-                System.err.println("FAILERE DURING DOWNLOADING SKILLS");
-            }
-        });
-
-        ratingBar.setRating(MainAplication.getCurrentUser().getRating());
-
-        MainAplication.getServerRequests().getJobs(String.valueOf(user.getId())).enqueue(new Callback<Set<Job>>() {
-            @Override
-            public void onResponse(Call<Set<Job>> call, Response<Set<Job>> response) {
-                if(response.body() != null){
-                    //jobAndUnList.clear();
-                    onlyJobList.clear();
-                    onlyUniverList.clear();
-                    for (Job job:response.body()) {
-                        if(job.getType().equals(Type.JOB)){
-                            onlyJobList.add(job);
-                        }else if(job.getType().equals(Type.EDUCATION)){
-                            onlyUniverList.add(job);
-                        }
-                    }
-                    //jobAndUnList.addAll(response.body());
-                    //System.err.println(onlyJobList);
-                    //System.err.println(onlyUniverList);
-                    jAdapter.notifyDataSetChanged();
-                    uAdapter.notifyDataSetChanged();
-                }else {
-                    //TODO: make something
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Set<Job>> call, Throwable t) {
-                System.err.println("FAILERE DURING DOWNLOADING JOBS");
-            }
-        });
-
-        //--------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------
         if(MainAplication.getUsersPhoto()!=null){
             loadPhotoFromMemory();
         }else {
@@ -603,7 +572,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         userSurname.setText(user.getFamilyName());
         //surnameNavigator.setText(user.getFamilyName());
         userNumber.setText(user.getMobileNumber());
-        userCity.setText(user.getCity().getName());
+        userCity.setText(user.getCity().getName()+",");
         userCountry.setText(user.getCity().getCountry().getName());
         System.err.println(user.getCity().getCountry().getCode());
 

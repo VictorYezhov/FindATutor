@@ -50,6 +50,10 @@ public interface ServerRequests {
     @GET("/getAllSkills")
     Call<List<Skill>> getAllAvailableSkills();
 
+    @POST("/userInfo")
+    Call<User> loadUserInfo(@Query("id") Long id);
+
+
 
     /**
      * Used when user add`s to himself new skills

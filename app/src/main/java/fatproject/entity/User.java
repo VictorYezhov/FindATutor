@@ -25,8 +25,12 @@ public class User {
 
     private Set<Skill> skills;
 
+    private List<Job> jobs;
+
+
     public User() {
         skills = new HashSet<>();
+        jobs = new ArrayList<>();
     }
 
     public String getAddress() {
@@ -107,5 +111,13 @@ public class User {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
     }
 }
