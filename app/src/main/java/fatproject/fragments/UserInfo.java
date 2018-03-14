@@ -152,6 +152,8 @@ public class UserInfo extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         View view = inflater.inflate(R.layout.fragment_user_info, container, false);
         ButterKnife.bind(this, view);
         update();
+        setFonts();
+        swipeRefreshLayout.setOnRefreshListener(this);
 
 
 
@@ -179,13 +181,11 @@ public class UserInfo extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
         update();
-        fillUsersData();
         swipeRefreshLayout.setRefreshing(false);
 
     }
 
     public  void fillUsersData(){
-        setFonts();
 
         chipAdapter = new ChipAdapterUserInfo(userInfo.getSkills());
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());

@@ -534,6 +534,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
                 System.err.println("FAILURE");
             }
         });
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     /**
@@ -551,10 +552,8 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         onlyUniverList.clear();
         for (Job job:user.getJobs()) {
             if(job.getType().equals(Type.JOB)){
-                System.err.println(job.getName());
                 onlyJobList.add(job);
             }else {
-                System.err.println(job.getName());
                 onlyUniverList.add(job);
             }
         }
