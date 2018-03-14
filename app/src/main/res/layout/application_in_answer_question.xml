@@ -69,8 +69,6 @@
             android:text="USER"
             android:textColor="@color/blue"
             android:textSize="@dimen/contacts_text_size" />
-
-
     </LinearLayout>
 
     <com.beardedhen.androidbootstrap.BootstrapButton
@@ -85,7 +83,7 @@
         app:bootstrapSize="lg"
         app:buttonMode="regular"
         app:showOutline="false"
-        app:roundedCorners="true"
+        app:roundedCorners="false"
         />
 
 </FrameLayout>
