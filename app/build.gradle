@@ -93,6 +93,9 @@ dependencies {
     //Library for ExpansionPanel
     compile 'com.github.florent37:expansionpanel:1.0.7'
 
+    //Bootstrap
+    compile 'com.beardedhen:androidbootstrap:2.3.2'
+
 
 }
 

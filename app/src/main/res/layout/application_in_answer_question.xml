@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/row_padding_vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/row_padding_vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/row_padding_vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/row_padding_vertical"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/white"
+        >
 
 
     <RelativeLayout
@@ -21,27 +33,22 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:text="Title"
             android:textColor="@color/almostBlack"
             android:textSize="16dp"
             android:textStyle="bold" />
-
-        <!--<View android:layout_width="fill_parent" android:layout_height="1dp" android:background="@color/blue" />-->
 
         <TextView
             android:id="@+id/timestamp_answer_questions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:text="28.1002.1233"
             android:textColor="@color/black"
             android:textSize="12sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
-    <View android:layout_width="230dp" android:layout_height="1dp" android:background="@color/blue" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/tags_recycle_view"
@@ -50,28 +57,35 @@
             android:layout_marginTop="5dp"
             android:visibility="visible"/>
 
-    <TextView
-        android:id="@+id/application_price"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/border"
-
-        android:textColor="@color/red" />
 
         <TextView
             android:id="@+id/contact_info"
-            android:textSize="@dimen/contacts_text_size"
-            android:text="USER"
-            android:textColor="@color/blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="right"
             android:paddingTop="30dp"
-            />
-    </RelativeLayout>
+            android:text="USER"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/contacts_text_size" />
 
 
+    </LinearLayout>
 
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/application_price"
+        android:text="30$"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="5dp"
+        android:clickable="false"
+        app:bootstrapBrand="success"
+        app:bootstrapSize="lg"
+        app:buttonMode="regular"
+        app:showOutline="false"
+        app:roundedCorners="true"
+        />
 
-</LinearLayout>
+</FrameLayout>

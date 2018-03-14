@@ -88,8 +88,8 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
        // holder.recyclerView.setHasFixedSize(true);
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(context);
         holder.recyclerView.setLayoutManager(layoutManager);
-        layoutManager.setFlexDirection(FlexDirection.ROW);
-        layoutManager.setJustifyContent(JustifyContent.CENTER);
+        layoutManager.setFlexDirection(FlexDirection.COLUMN);
+        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
         holder.recyclerView.setLayoutManager(layoutManager);
         TagAdapter adapter = new TagAdapter(application.getQuestion().getSkills());
         holder.recyclerView.setAdapter(adapter);
