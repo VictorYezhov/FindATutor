@@ -39,8 +39,8 @@
             android:id="@+id/ask_discript"
             android:layout_width="match_parent"
             android:layout_height="267dp"
-            android:ems="10"
             android:drawableBottom="@color/black"
+            android:ems="10"
             android:inputType="textMultiLine" />
 
 

@@ -1,8 +1,10 @@
 package fatproject.fragments;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,6 +36,12 @@ import com.github.florent37.expansionpanel.ExpansionHeader;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.willy.ratingbar.ScaleRatingBar;
 
 import java.io.File;
@@ -48,6 +56,7 @@ import butterknife.ButterKnife;
 import fatproject.Helpers.ImageSaver;
 import fatproject.SendingForms.LoginForm;
 import fatproject.activities.FragmentDispatcher;
+import fatproject.activities.MainActivity;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ChipAdapter;
 import fatproject.adapter.JobAdapter;
@@ -125,6 +134,8 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     @BindView(R.id.profile_name)
     TextView username;
 
+
+
     @BindView(R.id.profile_surname)
     TextView userSurname;
 
@@ -169,6 +180,12 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
     @BindView(R.id.accountScrollView)
     ScrollView accountScrollView;
+
+    @BindView(R.id.userCoutry)
+    TextView userCountry;
+
+    @BindView(R.id.country_flag)
+    ImageView flag;
 
     private static final String EMPTY_STRING = "";
 
@@ -430,7 +447,27 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         change_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openGallery();
+                Dexter.withActivity(Account.this.getActivity())
+                        .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        .withListener(new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted(PermissionGrantedResponse response) {
+                                openGallery();
+                            }
+
+                            @Override
+                            public void onPermissionDenied(PermissionDeniedResponse response) {
+                                System.err.println("PESMISSION DENIED");
+                                if (response.isPermanentlyDenied()) {
+                                    System.err.println(response.getPermissionName());
+                                }
+                            }
+
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                                token.continuePermissionRequest();
+                            }
+                        }).check();
             }
         });
 
@@ -566,7 +603,17 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         userSurname.setText(user.getFamilyName());
         //surnameNavigator.setText(user.getFamilyName());
         userNumber.setText(user.getMobileNumber());
-        userCity.setText(user.getAddress());
+        userCity.setText(user.getCity().getName());
+        userCountry.setText(user.getCity().getCountry().getName());
+        System.err.println(user.getCity().getCountry().getCode());
+
+        Resources resources = this.getContext().getResources();
+
+        int resourceId =resources.getIdentifier(user.getCity().getCountry().getCode(), "drawable",
+                MainAplication.getContext().getPackageName());
+
+        flag.setImageResource(resourceId);
+
 
     }
 

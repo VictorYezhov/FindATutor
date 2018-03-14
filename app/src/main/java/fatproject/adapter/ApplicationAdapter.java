@@ -110,7 +110,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
         }
         holder.timestamp.setText(new SimpleDateFormat("dd-MM-yyyy HH:mm").
                 format(oldFormatedDate));
-        holder.application_price.setText("50$");
+        holder.application_price.setText("500$");
 
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override

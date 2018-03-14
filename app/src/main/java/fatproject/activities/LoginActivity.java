@@ -204,7 +204,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 System.out.println(response.body());
                 if(response.body() != null){
                     MainAplication.saveCurrentUser(response.body());
-                    System.err.println(response.body().getName());
+                    System.err.println(response.body().getName()+" " + response.body().getCity());
                     new android.os.Handler().postDelayed(
                             new Runnable() {
                                 public void run() {

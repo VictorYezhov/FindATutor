@@ -21,6 +21,7 @@ public class User {
     private int rating;
     private String address;
     private String mobileNumber;
+    private City city;
 
     private Set<Skill> skills;
 
@@ -98,5 +99,13 @@ public class User {
 
     public void setSkills(Set<Skill> skills) {
         this.skills = skills;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 }
