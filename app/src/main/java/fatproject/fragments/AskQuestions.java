@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -15,6 +16,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.jaredrummler.materialspinner.MaterialSpinner;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.activities.MainAplication;
@@ -34,12 +39,17 @@ public class AskQuestions extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    @BindView(R.id.categories_choice)
-    Spinner spinner;
-    @BindView(R.id.ask_discript)
-    EditText discription;
-    @BindView(R.id.category_text)
-    TextView textView;
+//    @BindView(R.id.categories_choice)
+//    Spinner spinner;
+
+//    @BindView(R.id.ask_discript)
+//    EditText discription;
+
+    @BindView(R.id.spinnerCategory)
+    MaterialSpinner spinnerCategory;
+
+    @BindView(R.id.topic_ask_question)
+    BootstrapEditText topicAskQuestion;
 
 
     // TODO: Rename and change types of parameters
@@ -96,56 +106,58 @@ public class AskQuestions extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        discription.setActivated(false);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(),
-                R.array.categories, android.R.layout.simple_spinner_item);
+        //------------SpinerCategory----------------
+        spinnerCategory.setItems("Choose category", "English", "History", "Biology", "Math");
+        spinnerCategory.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinner.setAdapter(adapter);
-
-
-
-
-
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-
-
-                    if(spinner.getSelectedItem().toString().
-                            equals(AskQuestions.this.getContext().getResources().getString(R.string.chose_please))){
-                        discription.setActivated(false);
-                    }else {
-                        textView.setVisibility(View.GONE);
-               //         discription.setBackgroundColor(AskQuestions.this.getContext().getResources().getColor(R.color.accent));
-                        discription.setActivated(true);
-                    }
-                    Toast.makeText(AskQuestions.this.getContext(), spinner.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
-                discription.setActivated(false);
+            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                Snackbar snackbar;
+                snackbar = Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG);
+                View snackBarView = snackbar.getView();
+                snackBarView.setBackgroundColor(Color.WHITE);
+                snackbar.show();
 
             }
         });
+
+
+        //discription.setActivated(false);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(),
+//                R.array.categories, android.R.layout.simple_spinner_item);
+//
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        spinner.setAdapter(adapter);
+//
+//
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view,
+//                                       int position, long id) {
+//
+//
+//                    if(spinner.getSelectedItem().toString().
+//                            equals(AskQuestions.this.getContext().getResources().getString(R.string.chose_please))){
+//                        discription.setActivated(false);
+//                    }else {
+//                        //textView.setVisibility(View.GONE);
+//               //         discription.setBackgroundColor(AskQuestions.this.getContext().getResources().getColor(R.color.accent));
+//                        discription.setActivated(true);
+//                    }
+//                    Toast.makeText(AskQuestions.this.getContext(), spinner.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                // TODO Auto-generated method stub
+//                discription.setActivated(false);
+//
+//            }
+//        });
         return view;
 
     }
-
-
-
-
-
-
-
-
-
 
     @Override
     public void onAttach(Context context) {
@@ -173,62 +185,62 @@ public class AskQuestions extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void initSpinner(){
-
-
-        // Initializing an ArrayAdapter
-        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getContext(),
-                R.array.categories, android.R.layout.simple_spinner_item){
-            @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if(position == 0){
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                }
-                else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        spinner.setAdapter(spinnerArrayAdapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
-                // If user change the default selection
-                // First item is disable and it is used for hint
-                if(position > 0){
-                    // Notify the selected item text
-                    Toast.makeText
-                            (MainAplication.getContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-    }
+//    private void initSpinner(){
+//
+//
+//        // Initializing an ArrayAdapter
+//        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getContext(),
+//                R.array.categories, android.R.layout.simple_spinner_item){
+//            @Override
+//            public boolean isEnabled(int position){
+//                if(position == 0)
+//                {
+//                    // Disable the first item from Spinner
+//                    // First item will be use for hint
+//                    return false;
+//                }
+//                else
+//                {
+//                    return true;
+//                }
+//            }
+//            @Override
+//            public View getDropDownView(int position, View convertView,
+//                                        ViewGroup parent) {
+//                View view = super.getDropDownView(position, convertView, parent);
+//                TextView tv = (TextView) view;
+//                if(position == 0){
+//                    // Set the hint text color gray
+//                    tv.setTextColor(Color.GRAY);
+//                }
+//                else {
+//                    tv.setTextColor(Color.BLACK);
+//                }
+//                return view;
+//            }
+//        };
+//        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        spinner.setAdapter(spinnerArrayAdapter);
+//
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                String selectedItemText = (String) parent.getItemAtPosition(position);
+//                // If user change the default selection
+//                // First item is disable and it is used for hint
+//                if(position > 0){
+//                    // Notify the selected item text
+//                    Toast.makeText
+//                            (MainAplication.getContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+//                            .show();
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//
+//    }
 }

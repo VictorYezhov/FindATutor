@@ -96,6 +96,9 @@ dependencies {
     //Bootstrap
     compile 'com.beardedhen:androidbootstrap:2.3.2'
 
+    //Spiner
+    compile 'com.jaredrummler:material-spinner:1.2.4'
+
 
 }
 
