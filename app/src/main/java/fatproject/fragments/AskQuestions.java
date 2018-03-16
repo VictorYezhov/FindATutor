@@ -17,13 +17,22 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.activities.MainAplication;
+import fatproject.entity.Question;
+import fatproject.entity.Skill;
 import fatproject.findatutor.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,17 +48,17 @@ public class AskQuestions extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-//    @BindView(R.id.categories_choice)
-//    Spinner spinner;
-
-//    @BindView(R.id.ask_discript)
-//    EditText discription;
-
-    @BindView(R.id.spinnerCategory)
-    MaterialSpinner spinnerCategory;
-
     @BindView(R.id.topic_ask_question)
     BootstrapEditText topicAskQuestion;
+
+    @BindView(R.id.description_ask_question)
+    BootstrapEditText descriptionAskQuestion;
+
+    @BindView(R.id.price_ask_question)
+    BootstrapEditText priceAskQuestion;
+
+    @BindView(R.id.ButtonAskQuestion)
+    BootstrapButton buttonAskQuestion;
 
 
     // TODO: Rename and change types of parameters
@@ -106,57 +115,43 @@ public class AskQuestions extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        //------------SpinerCategory----------------
-        spinnerCategory.setItems("Choose category", "English", "History", "Biology", "Math");
-        spinnerCategory.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        Set<Skill> skillSetTest = new HashSet<>();
 
-            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar snackbar;
-                snackbar = Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG);
-                View snackBarView = snackbar.getView();
-                snackBarView.setBackgroundColor(Color.WHITE);
-                snackbar.show();
 
+
+
+        final Question newQuestion = new Question(topicAskQuestion.getText().toString(), descriptionAskQuestion.getText().toString(), skillSetTest, 7);
+
+        buttonAskQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendNewQuestion(newQuestion);
             }
         });
 
+        //----How to implement snackbar------
+//        Snackbar snackbar;
+//        snackbar = Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG);
+//        View snackBarView = snackbar.getView();
+//        snackBarView.setBackgroundColor(Color.WHITE);
+//        snackbar.show();
 
-        //discription.setActivated(false);
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(),
-//                R.array.categories, android.R.layout.simple_spinner_item);
-//
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//
-//        spinner.setAdapter(adapter);
-//
-//
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view,
-//                                       int position, long id) {
-//
-//
-//                    if(spinner.getSelectedItem().toString().
-//                            equals(AskQuestions.this.getContext().getResources().getString(R.string.chose_please))){
-//                        discription.setActivated(false);
-//                    }else {
-//                        //textView.setVisibility(View.GONE);
-//               //         discription.setBackgroundColor(AskQuestions.this.getContext().getResources().getColor(R.color.accent));
-//                        discription.setActivated(true);
-//                    }
-//                    Toast.makeText(AskQuestions.this.getContext(), spinner.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//                // TODO Auto-generated method stub
-//                discription.setActivated(false);
-//
-//            }
-//        });
         return view;
 
+    }
+
+    public void sendNewQuestion(Question question){
+        MainAplication.getServerRequests().sendAskingQuestion(question, MainAplication.getCurrentUser().getId()).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.err.println(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -185,62 +180,4 @@ public class AskQuestions extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-//    private void initSpinner(){
-//
-//
-//        // Initializing an ArrayAdapter
-//        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this.getContext(),
-//                R.array.categories, android.R.layout.simple_spinner_item){
-//            @Override
-//            public boolean isEnabled(int position){
-//                if(position == 0)
-//                {
-//                    // Disable the first item from Spinner
-//                    // First item will be use for hint
-//                    return false;
-//                }
-//                else
-//                {
-//                    return true;
-//                }
-//            }
-//            @Override
-//            public View getDropDownView(int position, View convertView,
-//                                        ViewGroup parent) {
-//                View view = super.getDropDownView(position, convertView, parent);
-//                TextView tv = (TextView) view;
-//                if(position == 0){
-//                    // Set the hint text color gray
-//                    tv.setTextColor(Color.GRAY);
-//                }
-//                else {
-//                    tv.setTextColor(Color.BLACK);
-//                }
-//                return view;
-//            }
-//        };
-//        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-//        spinner.setAdapter(spinnerArrayAdapter);
-//
-//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                String selectedItemText = (String) parent.getItemAtPosition(position);
-//                // If user change the default selection
-//                // First item is disable and it is used for hint
-//                if(position > 0){
-//                    // Notify the selected item text
-//                    Toast.makeText
-//                            (MainAplication.getContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-//                            .show();
-//                }
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-//
-//    }
 }

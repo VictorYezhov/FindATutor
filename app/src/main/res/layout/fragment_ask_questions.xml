@@ -20,22 +20,6 @@
             android:layout_marginBottom="5dp"
             />
 
-        <!--<Spinner-->
-            <!--android:id="@+id/categories_choice"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content" />-->
-
-        <com.jaredrummler.materialspinner.MaterialSpinner
-            android:id="@+id/spinnerCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            />
-
-
         <com.beardedhen.androidbootstrap.BootstrapEditText
             android:layout_width="match_parent"
             android:layout_height="267dp"
@@ -44,6 +28,20 @@
             android:ems="50"
             android:inputType="textMultiLine"
             android:drawableBottom="@color/black"
+            app:bootstrapSize="md"
+            app:bootstrapBrand="info"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            />
+
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/price_ask_question"
+            android:inputType="phone"
+            android:hint="Price"
             app:bootstrapSize="md"
             app:bootstrapBrand="info"
             android:layout_marginTop="5dp"

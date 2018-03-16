@@ -5,6 +5,8 @@ package fatproject.entity;
  */
 
 
+import android.content.Intent;
+
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,29 +21,31 @@ public class Question {
     private String title;
     private String discription;
     private Timestamp dateTime;
-
+    private Integer price;
 
     private Set<Skill> skills;
 
+    public Question(){
+        this.id = null;
+        this.title = "Title";
+        this.dateTime = getDateTime();
 
-    public Question(String title, String discription, User user, Set<Skill> skills, Timestamp DateTime) {
+        this.skills = new HashSet<>();
+    }
+
+    public Question(String title, String discription, Set<Skill> skills, Integer price) {
         this.title = title;
         this.discription = discription;
         this.skills = skills;
-        this.dateTime = DateTime;
+        this.price = price;
     }
 
-    public Question(String title, String discription) {
+
+
+    public Question(String title, String discription){
         this.title = title;
         this.discription = discription;
-
     }
-
-    public Question() {
-        skills = new HashSet<>();
-        dateTime = getDateTime();
-    }
-
 
     public Long getId() {
         return id;
@@ -59,15 +63,21 @@ public class Question {
         this.title = title;
     }
 
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
     public String getDiscription() {
         return discription;
     }
 
     public void setDiscription(String discription) {
-        discription = discription;
+        this.discription = discription;
     }
-
-
 
 
     public Set<Skill> getSkills() {
@@ -91,7 +101,7 @@ public class Question {
         return "Question{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", Discription='" + discription + '\'' +
+                ", discription='" + discription + '\'' +
                 ", dateTime=" + dateTime +
                 ", skills=" + skills +
                 '}';

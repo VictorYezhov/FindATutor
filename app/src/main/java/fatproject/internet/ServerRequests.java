@@ -10,6 +10,7 @@ import fatproject.SendingForms.SendSkillsForm;
 import fatproject.SendingForms.UserInformationForm;
 import fatproject.entity.Job;
 import fatproject.entity.Message;
+import fatproject.entity.Question;
 import fatproject.entity.Skill;
 import fatproject.entity.User;
 import okhttp3.MultipartBody;
@@ -121,6 +122,10 @@ public interface ServerRequests {
 
     @POST("/sendNewJob{id}")
     Call<String> updateJobs(@Body Job job, @Path("id") Long id);
+
+    @POST("/sendAskingQuestion{id}")
+    Call<String> sendAskingQuestion(@Body Question question, @Path("id") Long id);
+
 
     /**
      * Get list of jobs
