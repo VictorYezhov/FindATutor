@@ -115,17 +115,13 @@ public class AskQuestions extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        Set<Skill> skillSetTest = new HashSet<>();
-
-
-
-
-        final Question newQuestion = new Question(topicAskQuestion.getText().toString(), descriptionAskQuestion.getText().toString(), skillSetTest, 7);
-
         buttonAskQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Set<Skill> skillSetTest = new HashSet<>();
+                Question newQuestion = new Question(topicAskQuestion.getText().toString(), descriptionAskQuestion.getText().toString(), skillSetTest, 7);
                 sendNewQuestion(newQuestion);
+                System.err.println(newQuestion.getTitle());
             }
         });
 
