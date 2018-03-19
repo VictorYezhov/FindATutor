@@ -101,6 +101,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
         holder.contact.setText(name.toString());
         adapter.notifyDataSetChanged();
         holder.title.setText(application.getQuestion().getTitle());
+        holder.application_price.setText(application.getQuestion().getPrice().toString()+"$");
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date oldFormatedDate = null;
@@ -111,7 +112,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
         }
         holder.timestamp.setText(new SimpleDateFormat("dd-MM-yyyy HH:mm").
                 format(oldFormatedDate));
-        holder.application_price.setText("500$");
+
 
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override

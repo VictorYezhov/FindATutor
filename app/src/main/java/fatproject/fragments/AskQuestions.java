@@ -21,6 +21,8 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -104,7 +106,6 @@ public class AskQuestions extends Fragment {
         // Inflate the layout for this fragment
 
 
-
         final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.Theme_Design_Light);
 
         // clone the inflater using the ContextThemeWrapper
@@ -118,22 +119,52 @@ public class AskQuestions extends Fragment {
         buttonAskQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Set<Skill> skillSetTest = new HashSet<>();
-                Question newQuestion = new Question(topicAskQuestion.getText().toString(), descriptionAskQuestion.getText().toString(), skillSetTest, 7);
-                sendNewQuestion(newQuestion);
-                System.err.println(newQuestion.getTitle());
+
+                Integer price;
+
+                try{
+                    price = Integer.parseInt(priceAskQuestion.getText().toString());
+                }catch (Exception ex){
+                    price = -1;
+                }
+
+                Question newQuestion = new Question(topicAskQuestion.getText().toString(),
+                                                    descriptionAskQuestion.getText().toString(),
+                                                    skillSetTest,
+                                                    price);
+
+                if(newQuestion.getTitle().equals("")){
+                    showSnackbar("Enter the topic of your question.", view);
+                }else if (newQuestion.getDiscription().equals("")){
+                    showSnackbar("Enter the description of your question.", view);
+                }else if(newQuestion.getPrice()<0){
+                    showSnackbar("Enter the price of your question.", view);
+                }else{
+                    sendNewQuestion(newQuestion);
+                    showSnackbar("Question:  '" + newQuestion.getTitle() + "' Was added.", view);
+                    topicAskQuestion.setText("");
+                    descriptionAskQuestion.setText("");
+                    priceAskQuestion.setText("");
+                    skillSetTest.clear();
+                }
+
+
+
             }
         });
 
-        //----How to implement snackbar------
-//        Snackbar snackbar;
-//        snackbar = Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG);
-//        View snackBarView = snackbar.getView();
-//        snackBarView.setBackgroundColor(Color.WHITE);
-//        snackbar.show();
-
         return view;
 
+    }
+
+    public void showSnackbar(String element, View view){
+        Snackbar snackbar;
+        snackbar = Snackbar.make(view, element, Snackbar.LENGTH_LONG);
+        View snackBarView = snackbar.getView();
+        snackBarView.setBackgroundColor(Color.WHITE);
+        snackbar.show();
     }
 
     public void sendNewQuestion(Question question){
