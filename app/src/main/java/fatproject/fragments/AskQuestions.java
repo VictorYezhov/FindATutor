@@ -10,19 +10,10 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
-import com.jaredrummler.materialspinner.MaterialSpinner;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 

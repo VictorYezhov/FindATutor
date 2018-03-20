@@ -98,10 +98,11 @@ public class ApplicationDiscription extends Fragment {
         String nameStr = questionForm.getUserName() + " " + questionForm.getUserSurname();
         userNameAndSureName.setText(nameStr);
         Typeface munich = Typeface.createFromAsset(getActivity().getAssets(), "fonts/munich.ttf");
-        userNameAndSureName.setTypeface(munich);
+        Typeface impact = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Impact.ttf");
+        userNameAndSureName.setTypeface(impact);
 
         title.setText(questionForm.getQuestion().getTitle());
-        Typeface peaceSan = Typeface.createFromAsset(getActivity().getAssets(), "fonts/PeaceSans.ttf");
+        Typeface peaceSan = Typeface.createFromAsset(getActivity().getAssets(), "fonts/RoyalCrescent.otf");
         title.setTypeface(peaceSan);
 
         String priceStr = questionForm.getQuestion().getPrice().toString() + "$";
