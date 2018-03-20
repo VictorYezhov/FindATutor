@@ -1,16 +1,23 @@
 package fatproject.fragments;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.IncomingForms.QuestionForm;
+import fatproject.activities.MainAplication;
+import fatproject.entity.Question;
 import fatproject.findatutor.R;
 import io.paperdb.Paper;
 
@@ -29,10 +36,20 @@ public class ApplicationDiscription extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    @BindView(R.id.userNameAndSureName)
+    TextView userNameAndSureName;
+
+    @BindView(R.id.app_title)
+    TextView title;
+
+    @BindView(R.id.priceApplicationDescription)
+    BootstrapButton price;
 
     @BindView(R.id.app_discription)
-    TextView textView;
+    TextView description;
 
+    @BindView(R.id.description_app_word)
+    TextView descriptionWord;
 
 
     private Contacts.OnFragmentInteractionListener mListener;
@@ -69,14 +86,31 @@ public class ApplicationDiscription extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_appication_discription, container, false);
         ButterKnife.bind(this, view);
         String key = this.getResources().getString(R.string.current_dicription_choise);
-       // textView.setText((String)Paper.book().read(key));
+
+        QuestionForm questionForm = Paper.book().read(key);
+
+        String nameStr = questionForm.getUserName() + " " + questionForm.getUserSurname();
+        userNameAndSureName.setText(nameStr);
+        Typeface munich = Typeface.createFromAsset(getActivity().getAssets(), "fonts/munich.ttf");
+        userNameAndSureName.setTypeface(munich);
+
+        title.setText(questionForm.getQuestion().getTitle());
+        Typeface peaceSan = Typeface.createFromAsset(getActivity().getAssets(), "fonts/PeaceSans.ttf");
+        title.setTypeface(peaceSan);
+
+        String priceStr = questionForm.getQuestion().getPrice().toString() + "$";
+        price.setText(priceStr);
+
+        descriptionWord.setTypeface(peaceSan);
+
+        description.setText(questionForm.getQuestion().getDiscription());
+
         return view;
     }
 

@@ -104,8 +104,6 @@ public class AskQuestions extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
         final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.Theme_Design_Light);
 
         // clone the inflater using the ContextThemeWrapper
@@ -137,20 +135,23 @@ public class AskQuestions extends Fragment {
 
                 if(newQuestion.getTitle().equals("")){
                     showSnackbar("Enter the topic of your question.", view);
+                }else if(newQuestion.getTitle().length() > 97){
+                    showSnackbar("Title should be short. And all details you" +
+                            " can explain in description", view);
+                    topicAskQuestion.setText("");
                 }else if (newQuestion.getDiscription().equals("")){
                     showSnackbar("Enter the description of your question.", view);
-                }else if(newQuestion.getPrice()<0){
+                }else if(newQuestion.getPrice() < 0){
                     showSnackbar("Enter the price of your question.", view);
                 }else{
                     sendNewQuestion(newQuestion);
-                    showSnackbar("Question:  '" + newQuestion.getTitle() + "' Was added.", view);
+                    showSnackbar("Question:  '" + newQuestion.getTitle() +
+                            "' Was added.", view);
                     topicAskQuestion.setText("");
                     descriptionAskQuestion.setText("");
                     priceAskQuestion.setText("");
                     skillSetTest.clear();
                 }
-
-
 
             }
         });
@@ -160,6 +161,9 @@ public class AskQuestions extends Fragment {
     }
 
     public void showSnackbar(String element, View view){
+        /**
+         *This method show on the screen Snackbar (little field in the bottom of user`s screen.)
+         */
         Snackbar snackbar;
         snackbar = Snackbar.make(view, element, Snackbar.LENGTH_LONG);
         View snackBarView = snackbar.getView();
