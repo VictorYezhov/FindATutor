@@ -9,8 +9,7 @@ public class Job {
     private Long id;
     private String name;
     private Type type;
-
-    private String description;
+    private Position position;
 
     public Job() {
     }
@@ -24,11 +23,7 @@ public class Job {
         this.type = type;
     }
 
-    public Job(String name, Type type, String description) {
-        this.name = name;
-        this.type = type;
-        this.description = description;
-    }
+
 
     public String getName() {
         return name;
@@ -54,12 +49,21 @@ public class Job {
         this.type = type;
     }
 
-    public String getDescription() {
-        return description;
+//    public Position getDescription() {
+//        return description;
+//    }
+//
+//    public void setDescription(Position description) {
+//        this.description = description;
+//    }
+
+
+    public Position getDescription() {
+        return position;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(Position description) {
+        this.position = description;
     }
 
     @Override

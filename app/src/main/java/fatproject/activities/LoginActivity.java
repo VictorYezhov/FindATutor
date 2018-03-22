@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -44,7 +43,6 @@ import fatproject.entity.User;
 import fatproject.findatutor.R;
 import fatproject.validation.LoginValidator;
 import fatproject.validation.Validator;
-import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -177,7 +175,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressDialog1.setMessage("Validating information...");
         progressDialog1.show();
 
-        if (!loginValidator.validate(this)) {
+        if (!loginValidator.validateActivity(this)) {
             progressDialog1.setMessage("Validating error...");
             progressDialog1.show();
             onLoginFailed();

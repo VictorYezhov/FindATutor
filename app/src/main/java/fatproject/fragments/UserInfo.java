@@ -152,11 +152,10 @@ public class UserInfo extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         View view = inflater.inflate(R.layout.fragment_user_info, container, false);
         ButterKnife.bind(this, view);
         update();
+
         setFonts();
+
         swipeRefreshLayout.setOnRefreshListener(this);
-
-
-
 
         return view;
     }
@@ -174,7 +173,6 @@ public class UserInfo extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         mListener = null;
     }
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
     @Override

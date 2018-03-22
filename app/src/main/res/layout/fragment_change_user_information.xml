@@ -41,7 +41,29 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/countryInputLayout"
+                app:hintTextAppearance="@style/MyHintText"
+                app:errorEnabled="true"
+                android:textColorHint="@color/black">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/MyEditText"
+                    android:id="@+id/editTextCountry"
+                    android:completionThreshold="1"
+                    android:imeOptions="actionGo"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:hint="Country"
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/cityInputLayout"
+                android:visibility="visible"
                 app:hintTextAppearance="@style/MyHintText"
                 app:errorEnabled="true"
                 android:textColorHint="@color/black">
@@ -54,7 +76,7 @@
                     android:imeOptions="actionGo"
                     android:inputType="text"
                     android:singleLine="true"
-                    android:hint="City"
+                    android:hint="@string/City"
                     />
             </android.support.design.widget.TextInputLayout>
 

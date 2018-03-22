@@ -8,6 +8,7 @@ import fatproject.IncomingForms.QuestionForm;
 import fatproject.SendingForms.LoginForm;
 import fatproject.SendingForms.SendSkillsForm;
 import fatproject.SendingForms.UserInformationForm;
+import fatproject.entity.Country;
 import fatproject.entity.Job;
 import fatproject.entity.Message;
 import fatproject.entity.Question;
@@ -133,9 +134,23 @@ public interface ServerRequests {
     @GET("/jobs")
     Call<Set<Job>> getJobs(@Query("id") String id);
 
+    /**
+     * Loads user image from server
+     * @param id  user id
+     * @return ResponseBody with byte[]
+     */
     @GET("/getImage{id}")
     Call<ResponseBody> getUserImage(@Path("id") Long id);
 
+    /**
+     * Get list of all available questions
+     * @return
+     */
     @GET("/getAllQuestions")
     Call<List<QuestionForm>> getAllQuestions();
+
+    @GET("/getAllCountries")
+    Call<List<Country>> getAllCountries();
+
+
 }

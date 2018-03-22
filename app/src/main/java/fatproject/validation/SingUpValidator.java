@@ -1,6 +1,7 @@
 package fatproject.validation;
 
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import fatproject.activities.SingUpActivity;
 
@@ -15,7 +16,7 @@ public class SingUpValidator implements Validator {
     }
 
     @Override
-    public boolean validate(AppCompatActivity activity) {
+    public boolean validateActivity(AppCompatActivity activity) {
 
         boolean valid = true;
 
@@ -80,5 +81,10 @@ public class SingUpValidator implements Validator {
         return valid;
 
 
+    }
+
+    @Override
+    public boolean validateFragment(View fragment) {
+        return false;
     }
 }
