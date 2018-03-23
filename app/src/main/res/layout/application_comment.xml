@@ -1,44 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_list_row"
+    android:clickable="true"
+    android:focusable="true"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:paddingBottom="16dp"
+    android:paddingLeft="?listPreferredItemPaddingLeft"
+    android:paddingRight="?listPreferredItemPaddingRight"
+    android:paddingTop="16dp">
 
-        <!--<ImageView-->
-            <!--android:layout_width="80dp"-->
-            <!--android:layout_height="80dp"-->
-            <!--android:id="@+id/imageOfUserInComment"/>-->
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/message_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/nameOfUserThatLeavedComment"
-            android:text="Name Surename"
-            android:textColor="@color/black"/>
+            android:clickable="true"
+            android:orientation="vertical"
+            android:paddingLeft="72dp"
+            android:paddingRight="16dp">
 
-        <TextView
+                <TextView
+                    android:id="@+id/nameOfUserThatLeavedComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textOfComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <!--<TextView-->
+                    <!--android:id="@+id/textOfComment_2"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:ellipsize="end"-->
+                    <!--android:lines="1"-->
+                    <!--android:textColor="@color/grey"-->
+                    <!--android:textSize="14sp" />-->
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/icon_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/icon_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/bg_circle" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_done"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/icon_front"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/icon_profile"
+                            android:layout_width="40dp"
+                            android:src="@drawable/max"
+                            android:layout_height="40dp" />
+
+        </RelativeLayout>
+
+        </RelativeLayout>
+
+        <TextView
             android:id="@+id/timeOfComment"
-            android:text="28.08.1999"
-            android:textColor="@color/black"
-            />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textOfComment"
-            android:text="commentText"
-            android:textColor="@color/black"/>
-
+            android:layout_alignParentRight="true"
+            android:textColor="@color/blue"
+            android:textSize="12sp"
+            android:textStyle="bold" />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/priceOfComment"
-            android:text="price"
-            android:textColor="@color/black"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/red"
+            android:textSize="22sp" />
 
 
-</LinearLayout>
+</RelativeLayout>

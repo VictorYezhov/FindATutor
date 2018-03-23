@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import fatproject.IncomingForms.CommentForm;
@@ -53,6 +57,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.application_comment, parent, false);
 
+        System.out.println("Comment adapter created");
         return new MyViewHolder(itemView);
     }
 
@@ -63,9 +68,19 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         //Bitmap bitmap = BitmapFactory.decodeByteArray(commentForm.getImage(), 0, commentForm.getImage().length);
         String nameAndSureName = commentForm.getUserName() + " " + commentForm.getUserSurname();
 
-        holder.dateTime.setText(commentForm.getComment().getDateTime().toString());
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date oldFormatedDate = null;
+        try {
+            oldFormatedDate = formatter.parse(commentForm.getComment().getDateTime().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        holder.dateTime.setText(new SimpleDateFormat("dd-MM HH:mm").
+                format(oldFormatedDate));
+       //holder.dateTime.setText(commentForm.getComment().getDateTime().toString());
         holder.textComment.setText(commentForm.getComment().getTextComment());
-        holder.price.setText(commentForm.getComment().getPrice());
+        holder.price.setText(String.valueOf(commentForm.getComment().getPrice()));
         holder.name.setText(nameAndSureName);
         //holder.userImage.setImageBitmap(bitmap);
 

@@ -114,6 +114,7 @@ public class ApplicationDiscription extends Fragment {
         ButterKnife.bind(this, view);
         String key = this.getResources().getString(R.string.current_dicription_choise);
 
+        getAllCommentsOfCurrentQuestion();
         QuestionForm questionForm = Paper.book().read(key);
 
         String nameStr = questionForm.getUserName() + " " + questionForm.getUserSurname();
@@ -137,14 +138,12 @@ public class ApplicationDiscription extends Fragment {
 
         commentAdapter = new CommentAdapter(commentList);
 
-        RecyclerView.LayoutManager commentLayoutManager = new LinearLayoutManager(this.getContext());
-        commentRecycler.setLayoutManager(commentLayoutManager);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        commentRecycler.setLayoutManager(mLayoutManager);
 
         commentRecycler.setItemAnimator(new DefaultItemAnimator());
 
         commentRecycler.setAdapter(commentAdapter);
-
-        getAllCommentsOfCurrentQuestion();
 
         commentAdapter.notifyDataSetChanged();
         //------------------------------------------------
@@ -168,6 +167,7 @@ public class ApplicationDiscription extends Fragment {
                 System.err.println("RESPONSE FROM COM");
                 commentList.clear();
                 commentList.addAll(response.body());
+                commentAdapter.notifyDataSetChanged();
                 System.err.println(commentList.size());
             }
 
