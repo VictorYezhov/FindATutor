@@ -15,13 +15,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.entity.User;
 import fatproject.findatutor.R;
-import fatproject.internet.RequestResult;
 import fatproject.internet.ServerConnector;
 import fatproject.validation.SingUpValidator;
 import fatproject.validation.Validator;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by Victor on 30.12.2017.
@@ -95,7 +91,7 @@ public class SingUpActivity  extends AppCompatActivity {
         progressDialog.setMessage("Validating information...");
         progressDialog.show();
 
-        if (!singUpValidator.validate(this)) {
+        if (!singUpValidator.validateActivity(this)) {
             progressDialog.setMessage("Validating error...");
             progressDialog.show();
             onSignupFailed();

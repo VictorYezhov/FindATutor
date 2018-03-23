@@ -559,6 +559,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         }
         jAdapter.notifyDataSetChanged();
         uAdapter.notifyDataSetChanged();
+        chipAdapter.notifyDataSetChanged();
 
         //-------------------------------------------------------------------------------------
         if(MainAplication.getUsersPhoto()!=null){
@@ -577,7 +578,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
         Resources resources = this.getContext().getResources();
 
-        int resourceId =resources.getIdentifier(user.getCity().getCountry().getCode(), "drawable",
+        int resourceId =resources.getIdentifier(user.getCity().getCountry().getCode().toLowerCase(), "drawable",
                 MainAplication.getContext().getPackageName());
 
         flag.setImageResource(resourceId);

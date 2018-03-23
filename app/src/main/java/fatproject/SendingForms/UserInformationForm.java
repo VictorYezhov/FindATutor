@@ -7,10 +7,16 @@ package fatproject.SendingForms;
 public class UserInformationForm {
     private String number;
     private String city;
+    private String country;
 
-    public UserInformationForm(String number, String city){
+
+    public UserInformationForm() {
+    }
+
+    public UserInformationForm(String number, String city, String country){
         this.number = number;
         this.city = city;
+        this.city = country;
     }
 
 
@@ -28,5 +34,13 @@ public class UserInformationForm {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

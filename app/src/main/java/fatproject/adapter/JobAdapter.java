@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import fatproject.activities.MainAplication;
 import fatproject.entity.Job;
 import fatproject.findatutor.R;
 
@@ -21,11 +22,12 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
     private List<Job> jobsList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView place;
+        public TextView place, description;
 
         public MyViewHolder(View view) {
             super(view);
             place = (TextView) view.findViewById(R.id.place_job);
+            description = view.findViewById(R.id.position_description);
         }
     }
 
@@ -47,6 +49,8 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Job job = jobsList.get(position);
         holder.place.setText(job.getName());
+
+        //holder.description.setText(MainAplication.getCurrentUser().getJobs().get(position).getDescription().getName());
     }
 
     @Override
