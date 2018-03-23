@@ -1,9 +1,12 @@
 package fatproject.internet;
 
+import org.w3c.dom.Comment;
+
 import java.io.File;
 import java.util.List;
 import java.util.Set;
 
+import fatproject.IncomingForms.CommentForm;
 import fatproject.IncomingForms.QuestionForm;
 import fatproject.SendingForms.LoginForm;
 import fatproject.SendingForms.SendSkillsForm;
@@ -126,6 +129,8 @@ public interface ServerRequests {
     @POST("/sendAskingQuestion{id}")
     Call<String> sendAskingQuestion(@Body Question question, @Path("id") Long id);
 
+    @GET("/getCommentsOfCurrentQuestion{id}")
+    Call<List<CommentForm>> getListOfCommentForms(@Path("id") Long id);
 
     /**
      * Get list of jobs

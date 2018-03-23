@@ -253,8 +253,8 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         jAdapter = new JobAdapter(onlyJobList);
         uAdapter = new JobAdapter(onlyUniverList);
 
-        RecyclerView.LayoutManager jLayoutManager = new LinearLayoutManager(getApplicationContext());
-        RecyclerView.LayoutManager uLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager jLayoutManager = new LinearLayoutManager(this.getContext());
+        RecyclerView.LayoutManager uLayoutManager = new LinearLayoutManager(this.getContext());
 
         recyclerViewJob.setLayoutManager(jLayoutManager);
         recyclerViewUniver.setLayoutManager(uLayoutManager);

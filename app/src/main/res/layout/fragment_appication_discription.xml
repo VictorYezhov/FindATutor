@@ -1,98 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F0F0F0">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:backgroundTint="@color/blue">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
-            >
+            android:layout_height="250dp"
+            android:backgroundTint="@color/blue">
 
-            <TextView
-                android:id="@+id/userNameAndSureName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_gravity="start"
-                />
-
-            <TextView
-                android:id="@+id/app_title"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                />
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                >
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/userNameAndSureName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:layout_gravity="start"
+                    />
 
-        <com.beardedhen.androidbootstrap.BootstrapButton
-            android:id="@+id/priceApplicationDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:clickable="false"
-            android:layout_gravity="bottom|end"
-            android:layout_marginBottom="10dp"
-            app:bootstrapBrand="success"
-            app:bootstrapSize="lg"
-            app:buttonMode="regular"
-            app:roundedCorners="false"
-            app:showOutline="false" />
+                <TextView
+                    android:id="@+id/app_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    />
 
-    </android.support.v7.widget.CardView>
+            </LinearLayout>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:backgroundTint="@color/white">
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/priceApplicationDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:clickable="false"
+                android:layout_gravity="bottom|end"
+                android:layout_marginBottom="10dp"
+                app:bootstrapBrand="success"
+                app:bootstrapSize="lg"
+                app:buttonMode="regular"
+                app:roundedCorners="false"
+                app:showOutline="false" />
 
-        <LinearLayout
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp">
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/white">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/description_app_word"
-                android:text="Description"
-                android:textSize="26sp"/>
-
-            <View
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginEnd="10dp"/>
-
-            <TextView
-                android:id="@+id/app_discription"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:layout_marginStart="5dp"
-                />
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/description_app_word"
+                    android:text="Description"
+                    android:textSize="26sp"/>
 
-    </android.support.v7.widget.CardView>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_marginEnd="10dp"/>
 
-</LinearLayout>
+                <TextView
+                    android:id="@+id/app_discription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="5dp"
+                    />
+
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/addCommentButton"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Add comment"/>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/commentRecycler">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+
+</ScrollView>
