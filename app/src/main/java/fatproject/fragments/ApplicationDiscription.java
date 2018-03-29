@@ -16,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,6 +142,13 @@ public class ApplicationDiscription extends Fragment {
         commentAdapter = new CommentAdapter(commentList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());
+        layoutManager.setFlexDirection(FlexDirection.COLUMN);
+        layoutManager.setJustifyContent(JustifyContent.CENTER);
+        commentRecycler.setLayoutManager(layoutManager);
+
+
         commentRecycler.setLayoutManager(mLayoutManager);
 
         commentRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -168,7 +178,7 @@ public class ApplicationDiscription extends Fragment {
                 commentList.clear();
                 commentList.addAll(response.body());
                 commentAdapter.notifyDataSetChanged();
-                System.err.println(commentList.size());
+
             }
 
             @Override
