@@ -91,11 +91,11 @@
                         android:id="@+id/plus_button"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
-                        android:layout_alignEnd="@+id/profile_image"
                         android:layout_alignParentBottom="true"
-                        app:backgroundTint="@color/blue"
+                        android:layout_toStartOf="@+id/open_photo"
                         android:elevation="6dp"
                         android:src="@drawable/ic_action_plus"
+                        app:backgroundTint="@color/blue"
                         app:pressedTranslationZ="12dp" />
 
                     <android.support.design.widget.FloatingActionButton
@@ -132,25 +132,23 @@
 
         </android.support.v7.widget.CardView>
 
-        <com.willy.ratingbar.ScaleRatingBar
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/RatingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            app:srb_clearRatingEnabled="true"
+            app:srb_clickable="false"
+            app:srb_drawableEmpty="@drawable/ic_star_border_black_24dp"
+            app:srb_drawableFilled="@drawable/ic_star_black_24dp"
+            app:srb_isIndicator="false"
             app:srb_numStars="5"
             app:srb_rating="0"
-            app:srb_starWidth="30dp"
+            app:srb_scrollable="false"
             app:srb_starHeight="30dp"
             app:srb_starPadding="3dp"
-            app:srb_stepSize="0.5"
-            app:srb_isIndicator="false"
-            app:srb_clickable="false"
-            app:srb_scrollable="false"
-            app:srb_clearRatingEnabled="true"
-            app:srb_drawableEmpty="@drawable/ic_star_border_black_24dp"
-            app:srb_drawableFilled="@drawable/ic_star_black_24dp">
-        </com.willy.ratingbar.ScaleRatingBar>
+            app:srb_starWidth="30dp"
+            app:srb_stepSize="0.5"></com.willy.ratingbar.ScaleRatingBar>
 
         <include layout="@layout/expansion_panel" />
 

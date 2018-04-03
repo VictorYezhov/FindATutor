@@ -6,23 +6,35 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.activities.MainAplication;
+import fatproject.adapter.ChipAdapter;
 import fatproject.entity.Question;
 import fatproject.entity.Skill;
 import fatproject.findatutor.R;
+import fatproject.validation.Validator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,6 +65,19 @@ public class AskQuestions extends Fragment {
     @BindView(R.id.ButtonAskQuestion)
     BootstrapButton buttonAskQuestion;
 
+    @BindView(R.id.skillsInNewQuestion)
+    RecyclerView recyclerView;
+
+    @BindView(R.id.addSkill)
+    AutoCompleteTextView addSkill;
+
+    ChipAdapter chipAdapter;
+
+    List<Skill> skills  = new ArrayList<>();
+
+
+
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -61,6 +86,7 @@ public class AskQuestions extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     public AskQuestions() {
+        chipAdapter = new ChipAdapter();
         // Required empty public constructor
     }
 
@@ -105,20 +131,45 @@ public class AskQuestions extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        layoutManager.setFlexDirection(FlexDirection.ROW);
+        layoutManager.setJustifyContent(JustifyContent.CENTER);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(chipAdapter);
+        chipAdapter.notifyDataSetChanged();
+
+
+        MainAplication.getServerRequests().getAllAvailableSkills().enqueue(new Callback<List<Skill>>() {
+            @Override
+            public void onResponse(Call<List<Skill>> call, Response<List<Skill>> response) {
+                if(response.body()!=null) {
+                    skills.addAll(response.body());
+                    addSkill.setAdapter(new ArrayAdapter<>(AskQuestions.this.getContext(),
+                            android.R.layout.simple_dropdown_item_1line, skills));
+
+                }else {
+
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Skill>> call, Throwable t) {
+
+                System.err.println("FAILERE DURING DOWNLOADING SKILLS");
+            }
+        });
+
         buttonAskQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Set<Skill> skillSetTest = new HashSet<>();
-
                 Integer price;
-
                 try{
                     price = Integer.parseInt(priceAskQuestion.getText().toString());
                 }catch (Exception ex){
                     price = -1;
                 }
-
                 Question newQuestion = new Question(topicAskQuestion.getText().toString(),
                                                     descriptionAskQuestion.getText().toString(),
                                                     skillSetTest,
@@ -143,7 +194,6 @@ public class AskQuestions extends Fragment {
                     priceAskQuestion.setText("");
                     skillSetTest.clear();
                 }
-
             }
         });
 

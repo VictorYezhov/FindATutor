@@ -40,6 +40,7 @@ public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ChipViewHolder
 
 
     public ChipAdapter() {
+        skillList = new ArrayList<>();
     }
     public ChipAdapter(Set<Skill> skillSet){
         this.skillList = new ArrayList<>();
