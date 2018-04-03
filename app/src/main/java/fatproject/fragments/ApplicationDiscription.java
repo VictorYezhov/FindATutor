@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
@@ -72,6 +73,9 @@ public class ApplicationDiscription extends Fragment {
 
     @BindView(R.id.addCommentButton)
     Button addCommentButton;
+
+    @BindView(R.id.editTextAddComment)
+    BootstrapEditText editTextAddComment;
 
     private CommentAdapter commentAdapter;
     private List<CommentForm> commentList = new ArrayList<>();
@@ -163,6 +167,8 @@ public class ApplicationDiscription extends Fragment {
             public void onClick(View view) {
                 //Comment comment = new Comment();
                 //sendCommentToServer(comment);
+                editTextAddComment.getText();
+                System.err.println(editTextAddComment.getText());
             }
         });
 
@@ -220,9 +226,5 @@ public class ApplicationDiscription extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-
-
-
 
 }
