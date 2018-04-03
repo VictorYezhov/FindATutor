@@ -19,10 +19,13 @@ import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.IncomingForms.QuestionForm;
+import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.entity.Question;
 import fatproject.entity.Skill;
 import fatproject.findatutor.R;
+import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -142,6 +145,14 @@ public class AskQuestions extends Fragment {
                     descriptionAskQuestion.setText("");
                     priceAskQuestion.setText("");
                     skillSetTest.clear();
+
+                    QuestionForm myQuestion = new QuestionForm(newQuestion,
+                            MainAplication.getCurrentUser().getId(),
+                            MainAplication.getCurrentUser().getName(),
+                            MainAplication.getCurrentUser().getFamilyName());
+                    Paper.book().write(MainAplication.getContext().getResources().getString(R.string.current_dicription_choise),
+                            myQuestion);
+                    FragmentDispatcher.launchFragment(ApplicationDiscription.class);
                 }
 
             }
