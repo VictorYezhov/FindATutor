@@ -170,6 +170,8 @@ public class AskQuestions extends Fragment {
                 }catch (Exception ex){
                     price = -1;
                 }
+
+
                 Question newQuestion = new Question(topicAskQuestion.getText().toString(),
                                                     descriptionAskQuestion.getText().toString(),
                                                     skillSetTest,
