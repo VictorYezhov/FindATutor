@@ -167,6 +167,7 @@ public class ApplicationDiscription extends Fragment {
             public void onClick(View view) {
 
                 Comment c = new Comment(editTextAddComment.getText().toString(), 10, MainAplication.getCurrentUser().getId());
+                c.setQuestion(null);
                 sendCommentToServer(c , questionForm.getQuestion().getId());
 
                 editTextAddComment.setText("");

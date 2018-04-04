@@ -9,6 +9,7 @@ import android.content.Intent;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,6 +25,16 @@ public class Question {
     private Integer price;
 
     private Set<Skill> skills;
+
+    public List<Comment> getCommentsList() {
+        return commentsList;
+    }
+
+    public void setCommentsList(List<Comment> commentsList) {
+        this.commentsList = commentsList;
+    }
+
+    private List<Comment> commentsList;
 
     public Question(){
         this.id = null;

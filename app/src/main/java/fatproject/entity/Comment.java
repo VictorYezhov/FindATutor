@@ -13,6 +13,8 @@ public class Comment {
     private Integer price;
     private Long userId;
 
+    private Question question;
+
     public Comment(String textComment, Integer price, Long userId) {
         this.dateTime = null;
         this.textComment = textComment;
@@ -50,5 +52,21 @@ public class Comment {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 }
