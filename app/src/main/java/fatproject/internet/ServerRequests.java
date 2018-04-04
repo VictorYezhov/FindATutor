@@ -133,6 +133,9 @@ public interface ServerRequests {
     @GET("/getCommentsOfCurrentQuestion{id}")
     Call<List<CommentForm>> getListOfCommentForms(@Path("id") Long id);
 
+    @POST("/sendNewComment{id}")
+    Call<String> sendNewComment(@Body fatproject.entity.Comment comment, @Path("id") Long id);
+
     /**
      * Get list of jobs
      */

@@ -122,7 +122,7 @@ public class ApplicationDiscription extends Fragment {
         String key = this.getResources().getString(R.string.current_dicription_choise);
 
         getAllCommentsOfCurrentQuestion();
-        QuestionForm questionForm = Paper.book().read(key);
+        final QuestionForm questionForm = Paper.book().read(key);
 
         String nameStr = questionForm.getUserName() + " " + questionForm.getUserSurname();
         userNameAndSureName.setText(nameStr);
@@ -165,13 +165,14 @@ public class ApplicationDiscription extends Fragment {
         addCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Comment comment = new Comment();
-                //sendCommentToServer(comment);
-                editTextAddComment.getText();
-                System.err.println(editTextAddComment.getText());
+
+                Comment c = new Comment(editTextAddComment.getText().toString(), 10, MainAplication.getCurrentUser().getId());
+                sendCommentToServer(c , questionForm.getQuestion().getId());
+
+                editTextAddComment.setText("");
+
             }
         });
-
         return view;
     }
 
@@ -197,8 +198,19 @@ public class ApplicationDiscription extends Fragment {
 
     }
 
-    public void sendCommentToServer(Comment comment){
 
+    public void sendCommentToServer(Comment comment, Long questionID){
+        MainAplication.getServerRequests().sendNewComment(comment, questionID).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.err.println(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                System.err.println("something wrong");
+            }
+        });
     }
 
     @Override
