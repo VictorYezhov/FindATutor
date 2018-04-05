@@ -74,6 +74,7 @@ public class AskQuestions extends Fragment {
     ChipAdapter chipAdapter;
 
     List<Skill> skills  = new ArrayList<>();
+    List<String> skillsNames = new ArrayList<>();
 
 
 
@@ -138,6 +139,8 @@ public class AskQuestions extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(chipAdapter);
         chipAdapter.notifyDataSetChanged();
+        final ArrayAdapter<String> skillArrayAdapter = new ArrayAdapter<>(MainAplication.getContext(),
+                android.R.layout.simple_dropdown_item_1line, skillsNames);
 
 
         MainAplication.getServerRequests().getAllAvailableSkills().enqueue(new Callback<List<Skill>>() {
@@ -145,9 +148,12 @@ public class AskQuestions extends Fragment {
             public void onResponse(Call<List<Skill>> call, Response<List<Skill>> response) {
                 if(response.body()!=null) {
                     skills.addAll(response.body());
-                    addSkill.setAdapter(new ArrayAdapter<>(AskQuestions.this.getContext(),
-                            android.R.layout.simple_dropdown_item_1line, skills));
-
+                    for (Skill s:
+                         response.body()) {
+                        skillsNames.add(s.getName());
+                    }
+                    addSkill.setAdapter(skillArrayAdapter);
+                    skillArrayAdapter.notifyDataSetChanged();
                 }else {
 
                 }
@@ -158,6 +164,7 @@ public class AskQuestions extends Fragment {
                 System.err.println("FAILERE DURING DOWNLOADING SKILLS");
             }
         });
+        addSkill.setAdapter(skillArrayAdapter);
 
         buttonAskQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,6 +205,7 @@ public class AskQuestions extends Fragment {
                 }
             }
         });
+
 
         return view;
 
