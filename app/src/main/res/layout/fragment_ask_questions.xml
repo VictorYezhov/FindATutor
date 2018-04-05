@@ -63,17 +63,23 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-        <AutoCompleteTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/MyEditText"
-            android:id="@+id/addSkill"
-            android:completionThreshold="1"
-            android:imeOptions="actionGo"
-            android:inputType="text"
-            android:singleLine="true"
-            android:hint="Tags"
-            />
+                <Button
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:text="but"/>
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/MyEditText"
+                    android:id="@+id/addSkill"
+                    android:completionThreshold="1"
+                    android:imeOptions="actionGo"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:hint="Tags"
+                    />
+
 
 
         </LinearLayout>
