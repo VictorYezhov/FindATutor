@@ -1,3 +1,5 @@
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,6 +8,15 @@
     tools:context="fatproject.fragments.AskQuestions"
     android:background="#F0F0F0"
     android:orientation="vertical">
+        <ScrollView
+            android:id="@+id/scrollInAskQue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
             android:layout_width="match_parent"
@@ -70,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:theme="@style/MyEditText"
                     android:id="@+id/addSkill"
-                    android:layout_marginRight="50dp"
+                    android:layout_marginRight="100dp"
                     android:completionThreshold="1"
                     android:imeOptions="actionGo"
                     android:inputType="text"
@@ -79,11 +90,12 @@
                     />
 
                 <Button
-                    android:layout_width="40dp"
+                    android:id="@+id/addTagButton"
+                    android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    android:text="but" />
+                    android:text="Add TAG" />
 
 
 
@@ -101,6 +113,6 @@
             app:buttonMode="regular"
             android:layout_marginTop="30dp"
             />
-
-
+                </LinearLayout>
+        </ScrollView>
 </LinearLayout>

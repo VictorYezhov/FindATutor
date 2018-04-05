@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
@@ -31,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ChipAdapter;
+import fatproject.adapter.ChipAdapterAskQuestion;
 import fatproject.entity.Question;
 import fatproject.entity.Skill;
 import fatproject.findatutor.R;
@@ -71,9 +73,11 @@ public class AskQuestions extends Fragment {
     @BindView(R.id.addSkill)
     AutoCompleteTextView addSkill;
 
-    ChipAdapter chipAdapter;
+    @BindView(R.id.addTagButton)
+    Button addTagButton;
 
-    List<Skill> skills  = new ArrayList<>();
+    ChipAdapterAskQuestion chipAdapter;
+
     List<String> skillsNames = new ArrayList<>();
 
 
@@ -86,8 +90,11 @@ public class AskQuestions extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private final ArrayAdapter<String> skillArrayAdapter;
     public AskQuestions() {
-        chipAdapter = new ChipAdapter();
+        chipAdapter = new ChipAdapterAskQuestion();
+        skillArrayAdapter = new ArrayAdapter<>(MainAplication.getContext(),
+                android.R.layout.simple_dropdown_item_1line, skillsNames);
         // Required empty public constructor
     }
 
@@ -137,25 +144,24 @@ public class AskQuestions extends Fragment {
         layoutManager.setFlexDirection(FlexDirection.ROW);
         layoutManager.setJustifyContent(JustifyContent.CENTER);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
         recyclerView.setAdapter(chipAdapter);
+
         chipAdapter.notifyDataSetChanged();
-        final ArrayAdapter<String> skillArrayAdapter = new ArrayAdapter<>(MainAplication.getContext(),
-                android.R.layout.simple_dropdown_item_1line, skillsNames);
+
+
 
 
         MainAplication.getServerRequests().getAllAvailableSkills().enqueue(new Callback<List<Skill>>() {
             @Override
             public void onResponse(Call<List<Skill>> call, Response<List<Skill>> response) {
                 if(response.body()!=null) {
-                    skills.addAll(response.body());
                     for (Skill s:
                          response.body()) {
                         skillsNames.add(s.getName());
                     }
                     addSkill.setAdapter(skillArrayAdapter);
                     skillArrayAdapter.notifyDataSetChanged();
-                }else {
-
                 }
             }
             @Override
@@ -164,13 +170,34 @@ public class AskQuestions extends Fragment {
                 System.err.println("FAILERE DURING DOWNLOADING SKILLS");
             }
         });
-        addSkill.setAdapter(skillArrayAdapter);
+
+        setActionsToElements();
+
+
+
+        return view;
+
+    }
+
+    private void setActionsToElements(){
+
+
+        addTagButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Skill skill = new Skill(addSkill.getText().toString());
+                chipAdapter.getSkillList().add(skill);
+
+                chipAdapter.notifyDataSetChanged();
+
+            }
+        });
 
         buttonAskQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Set<Skill> skillSetTest = new HashSet<>();
+                Set<Skill> skillSetTest = new HashSet<>(chipAdapter.getSkillList());
                 Integer price;
                 try{
                     price = Integer.parseInt(priceAskQuestion.getText().toString());
@@ -180,9 +207,9 @@ public class AskQuestions extends Fragment {
 
 
                 Question newQuestion = new Question(topicAskQuestion.getText().toString(),
-                                                    descriptionAskQuestion.getText().toString(),
-                                                    skillSetTest,
-                                                    price);
+                        descriptionAskQuestion.getText().toString(),
+                        skillSetTest,
+                        price);
 
                 if(newQuestion.getTitle().equals("")){
                     showSnackbar("Enter the topic of your question.", view);
@@ -205,12 +232,7 @@ public class AskQuestions extends Fragment {
                 }
             }
         });
-
-
-        return view;
-
     }
-
     public void showSnackbar(String element, View view){
         /**
          *This method show on the screen Snackbar (little field in the bottom of user`s screen.)
