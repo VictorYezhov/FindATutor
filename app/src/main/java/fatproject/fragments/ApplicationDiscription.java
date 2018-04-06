@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -172,9 +174,22 @@ public class ApplicationDiscription extends Fragment {
 
                 editTextAddComment.setText("");
 
+                try{
+                    Thread.sleep(1000); //sleep for 3 seconds
+                }
+                catch(InterruptedException e){    System.err.println("got interrupted!");
+                }
+
+                refreshCurrentClass();
+
             }
         });
         return view;
+    }
+
+    void refreshCurrentClass(){
+        getAllCommentsOfCurrentQuestion();
+        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
     }
 
     public void getAllCommentsOfCurrentQuestion(){
