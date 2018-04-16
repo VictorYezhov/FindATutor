@@ -189,6 +189,7 @@ public class AskQuestions extends Fragment {
                 chipAdapter.getSkillList().add(skill);
 
                 chipAdapter.notifyDataSetChanged();
+                addSkill.setText("");
 
             }
         });
