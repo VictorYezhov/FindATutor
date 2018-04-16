@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -107,6 +108,8 @@ public class SetUserInformation extends Fragment {
                     sendInformation(form);
                     Toast.makeText(getActivity().getApplicationContext(), "Changes are saved", Toast.LENGTH_LONG).show();
                 }
+
+                hideKeyBoard(view);
             }
         });
 
@@ -127,6 +130,10 @@ public class SetUserInformation extends Fragment {
         });
     }
 
+    void hideKeyBoard(View v){
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
 
     private  void setListenersToWidgets(){
 

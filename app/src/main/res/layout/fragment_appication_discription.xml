@@ -100,18 +100,36 @@
                         android:textStyle="bold"
                         android:layout_marginStart="5dp"
                         />
-
-                    <com.beardedhen.androidbootstrap.BootstrapEditText
+                    
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/editTextAddComment"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:textColor="@color/black"
-                        app:bootstrapSize="md"
-                        app:bootstrapBrand="info"
-                        />
+                        android:orientation="horizontal">
+
+                        <com.beardedhen.androidbootstrap.BootstrapEditText
+                            android:layout_width="265dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/editTextAddComment"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="20dp"
+                            android:textColor="@color/black"
+                            app:bootstrapSize="md"
+                            app:bootstrapBrand="info"
+                            />
+
+                        <com.beardedhen.androidbootstrap.BootstrapEditText
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/editTextPriceComment"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/black"
+                            android:inputType="number"
+                            app:bootstrapSize="md"
+                            app:bootstrapBrand="info"/>
+
+                    </LinearLayout>
 
                     <Button
                         android:layout_width="100dp"

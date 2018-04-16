@@ -10,218 +10,217 @@
         android:id="@+id/swipe_refresh_layout_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <ScrollView
+            android:id="@+id/accountScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/accountScrollView">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/profilePhotoAndButtoms"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|top"
-            android:backgroundTint="@color/white">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <RelativeLayout
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/profilePhotoAndButtoms"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    >
+                    android:layout_gravity="center|top"
+                    android:backgroundTint="@color/white">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/profile_image"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/noavatar" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
 
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/open_photo"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="11dp"
-                        android:layout_toEndOf="@+id/profile_image"
-                        app:backgroundTint="@color/blue"
-                        android:elevation="6dp"
-                        android:src="@drawable/ic_action_open"
-                        android:visibility="invisible"
-                        app:pressedTranslationZ="12dp" />
-
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/change_photo"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        app:backgroundTint="@color/blue"
-                        android:elevation="6dp"
-                        android:src="@drawable/ic_action_changephoto"
-                        android:visibility="invisible"
-                        app:pressedTranslationZ="12dp" />
-
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/delete_photo"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_alignStart="@+id/open_photo"
-                        android:layout_alignTop="@+id/chatButton"
-                        app:backgroundTint="@color/blue"
-                        android:elevation="6dp"
-                        android:src="@drawable/ic_action_deletephoto"
-                        android:visibility="invisible"
-                        app:pressedTranslationZ="12dp" />
-
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/plus_button"
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_toStartOf="@+id/open_photo"
-                        android:elevation="6dp"
-                        android:src="@drawable/ic_action_plus"
-                        app:backgroundTint="@color/blue"
-                        app:pressedTranslationZ="12dp" />
-
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/chatButton"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_alignBottom="@+id/open_photo"
-                        android:layout_alignStart="@+id/profile_image"
-                        android:adjustViewBounds="true"
-                        app:backgroundTint="@color/blue"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/ic_chat_button" />
-
-                </RelativeLayout>
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/profile_image"
+                                android:layout_width="200dp"
+                                android:layout_height="200dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/noavatar" />
 
 
-                <TextView
-                    android:id="@+id/profile_name"
+                            <android.support.design.widget.FloatingActionButton
+                                android:id="@+id/open_photo"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginStart="11dp"
+                                android:layout_toEndOf="@+id/profile_image"
+                                android:elevation="6dp"
+                                android:src="@drawable/ic_action_open"
+                                android:visibility="invisible"
+                                app:backgroundTint="@color/blue"
+                                app:pressedTranslationZ="12dp" />
+
+                            <android.support.design.widget.FloatingActionButton
+                                android:id="@+id/change_photo"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="14dp"
+                                android:elevation="6dp"
+                                android:src="@drawable/ic_action_changephoto"
+                                android:visibility="invisible"
+                                app:backgroundTint="@color/blue"
+                                app:pressedTranslationZ="12dp" />
+
+                            <android.support.design.widget.FloatingActionButton
+                                android:id="@+id/delete_photo"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:layout_alignStart="@+id/open_photo"
+                                android:layout_alignTop="@+id/chatButton"
+                                android:elevation="6dp"
+                                android:src="@drawable/ic_action_deletephoto"
+                                android:visibility="invisible"
+                                app:backgroundTint="@color/blue"
+                                app:pressedTranslationZ="12dp" />
+
+                            <android.support.design.widget.FloatingActionButton
+                                android:id="@+id/plus_button"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_toStartOf="@+id/open_photo"
+                                android:elevation="6dp"
+                                android:src="@drawable/ic_action_plus"
+                                app:backgroundTint="@color/blue"
+                                app:pressedTranslationZ="12dp" />
+
+                            <android.support.design.widget.FloatingActionButton
+                                android:id="@+id/chatButton"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_alignBottom="@+id/open_photo"
+                                android:layout_alignStart="@+id/profile_image"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/ic_chat_button"
+                                app:backgroundTint="@color/blue" />
+
+                        </RelativeLayout>
+
+
+                        <TextView
+                            android:id="@+id/profile_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="35sp" />
+
+                        <TextView
+                            android:id="@+id/profile_surname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="35sp" />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/RatingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="35sp" />
+                    app:srb_clearRatingEnabled="true"
+                    app:srb_clickable="false"
+                    app:srb_drawableEmpty="@drawable/ic_star_border_black_24dp"
+                    app:srb_drawableFilled="@drawable/ic_star_black_24dp"
+                    app:srb_isIndicator="false"
+                    app:srb_numStars="5"
+                    app:srb_rating="0"
+                    app:srb_scrollable="false"
+                    app:srb_starHeight="30dp"
+                    app:srb_starPadding="3dp"
+                    app:srb_starWidth="30dp"
+                    app:srb_stepSize="0.5"></com.willy.ratingbar.ScaleRatingBar>
 
-                <TextView
-                    android:id="@+id/profile_surname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="35sp"/>
+                <include layout="@layout/expansion_panel" />
 
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/RatingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:srb_clearRatingEnabled="true"
-            app:srb_clickable="false"
-            app:srb_drawableEmpty="@drawable/ic_star_border_black_24dp"
-            app:srb_drawableFilled="@drawable/ic_star_black_24dp"
-            app:srb_isIndicator="false"
-            app:srb_numStars="5"
-            app:srb_rating="0"
-            app:srb_scrollable="false"
-            app:srb_starHeight="30dp"
-            app:srb_starPadding="3dp"
-            app:srb_starWidth="30dp"
-            app:srb_stepSize="0.5"></com.willy.ratingbar.ScaleRatingBar>
-
-        <include layout="@layout/expansion_panel" />
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:layout_marginTop="1dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white">
-
-                <LinearLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:orientation="vertical">
+                    android:layout_marginTop="1dp"
+                    android:backgroundTint="@color/white">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:orientation="horizontal"
-                        android:paddingLeft="7dp">
+                        android:background="@color/white">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/skill_text"
-                            android:text="@string/skills"
-                            android:textColor="@color/black"
-                            android:textSize="23sp" />
-                        <ImageButton
-                            android:id="@+id/addSkills"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
-                            android:background="@android:color/transparent"
-                            app:srcCompat="@drawable/ic_add_black_24dp"
-                            android:layout_marginRight="11dp">
-                        </ImageButton>
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:orientation="horizontal"
+                                android:paddingLeft="7dp">
+
+                                <TextView
+                                    android:id="@+id/skill_text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/skills"
+                                    android:textColor="@color/black"
+                                    android:textSize="23sp" />
+
+                                <ImageButton
+                                    android:id="@+id/addSkills"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginRight="11dp"
+                                    android:background="@android:color/transparent"
+                                    app:srcCompat="@drawable/ic_add_black_24dp"></ImageButton>
+                            </RelativeLayout>
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/skillset"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:scrollbars="vertical" />
+                        </LinearLayout>
+
                     </RelativeLayout>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/skillset"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:scrollbars="vertical" />
-                </LinearLayout>
+                </android.support.v7.widget.CardView>
 
-            </RelativeLayout>
+                <include layout="@layout/expansion_panel_univer" />
 
-        </android.support.v7.widget.CardView>
+                <include layout="@layout/expansion_panel_job" />
 
-        <include layout="@layout/expansion_panel_univer"/>
-        <include layout="@layout/expansion_panel_job"/>
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:backgroundTint="#F0F0F0">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:backgroundTint="#F0F0F0"
-            >
-
-        </android.support.v7.widget.CardView>
+                </android.support.v7.widget.CardView>
 
 
-    </LinearLayout>
-    </ScrollView>
+            </LinearLayout>
+        </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </FrameLayout>

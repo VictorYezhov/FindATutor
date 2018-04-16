@@ -79,6 +79,9 @@ public class ApplicationDiscription extends Fragment {
     @BindView(R.id.editTextAddComment)
     BootstrapEditText editTextAddComment;
 
+    @BindView(R.id.editTextPriceComment)
+    BootstrapEditText editTextPriceComment;
+
     private CommentAdapter commentAdapter;
     private List<CommentForm> commentList = new ArrayList<>();
 
@@ -164,11 +167,13 @@ public class ApplicationDiscription extends Fragment {
         commentAdapter.notifyDataSetChanged();
         //------------------------------------------------
 
+        editTextPriceComment.setText(questionForm.getQuestion().getPrice().toString());
+
         addCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Comment c = new Comment(editTextAddComment.getText().toString(), 10, MainAplication.getCurrentUser().getId());
+                Comment c = new Comment(editTextAddComment.getText().toString(), Integer.parseInt(editTextPriceComment.getText().toString()), MainAplication.getCurrentUser().getId());
                 c.setQuestion(null);
                 sendCommentToServer(c , questionForm.getQuestion().getId());
 
