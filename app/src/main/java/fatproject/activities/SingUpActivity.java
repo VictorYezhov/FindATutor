@@ -6,18 +6,28 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.entity.City;
+import fatproject.entity.Country;
 import fatproject.entity.User;
 import fatproject.findatutor.R;
 import fatproject.internet.ServerConnector;
 import fatproject.validation.SingUpValidator;
 import fatproject.validation.Validator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Victor on 30.12.2017.
@@ -45,13 +55,32 @@ public class SingUpActivity  extends AppCompatActivity {
     Button _signupButton;
     @BindView(R.id.link_login)
     TextView _loginLink;
+    @BindView(R.id.editTextCountry)
+    AutoCompleteTextView editTextCountry;
+
+    private List<String> countries;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        countries = new ArrayList<>();
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
+        MainAplication.getServerRequests().getAllCountries().enqueue(new Callback<List<Country>>() {
+            @Override
+            public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
+                for (Country c : response.body()) {
+                    countries.add(c.getName());
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Country>> call, Throwable t) {
+
+            }
+        });
+        editTextCountry.setAdapter(new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_dropdown_item_1line, countries));
 
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +143,12 @@ public class SingUpActivity  extends AppCompatActivity {
         user.setMobileNumber(_mobileText.getText().toString());
         user.setAddress(_addressText.getText().toString());
         user.setRating(0);
+        City city = new City();
+        city.setName(_addressText.getText().toString());
+        Country country = new Country();
+        country.setName(editTextCountry.getText().toString());
+        city.setCountry(country);
+        user.setCity(city);
 
        ServerConnector.singUpNewUser(user);
         new android.os.Handler().postDelayed(

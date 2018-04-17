@@ -44,8 +44,23 @@
                 android:hint="@string/surname" />
         </android.support.design.widget.TextInputLayout>
 
-
-
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/MyEditText"
+                android:id="@+id/editTextCountry"
+                android:completionThreshold="1"
+                android:imeOptions="actionGo"
+                android:inputType="text"
+                android:singleLine="true"
+                android:hint="Country"
+                />
+        </android.support.design.widget.TextInputLayout>
 
         <!-- Address Label -->
         <android.support.design.widget.TextInputLayout
