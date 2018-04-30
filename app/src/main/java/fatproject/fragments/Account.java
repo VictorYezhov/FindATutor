@@ -1,25 +1,27 @@
 package fatproject.fragments;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +34,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.florent37.expansionpanel.ExpansionHeader;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
@@ -45,21 +46,21 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.willy.ratingbar.ScaleRatingBar;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import butterknife.BindAnim;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.Helpers.ImageSaver;
+import fatproject.Helpers.RecyclerItemTouchHelperForJobAdapter;
+import fatproject.Helpers.RecyclerItemTouchHelperForUniverAdapter;
 import fatproject.SendingForms.LoginForm;
 import fatproject.activities.FragmentDispatcher;
-import fatproject.activities.MainActivity;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ChipAdapter;
 import fatproject.adapter.JobAdapter;
+import fatproject.adapter.UniverAdapter;
 import fatproject.entity.Job;
 import fatproject.entity.Skill;
 import fatproject.entity.Type;
@@ -74,13 +75,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Victor on 30.01.2018.
  */
 
-public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshListener{
+public class Account extends Fragment implements RecyclerItemTouchHelperForJobAdapter.RecyclerItemTouchHelperListener, RecyclerItemTouchHelperForUniverAdapter.RecyclerItemTouchHelperListener, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.profile_image)
     ImageView profile_image;
@@ -134,8 +134,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     @BindView(R.id.profile_name)
     TextView username;
 
-
-
     @BindView(R.id.profile_surname)
     TextView userSurname;
 
@@ -187,14 +185,16 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
     @BindView(R.id.country_flag)
     ImageView flag;
 
-    private static final String EMPTY_STRING = "";
+    @BindView(R.id.coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
 
+    private static final String EMPTY_STRING = "";
 
     private List<Job> onlyJobList = new ArrayList<>();
     private List<Job> onlyUniverList = new ArrayList<>();
 
     private JobAdapter jAdapter;
-    private JobAdapter uAdapter;
+    private UniverAdapter uAdapter;
 
     private boolean isOpen = false;
     final List<Skill> skill;
@@ -249,9 +249,8 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
         //--------------------------------------------------------------------------------------
         // Jobs stuffs
-        //jAdapter = new JobAdapter(jobAndUnList);
         jAdapter = new JobAdapter(onlyJobList);
-        uAdapter = new JobAdapter(onlyUniverList);
+        uAdapter = new UniverAdapter(onlyUniverList);
 
         RecyclerView.LayoutManager jLayoutManager = new LinearLayoutManager(this.getContext());
         RecyclerView.LayoutManager uLayoutManager = new LinearLayoutManager(this.getContext());
@@ -284,7 +283,12 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         userCity.setTypeface(informationFont);
         userCountry.setTypeface(informationFont);
 
-        //--------------------------------------------------------------------------------------
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallbackJ = new RecyclerItemTouchHelperForJobAdapter(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallbackJ).attachToRecyclerView(recyclerViewJob);
+
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallbackU = new RecyclerItemTouchHelperForUniverAdapter(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallbackU).attachToRecyclerView(recyclerViewUniver);
+
         return view;
         // Inflate the layout for this fragment
     }
@@ -299,6 +303,84 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         super.onDetach();
         mListener = null;
     }
+
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+
+        if(viewHolder instanceof UniverAdapter.MyViewHolder){
+            final Job deletedItem = onlyUniverList.get(viewHolder.getAdapterPosition());
+            final int deletedIndex = viewHolder.getAdapterPosition();
+
+            Long id_of_job = uAdapter.getItem(viewHolder.getAdapterPosition());
+            // remove the item from recycler view.
+            uAdapter.removeItem(viewHolder.getAdapterPosition());
+
+            // showing snack bar with Undo option.
+            Snackbar snackbar = Snackbar.make( coordinatorLayout ,  "Successfully deleted", Snackbar.LENGTH_LONG);
+            View view = snackbar.getView();
+            TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+            tv.setTextColor(Color.WHITE);
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // undo is selected, restore the deleted item.
+                    uAdapter.restoreItem(deletedItem, deletedIndex);
+                }
+            });
+            snackbar.setActionTextColor(Color.WHITE);
+            snackbar.show();
+
+            deleteJobOnServer(id_of_job);
+        }
+
+        else if (viewHolder instanceof JobAdapter.MyViewHolder) {
+
+            final Job deletedItem = onlyJobList.get(viewHolder.getAdapterPosition());
+            final int deletedIndex = viewHolder.getAdapterPosition();
+
+            Long id_of_job = uAdapter.getItem(viewHolder.getAdapterPosition());
+
+
+            // remove the item from recycler view.
+            jAdapter.removeItem(viewHolder.getAdapterPosition());
+
+            // showing snack bar with Undo option.
+            Snackbar snackbar = Snackbar.make( coordinatorLayout ,  "Successfully deleted", Snackbar.LENGTH_LONG);
+            View view = snackbar.getView();
+            TextView tv = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+            tv.setTextColor(Color.WHITE);
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // undo is selected, restore the deleted item.
+                    jAdapter.restoreItem(deletedItem, deletedIndex);
+                }
+            });
+            snackbar.setActionTextColor(Color.WHITE);
+            snackbar.show();
+
+            deleteJobOnServer(id_of_job);
+
+        }
+    }
+
+    void deleteJobOnServer(Long job_id){
+        MainAplication.getServerRequests().deleteItemFromJobList(MainAplication.getCurrentUser().getId(), job_id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.err.println(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
@@ -550,6 +632,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         ratingBar.setRating(user.getRating());
         onlyJobList.clear();
         onlyUniverList.clear();
+
         for (Job job:user.getJobs()) {
             if(job.getType().equals(Type.JOB)){
                 onlyJobList.add(job);
@@ -557,6 +640,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
                 onlyUniverList.add(job);
             }
         }
+
         jAdapter.notifyDataSetChanged();
         uAdapter.notifyDataSetChanged();
         chipAdapter.notifyDataSetChanged();
@@ -567,6 +651,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
         }else {
             loadPhotoFromServer();
         }
+
         username.setText(user.getName());
        // nameNavigator.setText(user.getName());
         userSurname.setText(user.getFamilyName());
@@ -585,7 +670,6 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
 
 
     }
-
 
     private  void loadPhotoFromServer(){
         MainAplication.getServerRequests().getUserImage(MainAplication.getCurrentUser().getId()).enqueue(new Callback<ResponseBody>() {
@@ -608,6 +692,7 @@ public class Account extends Fragment  implements SwipeRefreshLayout.OnRefreshLi
             }
         });
     }
+
     private  void loadPhotoFromMemory(){
         Bitmap bitmap = ImageSaver.loadImageFromStorage(MainAplication.getUsersPhoto());
         if(bitmap!=null){
