@@ -13,6 +13,7 @@ import fatproject.Helpers.StrConstansts;
 import fatproject.entity.User;
 import fatproject.internet.ServerRequests;
 import fatproject.internet.URLs;
+import fatproject.service.FirebaseIDService;
 import io.paperdb.Paper;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -28,18 +29,18 @@ public class MainAplication extends Application {
     private static ServerRequests  serverRequests;
     private static Retrofit retrofit;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         Paper.init(this);
 
-
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
                 .setLenient()
                 .create();
         retrofit = new Retrofit.Builder()
-                .baseUrl(URLs.BASE_LOCKAL.getUrl()) //Базовая часть адреса
+                .baseUrl(URLs.BASE_REMOTE.getUrl()) //Базовая часть адреса
                 .addConverterFactory(GsonConverterFactory.create(gson)) //Конвертер, необходимый для преобразования JSON'а в объекты
                 .build();
         serverRequests = retrofit.create(ServerRequests.class);
