@@ -91,4 +91,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         return commentFormList.size();
     }
 
+    public void addNewComment(CommentForm cf){
+        commentFormList.add(cf);
+    }
+
 }

@@ -1,8 +1,5 @@
 package fatproject.internet;
 
-import org.w3c.dom.Comment;
-
-import java.io.File;
 import java.util.List;
 import java.util.Set;
 
@@ -18,13 +15,9 @@ import fatproject.entity.Question;
 import fatproject.entity.Skill;
 import fatproject.entity.User;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -159,6 +152,13 @@ public interface ServerRequests {
 
     @GET("/getAllCountries")
     Call<List<Country>> getAllCountries();
+
+    @POST("/deleteItemFromJobList{id}")
+    Call<String> deleteItemFromJobList(@Body Long id_user, @Path("id") Long id);
+
+    @POST("/deleteItemFromChipList{id}")
+    Call<String> deleteItemFromAccountChipList(@Body Long id_user, @Path("id") Long id);
+
 
 
 }

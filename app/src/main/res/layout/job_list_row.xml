@@ -1,31 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/row_padding_vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/row_padding_vertical">
+    >
 
-    <TextView
-        android:id="@+id/place_job"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:textColor="#222222"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:id="@+id/view_background"
+        android:background="@color/red"
+        >
+
+        <ImageView
+            android:id="@+id/delete_item_of_job_recyclerView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_action_deletephoto" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/delete_item_of_job_recyclerView"
+            android:text="DELETE"
+            android:textColor="@color/white"/>
 
 
-    <TextView
-        android:id="@+id/position_description"
-        android:layout_width="wrap_content"
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/year" />
+        android:id="@+id/view_foreground"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/row_padding_vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/row_padding_vertical">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/place_job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textColor="#222222"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/position_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/year" />
+
+
+    </RelativeLayout>
+
+
+</FrameLayout>
