@@ -27,6 +27,7 @@ public class MainAplication extends Application {
 
     private static MainAplication instance;
     private static ServerRequests  serverRequests;
+
     private static Retrofit retrofit;
 
 
