@@ -156,6 +156,9 @@ public interface ServerRequests {
     @POST("/deleteItemFromJobList{id}")
     Call<String> deleteItemFromJobList(@Body Long id_user, @Path("id") Long id);
 
+    @POST("/deleteItemFromChipList{id}")
+    Call<String> deleteItemFromAccountChipList(@Body Long id_user, @Path("id") Long id);
+
 
 
 }

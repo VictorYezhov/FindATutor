@@ -23,6 +23,7 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -179,13 +180,19 @@ public class ApplicationDiscription extends Fragment {
 
                 editTextAddComment.setText("");
 
-                try{
-                    Thread.sleep(1000); //sleep for 3 seconds
-                }
-                catch(InterruptedException e){    System.err.println("got interrupted!");
-                }
+//                try{
+//                    Thread.sleep(1000); //sleep for 3 seconds
+//                }
+//                catch(InterruptedException e){    System.err.println("got interrupted!");
+//                }
+//
+//                refreshCurrentClass();
 
-                refreshCurrentClass();
+                c.setDateTime(new Timestamp(System.currentTimeMillis()));
+                CommentForm commentForm = new CommentForm(c, MainAplication.getCurrentUser().getName(),
+                                                             MainAplication.getCurrentUser().getFamilyName());
+                commentAdapter.addNewComment(commentForm);
+                commentAdapter.notifyDataSetChanged();
 
             }
         });

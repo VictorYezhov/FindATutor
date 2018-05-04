@@ -12,6 +12,13 @@ public class CommentForm {
     private String userSurname;
     //byte[] image;
 
+    public CommentForm(Comment comment, String userName, String userSurname){
+        this.comment = comment;
+        this.userName = userName;
+        this.userSurname = userSurname;
+    }
+
+
     public Comment getComment() {
         return comment;
     }
