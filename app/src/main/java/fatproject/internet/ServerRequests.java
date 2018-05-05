@@ -129,6 +129,9 @@ public interface ServerRequests {
     @POST("/sendNewComment{id}")
     Call<String> sendNewComment(@Body fatproject.entity.Comment comment, @Path("id") Long id);
 
+    @POST("/updateFCMIdToken")
+    Call<String> updateIdToken(@Query("user_id") Long userId, @Query("token") String token);
+
     /**
      * Get list of jobs
      */

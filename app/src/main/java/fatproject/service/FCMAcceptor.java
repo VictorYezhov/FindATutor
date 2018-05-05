@@ -21,8 +21,7 @@ public class FCMAcceptor extends FirebaseMessagingService {
         // message, here is where that should be initiated.
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
-        System.err.println("From: " + remoteMessage.getFrom());
-        System.err.println("Notification Message Body: " + remoteMessage.getNotification().getBody());
+
     }
 
 }

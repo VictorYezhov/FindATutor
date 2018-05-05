@@ -5,6 +5,12 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
+import fatproject.activities.MainAplication;
+import fatproject.internet.ServerRequests;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
  * Created by Victor on 04.05.2018.
  */
@@ -31,7 +37,18 @@ public class FirebaseIDService extends FirebaseInstanceIdService {
      * @param token The new token.
      */
     private void sendRegistrationToServer(String token) {
-        // Add custom implementation, as needed.
-        System.out.println("TOKEN :"+token+" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        MainAplication.getServerRequests().updateIdToken(MainAplication.getCurrentUser().getId(), token)
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        System.out.println("GOOD");
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        System.out.println("Baad");
+
+                    }
+                });
     }
 }

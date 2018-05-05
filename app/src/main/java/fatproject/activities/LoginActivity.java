@@ -209,6 +209,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     onLoginSuccess();
                                     progressDialog.dismiss();
                                     finish();
+                                    MainAplication.getIdService().onTokenRefresh();
                                     Intent intent = new Intent(getApplicationContext(), FragmentDispatcher.class);
                                     startActivityForResult(intent, REQUEST_SIGNUP);
                                 }

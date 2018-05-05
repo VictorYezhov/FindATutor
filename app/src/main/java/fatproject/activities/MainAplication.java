@@ -27,6 +27,7 @@ public class MainAplication extends Application {
 
     private static MainAplication instance;
     private static ServerRequests  serverRequests;
+    private  static FirebaseIDService idService;
 
     private static Retrofit retrofit;
 
@@ -34,6 +35,10 @@ public class MainAplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        idService = new FirebaseIDService();
+
+
+
 
         Paper.init(this);
 
@@ -41,7 +46,7 @@ public class MainAplication extends Application {
                 .setLenient()
                 .create();
         retrofit = new Retrofit.Builder()
-                .baseUrl(URLs.BASE_REMOTE.getUrl()) //Базовая часть адреса
+                .baseUrl(URLs.BASE_LOCKAL.getUrl()) //Базовая часть адреса
                 .addConverterFactory(GsonConverterFactory.create(gson)) //Конвертер, необходимый для преобразования JSON'а в объекты
                 .build();
         serverRequests = retrofit.create(ServerRequests.class);
@@ -103,6 +108,11 @@ public class MainAplication extends Application {
     public static void  savePathToPhoto(String path){
         Paper.book().write(StrConstansts.PATHTOPHOTO.getParameter(),path);
     }
+
+    public static FirebaseIDService getIdService() {
+        return idService;
+    }
+
     public static void deleteUsersPhoto(){
         Paper.book().delete(StrConstansts.PATHTOPHOTO.getParameter());
     }
