@@ -8,6 +8,7 @@ import fatproject.IncomingForms.QuestionForm;
 import fatproject.SendingForms.LoginForm;
 import fatproject.SendingForms.SendSkillsForm;
 import fatproject.SendingForms.UserInformationForm;
+import fatproject.entity.Contact;
 import fatproject.entity.Country;
 import fatproject.entity.Job;
 import fatproject.entity.Message;
@@ -90,8 +91,8 @@ public interface ServerRequests {
      * Downloads list of usser messages
      * @return
      */
-    @GET("/getMessages")
-    Call<List<Message>> getMessages();
+    @POST("/getMyContacts")
+    Call<List<Contact>> getMyContacts(@Query("id") Long id);
 
     /**
      * Register or login google user

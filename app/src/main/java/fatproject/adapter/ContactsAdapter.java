@@ -9,7 +9,6 @@ import android.graphics.Typeface;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
@@ -22,12 +21,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import fatproject.Helpers.FlipAnimator;
+import fatproject.entity.Contact;
 import fatproject.findatutor.R;
 import fatproject.entity.Message;
 
-public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyViewHolder> {
+public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyViewHolder> {
     private Context mContext;
-    private List<Message> messages;
+    private List<Contact> contacts;
     private MessageAdapterListener listener;
     private SparseBooleanArray selectedItems;
 
@@ -70,9 +70,9 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
     }
 
 
-    public MessagesAdapter(Context mContext, List<Message> messages, MessageAdapterListener listener) {
+    public ContactsAdapter(Context mContext, List<Contact> contacts, MessageAdapterListener listener) {
         this.mContext = mContext;
-        this.messages = messages;
+        this.contacts = contacts;
         this.listener = listener;
         selectedItems = new SparseBooleanArray();
         animationItemsIndex = new SparseBooleanArray();
@@ -88,31 +88,22 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        Message message = messages.get(position);
+        Contact contact = contacts.get(position);
 
         // displaying text view data
-        holder.from.setText(message.getFrom());
-        holder.subject.setText(message.getSubject());
-        holder.message.setText(message.getMessage());
-        holder.timestamp.setText(message.getTimestamp());
+        holder.from.setText(contact.getFrom());
+       // holder.subject.setText("REMOVE IT");
+        // holder.message.setText(message.getMessage());
+        //holder.timestamp.setText(message.getTimestamp().toString());
 
         // displaying the first letter of From in icon text
-        holder.iconText.setText(message.getFrom().substring(0, 1));
+        //holder.iconText.setText(message.getFrom().substring(0, 1));
 
         // change the row state to activated
         holder.itemView.setActivated(selectedItems.get(position, false));
 
         // change the font style depending on message read status
-        applyReadStatus(holder, message);
 
-        // handle message star
-        applyImportant(holder, message);
-
-        // handle icon animation
-        applyIconAnimation(holder, position);
-
-        // display profile image
-        applyProfilePicture(holder, message);
 
         // apply click events
         applyClickEvents(holder, position);
@@ -151,22 +142,22 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
     }
 
     private void applyProfilePicture(MyViewHolder holder, Message message) {
-        if (!TextUtils.isEmpty(message.getPicture())) {
-//            Glide.with(mContext).load(message.getPicture())
-//                    .thumbnail(0.5f)
-//                    .crossFade()
-//                    .transform(new CircleTransform(mContext))
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .into(holder.imgProfile);
-//            holder.imgProfile.setColorFilter(null);
-//            holder.iconText.setVisibility(View.GONE);
-            holder.imgProfile.setImageResource(R.drawable.noavatar);
-        } else {
+//        if (!TextUtils.isEmpty(message.getPicture())) {
+////            Glide.with(mContext).load(message.getPicture())
+////                    .thumbnail(0.5f)
+////                    .crossFade()
+////                    .transform(new CircleTransform(mContext))
+////                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+////                    .into(holder.imgProfile);
+////            holder.imgProfile.setColorFilter(null);
+////            holder.iconText.setVisibility(View.GONE);
+//            holder.imgProfile.setImageResource(R.drawable.noavatar);
+//        } else {
 
             holder.imgProfile.setImageResource(R.drawable.max);//TODO
             holder.imgProfile.setColorFilter(message.getColor());
             holder.iconText.setVisibility(View.VISIBLE);
-        }
+ //       }
     }
 
     private void applyIconAnimation(MyViewHolder holder, int position) {
@@ -207,17 +198,17 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
 
     @Override
     public long getItemId(int position) {
-        return messages.get(position).getId();
+        return contacts.get(position).getId();
     }
 
     private void applyImportant(MyViewHolder holder, Message message) {
-        if (message.isImportant()) {
-            holder.iconImp.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_star_black_24dp));
-            holder.iconImp.setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_selected));
-        } else {
-            holder.iconImp.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_star_border_black_24dp));
-            holder.iconImp.setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
-        }
+//        if (message.isImportant()) {
+//            holder.iconImp.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_star_black_24dp));
+//            holder.iconImp.setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_selected));
+//        } else {
+//            holder.iconImp.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_star_border_black_24dp));
+//            holder.iconImp.setColorFilter(ContextCompat.getColor(mContext, R.color.icon_tint_normal));
+//        }
     }
 
     private void applyReadStatus(MyViewHolder holder, Message message) {
@@ -236,7 +227,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return messages.size();
+        return contacts.size();
     }
 
     public void toggleSelection(int pos) {
@@ -271,7 +262,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
     }
 
     public void removeData(int position) {
-        messages.remove(position);
+        contacts.remove(position);
         resetCurrentIndex();
     }
 

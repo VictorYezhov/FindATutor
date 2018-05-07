@@ -1,7 +1,6 @@
 package fatproject.fragments;
 
 import android.content.Context;
-import android.graphics.LightingColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,10 +17,8 @@ import android.support.v7.view.ActionMode;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,13 +27,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.activities.MainAplication;
+import fatproject.entity.Contact;
 import fatproject.findatutor.R;
 
-import fatproject.adapter.MessagesAdapter;
+import fatproject.adapter.ContactsAdapter;
 import fatproject.Helpers.DividerItemDecoration;
-import fatproject.entity.Message;
 
-import fatproject.internet.ServerConnector;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,7 +45,7 @@ import retrofit2.Response;
  * Use the {@link Contacts#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshListener, MessagesAdapter.MessageAdapterListener  {
+public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ContactsAdapter.MessageAdapterListener  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -60,8 +55,8 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     private String mParam1;
     private String mParam2;
 
-    private List<Message> messages = new ArrayList<>();
-    private MessagesAdapter mAdapter;
+    private List<Contact> contacts = new ArrayList<>();
+    private ContactsAdapter mAdapter;
     private View thisView;
 
     @BindView(R.id.recycler_view)
@@ -134,7 +129,7 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         swipeRefreshLayout.setOnRefreshListener(this);
 
         getInbox();
-        mAdapter = new MessagesAdapter(this.getContext(), messages, this);
+        mAdapter = new ContactsAdapter(this.getContext(), contacts, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -174,9 +169,8 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 
     @Override
     public void onIconImportantClicked(int position) {
-        Message message = messages.get(position);
-        message.setImportant(!message.isImportant());
-        messages.set(position, message);
+       // Message message = messages.get(position);
+       // messages.set(position, message);
         mAdapter.notifyDataSetChanged();
     }
 
@@ -186,12 +180,12 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
             enableActionMode(position);
         } else {
             // read the message which removes bold from the row
-            Message message = messages.get(position);
-            message.setRead(true);
-            messages.set(position, message);
+            //Message message = messages.get(position);
+            //message.setRead(true);
+            //messages.set(position, message);
             mAdapter.notifyDataSetChanged();
 
-            Toast.makeText(getActivity().getApplicationContext(), "Read: " + message.getMessage(), Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getActivity().getApplicationContext(), "Read: " + message.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -221,17 +215,14 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 
     private void getInbox() {
         swipeRefreshLayout.setRefreshing(true);
-        messages.clear();
-        MainAplication.getServerRequests().getMessages().enqueue(new Callback<List<Message>>() {
+        contacts.clear();
+        MainAplication.getServerRequests().getMyContacts(MainAplication.getCurrentUser().getId())
+                .enqueue(new Callback<List<Contact>>() {
             @Override
-            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+            public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
 
                 if(response.body()!=null){
-                    for (Message m :
-                         response.body()) {
-                        messages.add(new Message(m));
-                    }
-
+                    contacts.addAll(response.body());
                     mAdapter.notifyDataSetChanged();
                     swipeRefreshLayout.setRefreshing(false);
                 }
@@ -243,7 +234,7 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
             }
 
             @Override
-            public void onFailure(Call<List<Message>> call, Throwable t) {
+            public void onFailure(Call<List<Contact>> call, Throwable t) {
                 t.printStackTrace();
 
                 Snackbar.make(thisView, "Can`t access to server, check your connection", Snackbar.LENGTH_LONG)
