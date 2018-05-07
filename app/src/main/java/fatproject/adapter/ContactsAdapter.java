@@ -93,8 +93,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
         // displaying text view data
         holder.from.setText(contact.getFrom());
        // holder.subject.setText("REMOVE IT");
-        // holder.message.setText(message.getMessage());
-        //holder.timestamp.setText(message.getTimestamp().toString());
+         holder.message.setText(contact.getLastMessageText());
+        holder.timestamp.setText(contact.getTimestamp().toString());
 
         // displaying the first letter of From in icon text
         //holder.iconText.setText(message.getFrom().substring(0, 1));
