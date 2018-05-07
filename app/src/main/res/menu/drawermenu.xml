@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/acount" android:title="@string/account" android:icon="@drawable/ic_account_circle_black_24dp"/>
     <item
         android:id="@+id/contacts"
+        app:actionViewClass="android.widget.TextView"
         android:icon="@drawable/ic_forum_black_24dp"
         android:title="@string/contacts" />
     <item android:id="@+id/askQuestion" android:title="@string/ask" android:icon="@drawable/ic_chat_bubble_black_24dp"/>

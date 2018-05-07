@@ -4,15 +4,18 @@ package fatproject.activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -45,6 +48,7 @@ public class FragmentDispatcher extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private static FragmentManager fragmentManager;
+    TextView myContacts;
 
 
     @Override
@@ -70,6 +74,11 @@ public class FragmentDispatcher extends AppCompatActivity {
         ImageView photo = header.findViewById(R.id.photoNavigator);
         loadPhotoFromServer(photo);
 
+        myContacts = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
+                findItem(R.id.contacts));
+
+        initializeCountDrawer();
+
 
         mToggle.syncState();
         setTitle("Find a Tutor");
@@ -86,6 +95,16 @@ public class FragmentDispatcher extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void initializeCountDrawer(){
+        //Gravity property aligns the text
+
+        myContacts.setGravity(Gravity.CENTER_VERTICAL);
+        myContacts.setTypeface(null, Typeface.BOLD);
+        myContacts.setTextColor(getResources().getColor(R.color.blue));
+
+        myContacts.setText("7");
     }
 
     @Override
