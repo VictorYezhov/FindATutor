@@ -27,8 +27,22 @@
             android:ellipsize="end"
             android:lines="1"
             android:textColor="@color/black"
+            android:text="Someone"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/txt_secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="it`s me"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"/>
 
         <TextView
             android:id="@+id/txt_primary"
@@ -40,14 +54,7 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txt_secondary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:lines="1"
-            android:textColor="@color/grey"
-            android:textSize="14sp" />
+
 
     </LinearLayout>
 
@@ -63,8 +70,8 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/bg_circle" />
 
             <ImageView
@@ -80,11 +87,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/icon_profile"
-                android:layout_width="40dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/max"
-                android:layout_height="40dp" />
+                 />
 
             <TextView
                 android:id="@+id/icon_text"
@@ -101,7 +109,8 @@
         android:id="@+id/timestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
         android:textColor="@color/blue"
         android:textSize="12sp"
         android:textStyle="bold" />
