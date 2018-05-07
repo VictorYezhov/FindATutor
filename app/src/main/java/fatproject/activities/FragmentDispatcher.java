@@ -77,7 +77,8 @@ public class FragmentDispatcher extends AppCompatActivity {
         myContacts = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
                 findItem(R.id.contacts));
 
-        initializeCountDrawer();
+
+        showNotification(3, navigationView);
 
 
         mToggle.syncState();
@@ -97,14 +98,9 @@ public class FragmentDispatcher extends AppCompatActivity {
         }
     }
 
-    private void initializeCountDrawer(){
-        //Gravity property aligns the text
-
-        myContacts.setGravity(Gravity.CENTER_VERTICAL);
-        myContacts.setTypeface(null, Typeface.BOLD);
-        myContacts.setTextColor(getResources().getColor(R.color.blue));
-
-        myContacts.setText("7");
+    private void showNotification(int count, NavigationView navigationView){
+        TextView view = (TextView) navigationView.getMenu().findItem(R.id.contacts).getActionView();
+        view.setText(count > 0 ? String.valueOf(count) : null);
     }
 
     @Override
