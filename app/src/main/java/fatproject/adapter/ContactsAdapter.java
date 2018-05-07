@@ -21,7 +21,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import fatproject.Helpers.FlipAnimator;
+import fatproject.Helpers.MessageUpdateQueue;
 import fatproject.activities.FragmentDispatcher;
+import fatproject.activities.MainAplication;
 import fatproject.entity.Contact;
 import fatproject.findatutor.R;
 import fatproject.entity.Message;
@@ -35,6 +37,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
     private MessageAdapterListener listener;
     private SparseBooleanArray selectedItems;
 
+    private MessageUpdateQueue updateQueue = MessageUpdateQueue.getInstance();
     // array used to perform multiple animation at once
     private SparseBooleanArray animationItemsIndex;
     private boolean reverseAllAnimations = false;
@@ -99,6 +102,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
         holder.from.setText(contact.getFrom());
        // holder.subject.setText("REMOVE IT");
         holder.message.setText(contact.getLastMessageText());
+        if(updateQueue.contains(contact.getId().toString()))
+            holder.message.setTextColor(MainAplication.getContext().getResources().getColor(R.color.black));
         holder.timestamp.setText(contact.getTimestamp().toString());
         holder.message.setOnClickListener(new View.OnClickListener() {
             @Override

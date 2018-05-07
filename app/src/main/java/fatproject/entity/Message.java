@@ -2,6 +2,7 @@ package fatproject.entity;
 
 import java.sql.Timestamp;
 
+
 /**
  * Created by Max Komarenski on 03.02.2018.
  */
@@ -9,7 +10,7 @@ import java.sql.Timestamp;
 public class Message {
     private Long id;
     private Long from;
-    private Contact contact;
+    private Long contactId;
     private String message;
     private Timestamp timestamp;
     private boolean isRead;
@@ -35,12 +36,12 @@ public class Message {
         this.from = from;
     }
 
-    public Contact getContact() {
-        return contact;
+    public Long getContactId() {
+        return contactId;
     }
 
-    public void setContact(Contact contact) {
-        this.contact = contact;
+    public void setContactId(Long contactId) {
+        this.contactId = contactId;
     }
 
     public String getMessage() {

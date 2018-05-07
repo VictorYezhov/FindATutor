@@ -112,7 +112,15 @@ public interface ServerRequests {
     Call<String> updateUserPhoto(@Part MultipartBody.Part img, @Path("id") Long id);
 
     @POST("/getMessages{id}")
-    Call<List<Message>> loadMessages(@Path("id") Long id);
+    Call<List<Message>> loadMessages(@Path("id") Long id, @Query("userId") Long requester);
+
+    @POST("/getAllMessages{id}")
+    Call<List<Message>> loadAllMessages(@Path("id") Long id, @Query("userId") Long requester);
+
+    @POST("/sendMessage")
+    Call<String> sendMessage(@Body Message message);
+
+
 
 
 

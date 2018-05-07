@@ -21,9 +21,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.data.DataBufferObserver;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.Helpers.ImageSaver;
+import fatproject.Helpers.MessageUpdateQueue;
 import fatproject.entity.User;
 import fatproject.findatutor.R;
 import fatproject.fragments.AboutUs;
@@ -44,12 +47,14 @@ import retrofit2.Response;
  * Performs fragment changing if needed
  */
 
-public class FragmentDispatcher extends AppCompatActivity {
+public class FragmentDispatcher extends AppCompatActivity  implements DataBufferObserver{
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private static FragmentManager fragmentManager;
-    TextView myContacts;
+    private TextView myContacts;
+    private MessageUpdateQueue updateQueue = MessageUpdateQueue.getInstance();
 
+    NavigationView navigationView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,8 +66,9 @@ public class FragmentDispatcher extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
+        updateQueue.addObserver(this);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View header = navigationView.getHeaderView(0);
 
         TextView nameText = header.findViewById(R.id.nameNavigator);
@@ -78,7 +84,7 @@ public class FragmentDispatcher extends AppCompatActivity {
                 findItem(R.id.contacts));
 
 
-        showNotification(3, navigationView);
+        showNotification(updateQueue.getSize(), navigationView);
 
 
         mToggle.syncState();
@@ -102,6 +108,10 @@ public class FragmentDispatcher extends AppCompatActivity {
         TextView view = (TextView) navigationView.getMenu().findItem(R.id.contacts).getActionView();
         view.setText(count > 0 ? String.valueOf(count) : null);
     }
+
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -206,6 +216,7 @@ public class FragmentDispatcher extends AppCompatActivity {
 
     }
 
+
     /**
      * static function that launches fragments
      * @param fragmentClass - class of fragment which need to be launched
@@ -242,6 +253,29 @@ public class FragmentDispatcher extends AppCompatActivity {
         launchFragment(Account.class);
     }
 
+    @Override
+    public void onDataChanged() {
+        showNotification(updateQueue.getSize(), navigationView);
+    }
 
+    @Override
+    public void onDataRangeChanged(int i, int i1) {
+
+    }
+
+    @Override
+    public void onDataRangeInserted(int i, int i1) {
+
+    }
+
+    @Override
+    public void onDataRangeRemoved(int i, int i1) {
+
+    }
+
+    @Override
+    public void onDataRangeMoved(int i, int i1, int i2) {
+
+    }
 }
 

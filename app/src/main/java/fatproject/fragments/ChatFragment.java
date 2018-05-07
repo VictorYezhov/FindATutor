@@ -7,19 +7,27 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ScrollView;
 
+import com.google.android.gms.common.data.DataBufferObserver;
+
 import java.nio.file.Path;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.Helpers.MessageUpdateQueue;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.MessagesAdapter;
+import fatproject.entity.Contact;
 import fatproject.entity.Message;
 import fatproject.findatutor.R;
 import io.paperdb.Paper;
@@ -36,7 +44,7 @@ import retrofit2.Response;
  * Use the {@link ChatFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ChatFragment extends Fragment {
+public class ChatFragment extends Fragment implements DataBufferObserver {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -44,9 +52,16 @@ public class ChatFragment extends Fragment {
 
     private MessagesAdapter messagesAdapter;
     private List<Message> messages;
+    private MessageUpdateQueue updateQueue;
 
     @BindView(R.id.messages)
     RecyclerView recyclerView;
+
+    @BindView(R.id.btn_send)
+    Button sendButton;
+
+    @BindView(R.id.edit_message)
+    EditText editText;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -55,6 +70,7 @@ public class ChatFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     public ChatFragment() {
+        updateQueue =  MessageUpdateQueue.getInstance();
         // Required empty public constructor
     }
 
@@ -100,10 +116,9 @@ public class ChatFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(messagesAdapter);
         messagesAdapter.notifyDataSetChanged();
+        updateQueue.addObserver(this);
 
-
-
-
+        bindListeners();
 
         return view;
     }
@@ -120,7 +135,39 @@ public class ChatFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        updateQueue.removeObserver(this);
+        Log.d("CHAT FRAGMENT", "ON DETACH METHOD");
         mListener = null;
+    }
+
+    @Override
+    public void onDataChanged() {
+        Long contactId = Paper.book().read("contactID");
+        if(updateQueue.contains(contactId.toString())){
+            loadMessages();
+            updateQueue.delete(contactId.toString());
+            updateQueue.notifyObservers();
+        }
+    }
+
+    @Override
+    public void onDataRangeChanged(int i, int i1) {
+
+    }
+
+    @Override
+    public void onDataRangeInserted(int i, int i1) {
+
+    }
+
+    @Override
+    public void onDataRangeRemoved(int i, int i1) {
+
+    }
+
+    @Override
+    public void onDataRangeMoved(int i, int i1, int i2) {
+
     }
 
     /**
@@ -139,15 +186,29 @@ public class ChatFragment extends Fragment {
     }
 
     private void loadMessages(){
+        messages.clear();
+        List<Message> cashedMessages = Paper.book().read("messages");
+        if(cashedMessages!=null) {
+            messages.addAll(cashedMessages);
+            loadMessagesWithHelpOfCache();
+        }else {
+            loadAllMessages();
+        }
 
+    }
+
+    private void loadMessagesWithHelpOfCache(){
         Long contactId = Paper.book().read("contactID");
-        MainAplication.getServerRequests().loadMessages(contactId).enqueue(new Callback<List<Message>>() {
+
+        MainAplication.getServerRequests().loadMessages(contactId, MainAplication.getCurrentUser().getId()).enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                 if(response.body()!=null) {
                     messages.addAll(response.body());
+                    Paper.book().write("messages", messages);//TODO replace with saving in cache
                     messagesAdapter.notifyDataSetChanged();
                 }
+                messagesAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -155,5 +216,72 @@ public class ChatFragment extends Fragment {
 
             }
         });
+    }
+
+    private void loadAllMessages(){
+        Long contactId = Paper.book().read("contactID");
+        messages.clear();
+        MainAplication.getServerRequests().loadAllMessages(contactId, MainAplication.getCurrentUser().getId()).enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+                if(response.body()!=null) {
+                    messages.addAll(response.body());
+                    Paper.book().write("messages", messages);//TODO replace with saving in cache
+                    messagesAdapter.notifyDataSetChanged();
+                }
+                messagesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+
+    private void bindListeners(){
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Message message = new Message();
+                String textMessage = editText.getText().toString();
+                Long contactId = Paper.book().read("contactID");
+                message.setContactId(contactId);
+                message.setFrom(MainAplication.getCurrentUser().getId());
+                message.setColor(0);
+                message.setRead(false);
+                message.setMessage(textMessage);
+                message.setTimestamp(new Timestamp(System.currentTimeMillis()));
+                messages.add(message);
+                messagesAdapter.notifyDataSetChanged();
+                List<Message> cashedMessages = Paper.book().read("messages");
+                cashedMessages.add(message);
+                Paper.book().write("messages", messages);
+
+
+                MainAplication.getServerRequests().sendMessage(message).enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        Log.d("Message :", response.body());
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.d("Message :", "sending fail");
+                    }
+                });
+            }
+        });
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Long contactId = Paper.book().read("contactID");
+        if(updateQueue.contains(contactId.toString())){
+            updateQueue.delete(contactId.toString());
+            updateQueue.notifyObservers();
+        }
+        updateQueue.removeObserver(this);
     }
 }
