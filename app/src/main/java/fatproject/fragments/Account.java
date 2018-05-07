@@ -333,14 +333,12 @@ public class Account extends Fragment implements RecyclerItemTouchHelperForJobAd
             snackbar.show();
 
             deleteJobOnServer(id_of_job);
-        }
-
-        else if (viewHolder instanceof JobAdapter.MyViewHolder) {
+        } else if (viewHolder instanceof JobAdapter.MyViewHolder) {
 
             final Job deletedItem = onlyJobList.get(viewHolder.getAdapterPosition());
             final int deletedIndex = viewHolder.getAdapterPosition();
 
-            Long id_of_job = uAdapter.getItem(viewHolder.getAdapterPosition());
+            Long id_of_job = jAdapter.getItem(viewHolder.getAdapterPosition());
 
 
             // remove the item from recycler view.
