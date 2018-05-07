@@ -19,6 +19,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -64,8 +65,6 @@ public class Contacts extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
-
-
 
     @BindView(R.id.fab)
     FloatingActionButton fab;

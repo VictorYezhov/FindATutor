@@ -15,135 +15,188 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
+
+
+
+
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:backgroundTint="@color/blue">
+                android:layout_height="wrap_content">
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp"
-                    >
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/userNameAndSureName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:layout_gravity="start"
-                        />
 
-                    <TextView
-                        android:id="@+id/app_title"
+
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        />
+                        android:background="@color/grey">
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:src="@drawable/science"/>
 
-                <com.beardedhen.androidbootstrap.BootstrapButton
-                    android:id="@+id/priceApplicationDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:clickable="false"
-                    android:layout_gravity="bottom|end"
-                    android:layout_marginBottom="10dp"
-                    app:bootstrapBrand="success"
-                    app:bootstrapSize="lg"
-                    app:buttonMode="regular"
-                    app:roundedCorners="false"
-                    app:showOutline="false" />
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/white"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/description_app_word"
-                        android:text="Description"
-                        android:textSize="26sp"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:background="@android:color/darker_gray"
-                        android:layout_marginEnd="10dp"/>
-
-                    <TextView
-                        android:id="@+id/app_discription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:layout_marginStart="5dp"
-                        />
-                    
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <com.beardedhen.androidbootstrap.BootstrapEditText
-                            android:layout_width="265dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/editTextAddComment"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginLeft="20dp"
-                            android:textColor="@color/black"
-                            app:bootstrapSize="md"
-                            app:bootstrapBrand="info"
-                            />
-
-                        <com.beardedhen.androidbootstrap.BootstrapEditText
-                            android:layout_width="50dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/editTextPriceComment"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginRight="20dp"
+                            android:orientation="vertical"
                             android:layout_marginLeft="10dp"
-                            android:textColor="@color/black"
-                            android:inputType="number"
-                            app:bootstrapSize="md"
-                            app:bootstrapBrand="info"/>
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="20dp"
+                            >
 
-                    </LinearLayout>
 
-                    <Button
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:background="@color/grey"
-                        android:id="@+id/addCommentButton"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="8dp"
-                        android:text="Add comment"
-                        android:textColor="@color/white"/>
+
+                            <TextView
+                                android:id="@+id/app_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Title"
+                                android:textColor="@color/white"
+                                android:textSize="50sp"
+                                android:gravity="center"/>
+
+                            <TextView
+                                android:id="@+id/userNameAndSureName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Max Komarenski"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:gravity="center"
+                                android:layout_marginTop="15dp"
+                                />
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/white"
+                        >
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/description_app_word"
+                                    android:text="Description"
+                                    android:textSize="26sp"/>
+
+
+                                <TextView
+                                    android:id="@+id/app_discription"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="17sp"
+                                    android:textStyle="bold"
+                                    android:layout_marginStart="20dp"
+                                    />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <com.beardedhen.androidbootstrap.BootstrapEditText
+                                        android:layout_width="265dp"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/editTextAddComment"
+                                        android:layout_marginTop="8dp"
+                                        android:layout_marginLeft="20dp"
+                                        android:textColor="@color/black"
+                                        app:bootstrapSize="md"
+                                        app:bootstrapBrand="info"
+                                        />
+
+                                    <com.beardedhen.androidbootstrap.BootstrapEditText
+                                        android:layout_width="50dp"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/editTextPriceComment"
+                                        android:layout_marginTop="8dp"
+                                        android:layout_marginRight="20dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:textColor="@color/black"
+                                        android:inputType="number"
+                                        app:bootstrapSize="md"
+                                        app:bootstrapBrand="info"/>
+
+                                </LinearLayout>
+
+                                <Button
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/grey"
+                                    android:id="@+id/addCommentButton"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Add comment"
+                                    android:textColor="@color/white"/>
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+
+
+                    </android.support.v7.widget.CardView>
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/red_sticker_shadow" />
+
+                    <TextView
+                        android:id="@+id/priceApplicationDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="12dp"
+                        android:text="10$"
+                        android:textColor="@color/white"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+
+
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"

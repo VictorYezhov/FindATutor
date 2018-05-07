@@ -103,7 +103,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
         holder.title.setText(application.getQuestion().getTitle());
         holder.application_price.setText(application.getQuestion().getPrice().toString()+"$");
 
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date oldFormatedDate = null;
         try {
             oldFormatedDate = formatter.parse(application.getQuestion().getDateTime().toString());

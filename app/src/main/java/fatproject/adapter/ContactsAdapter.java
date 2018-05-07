@@ -21,9 +21,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import fatproject.Helpers.FlipAnimator;
+import fatproject.activities.FragmentDispatcher;
 import fatproject.entity.Contact;
 import fatproject.findatutor.R;
 import fatproject.entity.Message;
+import fatproject.fragments.UserInfo;
+import io.paperdb.Paper;
 
 public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyViewHolder> {
     private Context mContext;
@@ -88,12 +91,12 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        Contact contact = contacts.get(position);
+        final Contact contact = contacts.get(position);
 
         // displaying text view data
         holder.from.setText(contact.getFrom());
        // holder.subject.setText("REMOVE IT");
-         holder.message.setText(contact.getLastMessageText());
+        holder.message.setText(contact.getLastMessageText());
         holder.timestamp.setText(contact.getTimestamp().toString());
 
         // displaying the first letter of From in icon text
@@ -107,6 +110,14 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
 
         // apply click events
         applyClickEvents(holder, position);
+
+        holder.from.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Paper.book().write("user_info",contact.getIdFrom());
+                FragmentDispatcher.launchFragment(UserInfo.class);
+            }
+        });
     }
 
     private void applyClickEvents(MyViewHolder holder, final int position) {
@@ -139,6 +150,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
                 return true;
             }
         });
+
+
     }
 
     private void applyProfilePicture(MyViewHolder holder, Message message) {

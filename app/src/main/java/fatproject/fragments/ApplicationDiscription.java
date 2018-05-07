@@ -63,7 +63,7 @@ public class ApplicationDiscription extends Fragment {
     TextView title;
 
     @BindView(R.id.priceApplicationDescription)
-    BootstrapButton price;
+    TextView price;
 
     @BindView(R.id.app_discription)
     TextView description;
@@ -130,22 +130,25 @@ public class ApplicationDiscription extends Fragment {
         getAllCommentsOfCurrentQuestion();
         final QuestionForm questionForm = Paper.book().read(key);
 
+        Typeface grotesk55 = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NHaasGroteskTXPro55Rg.ttf");
+        Typeface grotesk75 = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NHaasGroteskTXPro-75Bd.ttf");
+        title.setTypeface(grotesk55);
+
         String nameStr = questionForm.getUserName() + " " + questionForm.getUserSurname();
         userNameAndSureName.setText(nameStr);
-        //Typeface munich = Typeface.createFromAsset(getActivity().getAssets(), "fonts/munich.ttf");
-        Typeface impact = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Impact.ttf");
-        userNameAndSureName.setTypeface(impact);
+        userNameAndSureName.setTypeface(grotesk55);
 
         title.setText(questionForm.getQuestion().getTitle());
-        Typeface peaceSan = Typeface.createFromAsset(getActivity().getAssets(), "fonts/RoyalCrescent.otf");
-        title.setTypeface(peaceSan);
 
         String priceStr = questionForm.getQuestion().getPrice().toString() + "$";
         price.setText(priceStr);
 
-        descriptionWord.setTypeface(peaceSan);
+        price.setTypeface(grotesk55);
+
+        descriptionWord.setTypeface(grotesk55);
 
         description.setText(questionForm.getQuestion().getDiscription());
+        description.setTypeface(grotesk75);
 
         //----------Comment RecyclerView-----------------
 
@@ -180,13 +183,6 @@ public class ApplicationDiscription extends Fragment {
 
                 editTextAddComment.setText("");
 
-//                try{
-//                    Thread.sleep(1000); //sleep for 3 seconds
-//                }
-//                catch(InterruptedException e){    System.err.println("got interrupted!");
-//                }
-//
-//                refreshCurrentClass();
 
                 c.setDateTime(new Timestamp(System.currentTimeMillis()));
                 CommentForm commentForm = new CommentForm(c, MainAplication.getCurrentUser().getName(),
