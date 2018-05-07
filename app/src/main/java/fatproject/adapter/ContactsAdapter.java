@@ -25,6 +25,7 @@ import fatproject.activities.FragmentDispatcher;
 import fatproject.entity.Contact;
 import fatproject.findatutor.R;
 import fatproject.entity.Message;
+import fatproject.fragments.ChatFragment;
 import fatproject.fragments.UserInfo;
 import io.paperdb.Paper;
 
@@ -99,6 +100,13 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
        // holder.subject.setText("REMOVE IT");
         holder.message.setText(contact.getLastMessageText());
         holder.timestamp.setText(contact.getTimestamp().toString());
+        holder.message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Paper.book().write("contactID", contact.getId());
+                FragmentDispatcher.launchFragment(ChatFragment.class);
+            }
+        });
 
         // displaying the first letter of From in icon text
         //holder.iconText.setText(message.getFrom().substring(0, 1));
