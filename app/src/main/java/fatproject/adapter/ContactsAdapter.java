@@ -42,7 +42,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
     // dirty fix, find a better solution
     private static int currentSelectedIndex = -1;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
         public TextView from, subject, message, iconText, timestamp;
         public ImageView iconImp, imgProfile;
         public LinearLayout messageContainer;
@@ -70,6 +70,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
             view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
             return true;
         }
+
     }
 
 

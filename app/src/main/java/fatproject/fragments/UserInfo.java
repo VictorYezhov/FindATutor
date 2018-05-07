@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
@@ -32,6 +33,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.Helpers.ImageSaver;
+import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ChipAdapter;
 import fatproject.adapter.ChipAdapterUserInfo;
@@ -156,6 +158,30 @@ public class UserInfo extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         setFonts();
 
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                MainAplication.getServerRequests().createNewChat(MainAplication.getCurrentUser().getId(), userInfo.getId())
+                        .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+
+                        Paper.book().write("contactID", Long.decode(response.body()));
+                        FragmentDispatcher.launchFragment(ChatFragment.class);
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+
+                    }
+                });
+                Toast.makeText(getActivity().getApplicationContext(), "Chat button works", Toast.LENGTH_LONG).show();
+
+
+            }
+        });
 
         return view;
     }

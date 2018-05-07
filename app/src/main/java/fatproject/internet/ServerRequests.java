@@ -52,6 +52,9 @@ public interface ServerRequests {
     @POST("/userInfo")
     Call<User> loadUserInfo(@Query("id") Long id);
 
+    @POST("/createNewChat")
+    Call<String> createNewChat(@Query("side1") Long side1, @Query("side2")Long side2);
+
 
 
     /**
@@ -88,7 +91,7 @@ public interface ServerRequests {
     Call<User> registerNewUser(@Body User user);
 
     /**
-     * Downloads list of usser messages
+     * Downloads list of user contacts
      * @return
      */
     @POST("/getMyContacts")
@@ -107,6 +110,9 @@ public interface ServerRequests {
     @POST("/updatePhoto{id}")
     @Multipart
     Call<String> updateUserPhoto(@Part MultipartBody.Part img, @Path("id") Long id);
+
+    @POST("/getMessages{id}")
+    Call<List<Message>> loadMessages(@Path("id") Long id);
 
 
 
