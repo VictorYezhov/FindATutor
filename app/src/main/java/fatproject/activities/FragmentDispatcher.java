@@ -107,6 +107,7 @@ public class FragmentDispatcher extends AppCompatActivity  implements DataBuffer
     private void showNotification(int count, NavigationView navigationView){
         TextView view = (TextView) navigationView.getMenu().findItem(R.id.contacts).getActionView();
         view.setText(count > 0 ? String.valueOf(count) : null);
+
     }
 
 
