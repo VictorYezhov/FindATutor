@@ -327,7 +327,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
             Date date = format.parse(dateStr);
             SimpleDateFormat todayFormat = new SimpleDateFormat("dd");
             String dateToday = todayFormat.format(date);
-            format = dateToday.equals(today) ? new SimpleDateFormat("hh:mm a") : new SimpleDateFormat("dd LLL, hh:mm a");
+            format = dateToday.equals(today) ? new SimpleDateFormat("HH:mm") : new SimpleDateFormat("dd.MM, HH:mm");
             String date1 = format.format(date);
             timestamp = date1.toString();
         } catch (ParseException e) {
