@@ -243,6 +243,9 @@ public class FragmentDispatcher extends AppCompatActivity  implements DataBuffer
     private void logout(){
         MainAplication.deleteCurrentUser();
         MainAplication.deleteUsersPhoto();
+        for(String s: Paper.book().getAllKeys()){
+            Paper.book().delete(s);
+        }
         finish();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);

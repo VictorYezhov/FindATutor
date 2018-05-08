@@ -53,6 +53,7 @@ public class ChatFragment extends Fragment implements DataBufferObserver {
     private MessagesAdapter messagesAdapter;
     private List<Message> messages;
     private MessageUpdateQueue updateQueue;
+    private Long contactId;
 
     @BindView(R.id.messages)
     RecyclerView recyclerView;
@@ -70,6 +71,7 @@ public class ChatFragment extends Fragment implements DataBufferObserver {
     private OnFragmentInteractionListener mListener;
 
     public ChatFragment() {
+        contactId = Paper.book().read("contactID");
         updateQueue =  MessageUpdateQueue.getInstance();
         // Required empty public constructor
     }
@@ -142,7 +144,6 @@ public class ChatFragment extends Fragment implements DataBufferObserver {
 
     @Override
     public void onDataChanged() {
-        Long contactId = Paper.book().read("contactID");
         if(updateQueue.contains(contactId.toString())){
             loadMessages();
             updateQueue.delete(contactId.toString());
@@ -187,7 +188,7 @@ public class ChatFragment extends Fragment implements DataBufferObserver {
 
     private void loadMessages(){
         messages.clear();
-        List<Message> cashedMessages = Paper.book().read("messages");
+        List<Message> cashedMessages = Paper.book().read("messages"+contactId);
         if(cashedMessages!=null) {
             messages.addAll(cashedMessages);
             loadMessagesWithHelpOfCache();
@@ -198,14 +199,13 @@ public class ChatFragment extends Fragment implements DataBufferObserver {
     }
 
     private void loadMessagesWithHelpOfCache(){
-        Long contactId = Paper.book().read("contactID");
 
         MainAplication.getServerRequests().loadMessages(contactId, MainAplication.getCurrentUser().getId()).enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                 if(response.body()!=null) {
                     messages.addAll(response.body());
-                    Paper.book().write("messages", messages);//TODO replace with saving in cache
+                    Paper.book().write("messages"+contactId, messages);//TODO replace with saving in cache
                     messagesAdapter.notifyDataSetChanged();
                 }
                 messagesAdapter.notifyDataSetChanged();
@@ -219,14 +219,13 @@ public class ChatFragment extends Fragment implements DataBufferObserver {
     }
 
     private void loadAllMessages(){
-        Long contactId = Paper.book().read("contactID");
         messages.clear();
         MainAplication.getServerRequests().loadAllMessages(contactId, MainAplication.getCurrentUser().getId()).enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                 if(response.body()!=null) {
                     messages.addAll(response.body());
-                    Paper.book().write("messages", messages);//TODO replace with saving in cache
+                    Paper.book().write("messages"+contactId, messages);//TODO replace with saving in cache
                     messagesAdapter.notifyDataSetChanged();
                 }
                 messagesAdapter.notifyDataSetChanged();
@@ -247,7 +246,6 @@ public class ChatFragment extends Fragment implements DataBufferObserver {
             public void onClick(View view) {
                 Message message = new Message();
                 String textMessage = editText.getText().toString();
-                Long contactId = Paper.book().read("contactID");
                 message.setContactId(contactId);
                 message.setFrom(MainAplication.getCurrentUser().getId());
                 message.setColor(0);
@@ -256,9 +254,9 @@ public class ChatFragment extends Fragment implements DataBufferObserver {
                 message.setTimestamp(new Timestamp(System.currentTimeMillis()));
                 messages.add(message);
                 messagesAdapter.notifyDataSetChanged();
-                List<Message> cashedMessages = Paper.book().read("messages");
+                List<Message> cashedMessages = Paper.book().read("messages"+contactId);
                 cashedMessages.add(message);
-                Paper.book().write("messages", messages);
+                Paper.book().write("messages"+contactId, messages);
 
 
                 MainAplication.getServerRequests().sendMessage(message).enqueue(new Callback<String>() {
@@ -277,11 +275,11 @@ public class ChatFragment extends Fragment implements DataBufferObserver {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Long contactId = Paper.book().read("contactID");
         if(updateQueue.contains(contactId.toString())){
             updateQueue.delete(contactId.toString());
             updateQueue.notifyObservers();
         }
+        messages.clear();
         updateQueue.removeObserver(this);
     }
 }
