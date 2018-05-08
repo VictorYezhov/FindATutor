@@ -48,11 +48,13 @@ import retrofit2.Response;
  */
 
 public class FragmentDispatcher extends AppCompatActivity  implements DataBufferObserver{
+
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private static FragmentManager fragmentManager;
     private TextView myContacts;
     private MessageUpdateQueue updateQueue = MessageUpdateQueue.getInstance();
+    private TextView red_bell;
 
     NavigationView navigationView;
 
@@ -82,7 +84,6 @@ public class FragmentDispatcher extends AppCompatActivity  implements DataBuffer
 
         myContacts = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
                 findItem(R.id.contacts));
-
 
         showNotification(updateQueue.getSize(), navigationView);
 
