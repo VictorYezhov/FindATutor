@@ -18,7 +18,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import fatproject.Helpers.FlipAnimator;
 import fatproject.Helpers.MessageUpdateQueue;
@@ -41,7 +47,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
     // array used to perform multiple animation at once
     private SparseBooleanArray animationItemsIndex;
     private boolean reverseAllAnimations = false;
-
+    private static String today;
     // index is used to animate only the selected row
     // dirty fix, find a better solution
     private static int currentSelectedIndex = -1;
@@ -51,6 +57,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
         public ImageView iconImp, imgProfile;
         public LinearLayout messageContainer;
         public RelativeLayout iconContainer, iconBack, iconFront;
+
 
         public MyViewHolder(View view) {
             super(view);
@@ -84,6 +91,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
         this.listener = listener;
         selectedItems = new SparseBooleanArray();
         animationItemsIndex = new SparseBooleanArray();
+        Calendar calendar = Calendar.getInstance();
+        today = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     @Override
@@ -104,7 +113,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
         holder.message.setText(contact.getLastMessageText());
         if(updateQueue.contains(contact.getId().toString()))
             holder.message.setTextColor(MainAplication.getContext().getResources().getColor(R.color.black));
-        holder.timestamp.setText(contact.getTimestamp().toString());
+       holder.timestamp.setText(getTimeStamp(contact.getTimestamp().toString()));
         holder.message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -305,5 +314,25 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
         void onMessageRowClicked(int position);
 
         void onRowLongClicked(int position);
+    }
+
+
+    private static String getTimeStamp(String dateStr) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String timestamp = "";
+
+        today = today.length() < 2 ? "0" + today : today;
+
+        try {
+            Date date = format.parse(dateStr);
+            SimpleDateFormat todayFormat = new SimpleDateFormat("dd");
+            String dateToday = todayFormat.format(date);
+            format = dateToday.equals(today) ? new SimpleDateFormat("hh:mm a") : new SimpleDateFormat("dd LLL, hh:mm a");
+            String date1 = format.format(date);
+            timestamp = date1.toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return timestamp;
     }
 }

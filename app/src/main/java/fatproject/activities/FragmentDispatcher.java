@@ -106,7 +106,15 @@ public class FragmentDispatcher extends AppCompatActivity  implements DataBuffer
 
     private void showNotification(int count, NavigationView navigationView){
         TextView view = (TextView) navigationView.getMenu().findItem(R.id.contacts).getActionView();
-        view.setText(count > 0 ? String.valueOf(count) : null);
+        if(count>0){
+
+            //view.setBackground(MainAplication.getContext().getResources().getDrawable(R.drawable.ic_notifications_red));
+            view.setBackgroundColor(MainAplication.getContext().getResources().getColor(R.color.red));
+            view.setText(String.valueOf(count));
+        }
+        else {
+            view.setBackgroundColor(MainAplication.getContext().getResources().getColor(R.color.white));
+        }
 
     }
 
