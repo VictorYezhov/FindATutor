@@ -54,7 +54,6 @@ public class FragmentDispatcher extends AppCompatActivity  implements DataBuffer
     private static FragmentManager fragmentManager;
     private TextView myContacts;
     private MessageUpdateQueue updateQueue = MessageUpdateQueue.getInstance();
-    private TextView red_bell;
 
     NavigationView navigationView;
 
