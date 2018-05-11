@@ -34,7 +34,8 @@
             android:windowSoftInputMode="adjustPan"
             android:name="fatproject.activities.FragmentDispatcher"
             android:theme="@style/AppThemeMy"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name">
+        </activity>
         <activity
             android:name="fatproject.activities.ProcessingActivity"
             android:label="@string/title_activity_settings"

@@ -5,11 +5,25 @@
     tools:context="fatproject.fragments.AnswerQuestions"
     android:background="#F0F0F0">
 
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <EditText
+            android:background="@color/blue"
+            android:backgroundTint="@color/blue"
+            android:textColor="@color/white"
+            android:id="@+id/question_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:tooltipText="USER"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:tooltipText="USER" />
+</LinearLayout>
+
 
 </FrameLayout>
