@@ -44,7 +44,7 @@ public class MainAplication extends Application {
                 .setLenient()
                 .create();
         retrofit = new Retrofit.Builder()
-                .baseUrl(URLs.BASE_LOCKAL.getUrl()) //Базовая часть адреса
+                .baseUrl(URLs.BASE_REMOTE.getUrl()) //Базовая часть адреса
                 .addConverterFactory(GsonConverterFactory.create(gson)) //Конвертер, необходимый для преобразования JSON'а в объекты
                 .build();
         serverRequests = retrofit.create(ServerRequests.class);

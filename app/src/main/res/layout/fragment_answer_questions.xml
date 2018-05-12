@@ -9,13 +9,22 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-        <EditText
-            android:background="@color/blue"
-            android:backgroundTint="@color/blue"
-            android:textColor="@color/white"
+        <com.libizo.CustomEditText
             android:id="@+id/question_search"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="Search"
+            android:textColorHint="@color/blue"
+            android:inputType="text"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:libIZO_clearIconTint="@color/blue"
+            app:libIZO_setBorderColor="@color/blue"
+            app:libIZO_setBorderView="true"
+            android:textColor="@color/blue"
+            app:libIZO_setClearIconVisible="true"
+            app:libIZO_setCornerRadius="4dp"
+            app:libIZO_setStrokeWidth="2dp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"

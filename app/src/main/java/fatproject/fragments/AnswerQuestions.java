@@ -18,6 +18,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.libizo.CustomEditText;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +62,7 @@ public class AnswerQuestions extends Fragment {
     private ApplicationAdapter mAdapter;
 
     @BindView(R.id.question_search)
-    EditText searchView;
+    CustomEditText searchView;
 
 
     // TODO: Rename and change types of parameters
