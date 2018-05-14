@@ -5,8 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import fatproject.entity.Question;
@@ -18,13 +23,14 @@ public class YourQuestionsAdapter extends RecyclerView.Adapter<YourQuestionsAdap
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         public TextView title, date;
-        //list of tags
+        public RelativeLayout background;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.my_questions_title);
             date = itemView.findViewById(R.id.my_questions_date);
+            background = itemView.findViewById(R.id.my_questions_background);
         }
     }
 
@@ -43,7 +49,17 @@ public class YourQuestionsAdapter extends RecyclerView.Adapter<YourQuestionsAdap
     public void onBindViewHolder(@NonNull YourQuestionsAdapter.MyViewHolder holder, int position) {
         Question q = questions.get(position);
         holder.title.setText(q.getTitle());
-        holder.date.setText(q.getDateTime().toString());
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date oldFormatedDate = null;
+        try {
+            oldFormatedDate = formatter.parse(q.getDateTime().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        holder.date.setText(new SimpleDateFormat("dd-MM-yyyy HH:mm").
+                format(oldFormatedDate));
     }
 
     @Override

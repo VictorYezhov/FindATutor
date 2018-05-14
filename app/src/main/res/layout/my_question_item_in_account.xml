@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:id="@+id/my_questions_background"
+    android:background="@drawable/background_border"
+    >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/my_questions_title"
         android:textColor="@color/black"
-        android:text="asdasd"
-        android:textSize="15sp"/>
+        android:text="Title"
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"/>
 
     <TextView
+        android:id="@+id/my_questions_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/my_questions_date"
-        android:textColor="@color/black"
-        android:text="adasd"
-        android:textSize="15sp"/>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="11.02.2015"
+        android:textColor="@color/blue"
+        android:textSize="13sp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"/>
 
-</LinearLayout>
+</RelativeLayout>
