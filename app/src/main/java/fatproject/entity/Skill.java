@@ -11,7 +11,7 @@ public class Skill {
 
     private Long id;
     private  String name;
-
+    private Category category;
 
     public Skill() {
 
@@ -43,6 +43,11 @@ public class Skill {
         this.id = id;
     }
 
+    public Category getCategory() {
+        return category;
+    }
 
-
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }

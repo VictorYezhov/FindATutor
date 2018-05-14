@@ -1,38 +1,46 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fatproject.fragments.AnswerQuestions"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F0F0F0">
 
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-        <com.libizo.CustomEditText
-            android:id="@+id/question_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:hint="Search"
-            android:textColorHint="@color/blue"
-            android:inputType="text"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            app:libIZO_clearIconTint="@color/blue"
-            app:libIZO_setBorderColor="@color/blue"
-            app:libIZO_setBorderView="true"
-            android:textColor="@color/blue"
-            app:libIZO_setClearIconVisible="true"
-            app:libIZO_setCornerRadius="4dp"
-            app:libIZO_setStrokeWidth="2dp" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            android:tooltipText="USER" />
-</LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"/>
+
+    <com.asksira.dropdownview.DropDownView
+        android:id="@+id/categories"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="50dp"
+        app:placeholder_text="Please select"
+        app:filter_bar_background_color="@android:color/holo_orange_dark"
+        app:filter_text_color="@android:color/white"
+
+        app:arrow_width="24dp"
+        app:dropDownItem_text_color_selected="@android:color/holo_orange_dark"
+        app:divider_color="@android:color/holo_orange_light"
+        app:dropDownItem_text_size_selected="18sp" />
+    <com.libizo.CustomEditText
+        android:id="@+id/question_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:hint="Search"
+        android:textColorHint="@color/blue"
+        android:inputType="text"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:libIZO_clearIconTint="@color/blue"
+        app:libIZO_setBorderColor="@color/blue"
+        app:libIZO_setBorderView="true"
+        android:textColor="@color/blue"
+        app:libIZO_setClearIconVisible="true"
+        app:libIZO_setCornerRadius="4dp"
+        app:libIZO_setStrokeWidth="2dp" />
 
 
-</FrameLayout>
+</RelativeLayout>

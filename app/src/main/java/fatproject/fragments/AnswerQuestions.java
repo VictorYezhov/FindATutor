@@ -18,6 +18,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.asksira.dropdownview.DropDownView;
 import com.libizo.CustomEditText;
 
 import java.sql.Timestamp;
@@ -63,6 +64,9 @@ public class AnswerQuestions extends Fragment {
 
     @BindView(R.id.question_search)
     CustomEditText searchView;
+
+    @BindView(R.id.categories)
+    DropDownView categories;
 
 
     // TODO: Rename and change types of parameters
@@ -142,6 +146,16 @@ public class AnswerQuestions extends Fragment {
 
             }
         });
+
+
+
+        List<String> lst = new ArrayList<>();
+        lst.add("item 1");
+        lst.add("item 2");
+        lst.add("item 3");
+        lst.add("item 4");
+
+        categories.setDropDownListItem(lst);
 
         return view;
     }

@@ -113,8 +113,7 @@ public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ChipViewHolder
             public void onClick(View v) {
 
                 Log.d("adapter:", String.valueOf(position));
-                deleteChipOnServerSide(skillList.get(position).getId());
-                deleteSkillItem(position);
+                deleteChipOnServerSide(skillList.get(position).getId(), position);
             }
         }).setActionTextColor(Color.RED);
 
@@ -123,14 +122,16 @@ public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ChipViewHolder
 
     public void deleteSkillItem(int position){
         skillList.remove(skillList.get(position));
+        notifyDataSetChanged();
         notifyItemRemoved(position);
     }
 
-    public void deleteChipOnServerSide(Long skill_id){
+    public void deleteChipOnServerSide(Long skill_id, final int position){
         MainAplication.getServerRequests().deleteItemFromAccountChipList(MainAplication.getCurrentUser().getId(), skill_id).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 System.err.println(response.body());
+                deleteSkillItem(position);
             }
 
             @Override
