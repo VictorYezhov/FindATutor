@@ -36,6 +36,9 @@ import fatproject.fragments.AnswerQuestions;
 import fatproject.fragments.ApplicationDiscription;
 import fatproject.fragments.UserInfo;
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Victor on 01.02.2018.
@@ -124,8 +127,10 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
                 QuestionForm application = applicationList.get(position);
                 Paper.book().write(MainAplication.getContext().getResources().getString(R.string.current_dicription_choise),
                         application);
+
+                plusOneToViewCounter(application.getQuestion().getId());
+
                 FragmentDispatcher.launchFragment(ApplicationDiscription.class);
-               // Toast.makeText(AnswerQuestions.this.getContext(), application.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
             }
         });
         holder.contact.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +142,20 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
         });
 
 
+    }
+
+    public void plusOneToViewCounter(Long id){
+        MainAplication.getServerRequests().plusOne(id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.err.println("One was added");
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

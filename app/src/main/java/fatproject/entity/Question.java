@@ -23,6 +23,7 @@ public class Question {
     private String discription;
     private Timestamp dateTime;
     private Integer price;
+    private Integer views;
 
     private Set<Skill> skills;
 
@@ -58,6 +59,14 @@ public class Question {
         this.discription = discription;
     }
 
+    public Question(String title, String discription, Set<Skill> skills, Integer price, Integer views) {
+        this.title = title;
+        this.discription = discription;
+        this.skills = skills;
+        this.price = price;
+        this.views = views;
+    }
+
     public Long getId() {
         return id;
     }
@@ -90,7 +99,6 @@ public class Question {
         this.discription = discription;
     }
 
-
     public Set<Skill> getSkills() {
         return skills;
     }
@@ -105,6 +113,14 @@ public class Question {
 
     public void setDateTime(Timestamp dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public Integer getViews() {
+        return views;
+    }
+
+    public void setViews(Integer views) {
+        this.views = views;
     }
 
     @Override

@@ -180,6 +180,7 @@ public interface ServerRequests {
     @GET("/getAllUsersQuestions{id}")
     Call<List<Question>> getAllUsersQuestions(@Path("id") Long id);
 
-
+    @POST("/plusOneToViewCounter{id}")
+    Call<String> plusOne(@Path("id") Long id);
 
 }

@@ -210,7 +210,8 @@ public class AskQuestions extends Fragment {
                 Question newQuestion = new Question(topicAskQuestion.getText().toString(),
                         descriptionAskQuestion.getText().toString(),
                         skillSetTest,
-                        price);
+                        price,
+                        0);
 
                 if(newQuestion.getTitle().equals("")){
                     showSnackbar("Enter the topic of your question.", view);
