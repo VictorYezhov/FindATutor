@@ -41,6 +41,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleCompatible
     compile 'com.android.support:support-v4:26.1.0'
+    implementation 'com.libizo:customedittext:1.0.2'
     compile 'com.android.support:support-vector-drawable:27.1.0'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

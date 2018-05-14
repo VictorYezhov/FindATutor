@@ -8,10 +8,17 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.libizo.CustomEditText;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -53,6 +60,9 @@ public class AnswerQuestions extends Fragment {
     RecyclerView recyclerView;
 
     private ApplicationAdapter mAdapter;
+
+    @BindView(R.id.question_search)
+    CustomEditText searchView;
 
 
     // TODO: Rename and change types of parameters
@@ -105,17 +115,33 @@ public class AnswerQuestions extends Fragment {
         View view = inflater.inflate(R.layout.fragment_answer_questions, container, false);
         ButterKnife.bind(this, view);
 
-
         mAdapter = new ApplicationAdapter(this.getContext(),applicationList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        //recyclerView.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayoutManager.VERTICAL));
 
         setApplicationsData(mAdapter);
         mAdapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(mAdapter);
+
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                mAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         return view;
     }
@@ -156,11 +182,7 @@ public class AnswerQuestions extends Fragment {
             @Override
             public void onResponse(Call<List<QuestionForm>> call, Response<List<QuestionForm>> response) {
                 if(response.body()!=null){
-                    for (QuestionForm qf:
-                         response.body()) {
-                      //  qf.getQuestion().setDateTime(Timestamp.valueOf(qf.getQuestion().getDateTime()).toString());
-                        applicationList.add(qf);
-                    }
+                    applicationList.addAll(response.body());
                     mAdapter.notifyDataSetChanged();
                 }else
                 System.err.println("NULL");

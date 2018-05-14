@@ -9,6 +9,8 @@ import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
@@ -39,9 +41,10 @@ import io.paperdb.Paper;
  * Created by Victor on 01.02.2018.
  */
 
-public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.MyViewHolder>  {
+public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.MyViewHolder> implements Filterable   {
 
     private List<QuestionForm> applicationList;
+    private List<QuestionForm> filtredApplicationList;
 
     private Context context;
 
@@ -67,6 +70,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
 
     public ApplicationAdapter(Context context, List<QuestionForm> applicationList) {
         this.applicationList = applicationList;
+        filtredApplicationList = applicationList;
         this.context = context;
     }
 
@@ -84,7 +88,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int  position) {
-        final QuestionForm application = applicationList.get(position);
+        final QuestionForm application = filtredApplicationList.get(position);
 
        // holder.recyclerView.setHasFixedSize(true);
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(context);
@@ -133,16 +137,47 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
         });
 
 
-
-
-
     }
 
     @Override
     public int getItemCount() {
-        return  applicationList.size();
+        return  filtredApplicationList.size();
     }
 
 
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                if(charSequence.toString().isEmpty()){
 
+                }
+                List<QuestionForm> list = new ArrayList<>();
+                FilterResults  results = new FilterResults();
+                if(charSequence.toString().isEmpty()){
+
+                    results.values = applicationList;
+                    return  results;
+                }
+                for (QuestionForm qf:applicationList) {
+                    for(Skill s:qf.getQuestion().getSkills()) {
+                        if (s.getName().toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                            list.add(qf);
+                            break;
+                        }
+                    }
+                }
+                filtredApplicationList = list;
+                results.values = filtredApplicationList;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                filtredApplicationList = (ArrayList<QuestionForm>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 }
