@@ -72,19 +72,40 @@
             android:textSize="@dimen/contacts_text_size" />
     </LinearLayout>
 
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/application_price"
-        android:text="30$"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="5dp"
-        android:clickable="false"
-        app:bootstrapBrand="success"
-        app:bootstrapSize="lg"
-        app:buttonMode="regular"
-        app:showOutline="false"
-        app:roundedCorners="false"
-        />
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/application_price"
+            android:text="30$"
+            android:layout_marginLeft="15dp"
+            android:clickable="false"
+            app:bootstrapBrand="success"
+            app:bootstrapSize="lg"
+            app:buttonMode="regular"
+            app:showOutline="false"
+            app:roundedCorners="true"
+            />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/application_views"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10 views"
+            app:bootstrapBrand="primary"
+            app:bootstrapSize="lg"
+            app:buttonMode="regular"
+            app:roundedCorners="true"
+            app:showOutline="false"
+            android:layout_marginStart="14dp"/>
+
+    </LinearLayout>
+
+
 
 </FrameLayout>

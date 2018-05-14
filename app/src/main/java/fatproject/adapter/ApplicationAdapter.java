@@ -52,9 +52,11 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
     private Context context;
 
 
+    private String VIEW = " view";
+    private String VIEWS = " views";
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, application_price,  timestamp, contact;
+        public TextView title, application_price,  timestamp, contact, applicatin_views;
         public RecyclerView recyclerView;
 
 
@@ -65,6 +67,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
             timestamp = view.findViewById(R.id.timestamp_answer_questions);
             recyclerView = view.findViewById(R.id.tags_recycle_view);
             contact = view.findViewById(R.id.contact_info);
+            applicatin_views = view.findViewById(R.id.application_views);
 
 
 
@@ -102,13 +105,22 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
         TagAdapter adapter = new TagAdapter(application.getQuestion().getSkills());
         holder.recyclerView.setAdapter(adapter);
         holder.recyclerView.setVisibility(View.VISIBLE);
+
         StringBuilder name = new StringBuilder(application.getUserName());
         name.append(" ");
         name.append(application.getUserSurname());
         holder.contact.setText(name.toString());
         adapter.notifyDataSetChanged();
+
         holder.title.setText(application.getQuestion().getTitle());
+
         holder.application_price.setText(application.getQuestion().getPrice().toString()+"$");
+
+
+        if(application.getQuestion().getViews() == 1)
+            holder.applicatin_views.setText(application.getQuestion().getViews().toString() + VIEW);
+        else
+            holder.applicatin_views.setText(application.getQuestion().getViews().toString() + VIEWS);
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date oldFormatedDate = null;
