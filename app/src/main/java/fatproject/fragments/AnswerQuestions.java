@@ -227,6 +227,7 @@ public class AnswerQuestions extends Fragment {
             @Override
             public void onResponse(Call<List<QuestionForm>> call, Response<List<QuestionForm>> response) {
                 if(response.body()!=null){
+                    applicationList.clear();
                     applicationList.addAll(response.body());
                     mAdapter.notifyDataSetChanged();
                 }else
