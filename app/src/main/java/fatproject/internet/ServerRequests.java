@@ -177,6 +177,9 @@ public interface ServerRequests {
     @POST("/deleteItemFromChipList{id}")
     Call<String> deleteItemFromAccountChipList(@Body Long id_user, @Path("id") Long id);
 
+    @GET("/getAllUsersQuestions{id}")
+    Call<List<Question>> getAllUsersQuestions(@Path("id") Long id);
+
 
 
 }

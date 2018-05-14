@@ -55,13 +55,16 @@ import butterknife.ButterKnife;
 import fatproject.Helpers.ImageSaver;
 import fatproject.Helpers.RecyclerItemTouchHelperForJobAdapter;
 import fatproject.Helpers.RecyclerItemTouchHelperForUniverAdapter;
+import fatproject.IncomingForms.QuestionForm;
 import fatproject.SendingForms.LoginForm;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ChipAdapter;
 import fatproject.adapter.JobAdapter;
 import fatproject.adapter.UniverAdapter;
+import fatproject.adapter.YourQuestionsAdapter;
 import fatproject.entity.Job;
+import fatproject.entity.Question;
 import fatproject.entity.Skill;
 import fatproject.entity.Type;
 import fatproject.entity.User;
@@ -149,6 +152,9 @@ public class Account extends Fragment implements RecyclerItemTouchHelperForJobAd
     @BindView(R.id.univer_text)
     TextView univer_text;
 
+    @BindView(R.id.your_questions_text)
+    TextView yourQuestionText;
+
     @BindView(R.id.recycler_view_jobs)
     RecyclerView recyclerViewJob;
 
@@ -188,13 +194,20 @@ public class Account extends Fragment implements RecyclerItemTouchHelperForJobAd
     @BindView(R.id.coordinator_layout)
     CoordinatorLayout coordinatorLayout;
 
+    @BindView(R.id.questionWhichWereAsked_RecyclerView)
+    RecyclerView questionWhichWereAsked_RecyclerView;
+
     private static final String EMPTY_STRING = "";
 
     private List<Job> onlyJobList = new ArrayList<>();
     private List<Job> onlyUniverList = new ArrayList<>();
+    private List<Question> myQuestionsList = new ArrayList<>();
 
+    //------------Adapters--------------------
     private JobAdapter jAdapter;
     private UniverAdapter uAdapter;
+    private YourQuestionsAdapter yourQuestionsAdapter;
+    //----------------------------------------
 
     private boolean isOpen = false;
     final List<Skill> skill;
@@ -268,6 +281,22 @@ public class Account extends Fragment implements RecyclerItemTouchHelperForJobAd
         uAdapter.notifyDataSetChanged();
 
         //--------------------------------------------------------------------------------------
+        // Your question stuffs
+
+        yourQuestionsAdapter = new YourQuestionsAdapter(myQuestionsList);
+
+        RecyclerView.LayoutManager myQuestionsLayoutManager = new LinearLayoutManager(this.getContext());
+
+        questionWhichWereAsked_RecyclerView.setLayoutManager(myQuestionsLayoutManager);
+
+        questionWhichWereAsked_RecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        questionWhichWereAsked_RecyclerView.setAdapter(yourQuestionsAdapter);
+
+        yourQuestionsAdapter.notifyDataSetChanged();
+
+
+        //--------------------------------------------------------------------------------------
         //Font stuffs
         Typeface nameFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Light.otf");
         username.setTypeface(nameFont);
@@ -276,6 +305,7 @@ public class Account extends Fragment implements RecyclerItemTouchHelperForJobAd
         skill_text.setTypeface(nameFont);
         job_text.setTypeface(nameFont);
         univer_text.setTypeface(nameFont);
+        yourQuestionText.setTypeface(nameFont);
 
         Typeface informationFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/wider.ttf");
 
@@ -382,6 +412,27 @@ public class Account extends Fragment implements RecyclerItemTouchHelperForJobAd
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void getAllUsersQuestions(){
+        MainAplication.getServerRequests().getAllUsersQuestions(MainAplication.getCurrentUser().getId()).enqueue(new Callback<List<Question>>() {
+            @Override
+            public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
+                for(int i = 0; i < response.body().size(); i++){
+                    myQuestionsList.clear();
+                    myQuestionsList.addAll(response.body());
+                    yourQuestionsAdapter.notifyDataSetChanged();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Question>> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
     public void plusButtonAnimation(boolean checker){
@@ -622,6 +673,8 @@ public class Account extends Fragment implements RecyclerItemTouchHelperForJobAd
      * Call after every update
      */
     private void fillUsersData(){
+
+        getAllUsersQuestions();
 
         User user = MainAplication.getCurrentUser();
         skill.clear();

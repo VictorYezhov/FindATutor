@@ -148,7 +148,7 @@
                     app:srb_starHeight="30dp"
                     app:srb_starPadding="3dp"
                     app:srb_starWidth="30dp"
-                    app:srb_stepSize="0.5"></com.willy.ratingbar.ScaleRatingBar>
+                    app:srb_stepSize="0.5"/>
 
                 <include layout="@layout/expansion_panel" />
 
@@ -193,7 +193,7 @@
                                     android:layout_alignParentTop="true"
                                     android:layout_marginRight="11dp"
                                     android:background="@android:color/transparent"
-                                    app:srcCompat="@drawable/ic_add_black_24dp"></ImageButton>
+                                    app:srcCompat="@drawable/ic_add_black_24dp"/>
                             </RelativeLayout>
 
                             <android.support.v7.widget.RecyclerView
@@ -220,19 +220,25 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:padding="7dp"
+                        android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/your_questions_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text = "Your Question"
-                            android:textSize="23sp"
-                            android:textColor="@color/black"/>
+                            android:text="Your Questions"
+                            android:textColor="@color/black"
+                            android:textSize="23sp" />
+
 
                         <android.support.v7.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/questionWhichWereAsked"/>
+                            android:id="@+id/questionWhichWereAsked_RecyclerView"
+                            android:scrollbars="vertical" />
 
 
                     </LinearLayout>
