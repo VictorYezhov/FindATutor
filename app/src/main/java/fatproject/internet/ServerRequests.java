@@ -2,12 +2,14 @@ package fatproject.internet;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.locks.Lock;
 
 import fatproject.IncomingForms.CommentForm;
 import fatproject.IncomingForms.QuestionForm;
 import fatproject.SendingForms.LoginForm;
 import fatproject.SendingForms.SendSkillsForm;
 import fatproject.SendingForms.UserInformationForm;
+import fatproject.entity.Category;
 import fatproject.entity.Contact;
 import fatproject.entity.Country;
 import fatproject.entity.Job;
@@ -120,7 +122,13 @@ public interface ServerRequests {
     @POST("/sendMessage")
     Call<String> sendMessage(@Body Message message);
 
+    @GET("/getQuestionsByCategory{id}")
+    Call<List<QuestionForm>> getQuestionsByCategory(@Path("id") Long id);
 
+
+
+    @GET("/getAllCategories")
+    Call<List<Category>> getAllCategories();
 
 
 

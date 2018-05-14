@@ -20,7 +20,6 @@
         app:placeholder_text="Please select"
         app:filter_bar_background_color="@android:color/holo_orange_dark"
         app:filter_text_color="@android:color/white"
-
         app:arrow_width="24dp"
         app:dropDownItem_text_color_selected="@android:color/holo_orange_dark"
         app:divider_color="@android:color/holo_orange_light"

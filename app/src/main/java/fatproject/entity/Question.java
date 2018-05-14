@@ -24,6 +24,7 @@ public class Question {
     private Timestamp dateTime;
     private Integer price;
     private Integer views;
+    private Category category;
 
     private Set<Skill> skills;
 
@@ -123,6 +124,14 @@ public class Question {
         this.views = views;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "Question{" +
@@ -133,4 +142,5 @@ public class Question {
                 ", skills=" + skills +
                 '}';
     }
+
 }

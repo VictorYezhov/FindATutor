@@ -33,6 +33,7 @@ import fatproject.adapter.ApplicationAdapter;
 import fatproject.Helpers.ApplicationListListener;
 import fatproject.Helpers.Listener;
 import fatproject.activities.FragmentDispatcher;
+import fatproject.entity.Category;
 import fatproject.entity.Question;
 import fatproject.findatutor.R;
 import io.paperdb.Paper;
@@ -67,6 +68,9 @@ public class AnswerQuestions extends Fragment {
 
     @BindView(R.id.categories)
     DropDownView categories;
+
+    private List<String> categotyNames;
+    private List<Category> categoriesList;
 
 
     // TODO: Rename and change types of parameters
@@ -108,7 +112,9 @@ public class AnswerQuestions extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        categotyNames = new ArrayList<>();
 
+        categoriesList = new ArrayList<>();
 
     }
 
@@ -123,8 +129,9 @@ public class AnswerQuestions extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        categories.setActivated(false);
 
-        setApplicationsData(mAdapter);
+        //setApplicationsData(mAdapter);
         mAdapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(mAdapter);
@@ -147,15 +154,39 @@ public class AnswerQuestions extends Fragment {
             }
         });
 
+        MainAplication.getServerRequests().getAllCategories().enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                if(response.body()!=null){
+                    for(Category c: response.body()){
+                        categoriesList.add(c);
+                        categotyNames.add(c.getName());
+                    }
+                    categories.setActivated(true);
+                    categories.setDropDownListItem(categotyNames);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+
+            }
+        });
 
 
-        List<String> lst = new ArrayList<>();
-        lst.add("item 1");
-        lst.add("item 2");
-        lst.add("item 3");
-        lst.add("item 4");
+        categories.setOnSelectionListener(new DropDownView.OnSelectionListener() {
+            @Override
+            public void onItemSelected(DropDownView view, int position) {
 
-        categories.setDropDownListItem(lst);
+
+                setApplicationsData(mAdapter, categoriesList.get(position));
+            }
+        });
+
+
+
+
 
         return view;
     }
@@ -191,8 +222,8 @@ public class AnswerQuestions extends Fragment {
 
 
     //TODO: Delete this after testing
-    private void setApplicationsData(final ApplicationAdapter mAdapter){
-        MainAplication.getServerRequests().getAllQuestions().enqueue(new Callback<List<QuestionForm>>() {
+    private void setApplicationsData(final ApplicationAdapter mAdapter, Category category){
+        MainAplication.getServerRequests().getQuestionsByCategory(category.getId()).enqueue(new Callback<List<QuestionForm>>() {
             @Override
             public void onResponse(Call<List<QuestionForm>> call, Response<List<QuestionForm>> response) {
                 if(response.body()!=null){

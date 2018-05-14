@@ -7,7 +7,7 @@ package fatproject.entity;
 public class Category {
 
    private Long id;
-   private String string;
+   private String name;
 
     public Category() {
     }
@@ -20,11 +20,11 @@ public class Category {
         this.id = id;
     }
 
-    public String getString() {
-        return string;
+    public String getName() {
+        return name;
     }
 
-    public void setString(String string) {
-        this.string = string;
+    public void setName(String name) {
+        this.name = name;
     }
 }
