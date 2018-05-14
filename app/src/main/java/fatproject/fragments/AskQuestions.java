@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
+import com.asksira.dropdownview.DropDownView;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.google.android.flexbox.FlexDirection;
@@ -33,6 +34,7 @@ import butterknife.ButterKnife;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ChipAdapter;
 import fatproject.adapter.ChipAdapterAskQuestion;
+import fatproject.entity.Category;
 import fatproject.entity.Question;
 import fatproject.entity.Skill;
 import fatproject.findatutor.R;
@@ -76,10 +78,18 @@ public class AskQuestions extends Fragment {
     @BindView(R.id.addTagButton)
     Button addTagButton;
 
+    @BindView(R.id.categories_ask_question)
+    DropDownView dropDownView;
+
     ChipAdapterAskQuestion chipAdapter;
 
     List<String> skillsNames = new ArrayList<>();
 
+
+    private List<String> categotyNames;
+    private List<Category> categoriesList;
+
+    Question newQuestion = new Question();
 
 
 
@@ -123,6 +133,10 @@ public class AskQuestions extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        categotyNames = new ArrayList<>();
+
+        categoriesList = new ArrayList<>();
     }
 
     @Override
@@ -148,6 +162,41 @@ public class AskQuestions extends Fragment {
         recyclerView.setAdapter(chipAdapter);
 
         chipAdapter.notifyDataSetChanged();
+
+
+        dropDownView.setActivated(false);
+        dropDownView.setDropDownListItem(categotyNames);
+
+        MainAplication.getServerRequests().getAllCategories().enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                if(response.body()!=null){
+                    for(Category c: response.body()){
+                        categoriesList.add(c);
+                        categotyNames.add(c.getName());
+                    }
+                    dropDownView.setActivated(true);
+                    dropDownView.setDropDownListItem(categotyNames);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+
+            }
+        });
+
+
+
+        dropDownView.setOnSelectionListener(new DropDownView.OnSelectionListener() {
+            @Override
+            public void onItemSelected(DropDownView view, int position) {
+
+                Category c = categoriesList.get(position);
+                newQuestion.setCategory(c);
+            }
+        });
 
 
 
@@ -206,12 +255,11 @@ public class AskQuestions extends Fragment {
                     price = -1;
                 }
 
-
-                Question newQuestion = new Question(topicAskQuestion.getText().toString(),
-                        descriptionAskQuestion.getText().toString(),
-                        skillSetTest,
-                        price,
-                        0);
+                newQuestion.setTitle(topicAskQuestion.getText().toString());
+                newQuestion.setDiscription(descriptionAskQuestion.getText().toString());
+                newQuestion.setSkills(skillSetTest);
+                newQuestion.setPrice(price);
+                newQuestion.setViews(0);
 
                 if(newQuestion.getTitle().equals("")){
                     showSnackbar("Enter the topic of your question.", view);

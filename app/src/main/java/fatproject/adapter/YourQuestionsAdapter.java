@@ -17,6 +17,7 @@ import java.util.List;
 import fatproject.entity.Question;
 import fatproject.findatutor.R;
 
+
 public class YourQuestionsAdapter extends RecyclerView.Adapter<YourQuestionsAdapter.MyViewHolder> {
     private List<Question> questions;
 
@@ -24,6 +25,7 @@ public class YourQuestionsAdapter extends RecyclerView.Adapter<YourQuestionsAdap
 
         public TextView title, date;
         public RelativeLayout background;
+        public com.beardedhen.androidbootstrap.BootstrapButton amountOfViews;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -31,6 +33,7 @@ public class YourQuestionsAdapter extends RecyclerView.Adapter<YourQuestionsAdap
             title = itemView.findViewById(R.id.my_questions_title);
             date = itemView.findViewById(R.id.my_questions_date);
             background = itemView.findViewById(R.id.my_questions_background);
+            amountOfViews = itemView.findViewById(R.id.amount_of_views_account);
         }
     }
 
@@ -60,6 +63,15 @@ public class YourQuestionsAdapter extends RecyclerView.Adapter<YourQuestionsAdap
 
         holder.date.setText(new SimpleDateFormat("dd-MM-yyyy HH:mm").
                 format(oldFormatedDate));
+        String s = q.getViews() + " views";
+        holder.amountOfViews.setText(s);
+
+        holder.background.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                }
+        });
+
     }
 
     @Override
