@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
@@ -13,8 +14,7 @@
     android:layout_marginTop="5dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
-    android:layout_marginBottom="5dp"
-    >
+    android:layout_marginBottom="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -117,15 +117,51 @@
 
         </RelativeLayout>
 
-
-        <TextView
-            android:id="@+id/priceOfComment"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="100"
-            android:textColor="@color/red"
-            android:textSize="22sp" />
+            >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I'm ready to do that for:"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="15dp"
+                    android:textStyle="italic"/>
+
+                <TextView
+                    android:id="@+id/priceOfComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="100"
+                    android:textColor="@color/red"
+                    android:textSize="22sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:visibility="invisible"
+                    android:id="@+id/acceptJobButton">
+
+                        <com.beardedhen.androidbootstrap.BootstrapButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Accept"
+                            android:textColor="@color/white"
+                            app:bootstrapBrand="success"
+                            app:roundedCorners="true"
+                            app:showOutline="false" />
+
+                </LinearLayout>
+
+
+
+        </RelativeLayout>
 
 
 </LinearLayout>
