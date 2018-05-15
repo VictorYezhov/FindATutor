@@ -83,6 +83,12 @@ public class ApplicationDiscription extends Fragment {
     @BindView(R.id.editTextPriceComment)
     BootstrapEditText editTextPriceComment;
 
+    @BindView(R.id.amount_of_comments)
+    com.beardedhen.androidbootstrap.BootstrapButton amountOfComments;
+
+    @BindView(R.id.amount_of_views_question_description)
+    com.beardedhen.androidbootstrap.BootstrapButton amountOfViews;
+
     private CommentAdapter commentAdapter;
     private List<CommentForm> commentList = new ArrayList<>();
 
@@ -192,6 +198,13 @@ public class ApplicationDiscription extends Fragment {
 
             }
         });
+
+        QuestionForm qf = Paper.book().read(this.getResources().getString(R.string.current_dicription_choise));
+
+        String number_view = qf.getQuestion().getViews() + " views";
+
+
+        amountOfViews.setText(number_view);
         return view;
     }
 
@@ -209,6 +222,9 @@ public class ApplicationDiscription extends Fragment {
                 commentList.clear();
                 commentList.addAll(response.body());
                 commentAdapter.notifyDataSetChanged();
+
+                String number_comment = commentList.size() + " comments";
+                amountOfComments.setText(number_comment);
 
             }
 
