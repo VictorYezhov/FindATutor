@@ -75,7 +75,7 @@ public class ApplicationDiscription extends Fragment {
     RecyclerView commentRecycler;
 
     @BindView(R.id.addCommentButton)
-    Button addCommentButton;
+    com.beardedhen.androidbootstrap.BootstrapButton addCommentButton;
 
     @BindView(R.id.editTextAddComment)
     BootstrapEditText editTextAddComment;

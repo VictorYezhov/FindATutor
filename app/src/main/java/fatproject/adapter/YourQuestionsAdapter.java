@@ -14,8 +14,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import fatproject.IncomingForms.QuestionForm;
+import fatproject.activities.FragmentDispatcher;
+import fatproject.activities.MainAplication;
 import fatproject.entity.Question;
 import fatproject.findatutor.R;
+import fatproject.fragments.ApplicationDiscription;
+import io.paperdb.Paper;
 
 
 public class YourQuestionsAdapter extends RecyclerView.Adapter<YourQuestionsAdapter.MyViewHolder> {
@@ -50,7 +55,8 @@ public class YourQuestionsAdapter extends RecyclerView.Adapter<YourQuestionsAdap
 
     @Override
     public void onBindViewHolder(@NonNull YourQuestionsAdapter.MyViewHolder holder, int position) {
-        Question q = questions.get(position);
+        final Question q = questions.get(position);
+        final QuestionForm application = new QuestionForm();
         holder.title.setText(q.getTitle());
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -69,7 +75,38 @@ public class YourQuestionsAdapter extends RecyclerView.Adapter<YourQuestionsAdap
         holder.background.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                application.setQuestion(q);
+                application.setUserId(MainAplication.getCurrentUser().getId());
+                application.setUserName(MainAplication.getCurrentUser().getName());
+                application.setUserSurname(MainAplication.getCurrentUser().getFamilyName());
+
+                Paper.book().write(MainAplication.getContext().getResources().getString(R.string.current_dicription_choise),
+                        application);
+
+
+                FragmentDispatcher.launchFragment(ApplicationDiscription.class);
+
                 }
+        });
+
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                application.setQuestion(q);
+                application.setUserId(MainAplication.getCurrentUser().getId());
+                application.setUserName(MainAplication.getCurrentUser().getName());
+                application.setUserSurname(MainAplication.getCurrentUser().getFamilyName());
+
+                Paper.book().write(MainAplication.getContext().getResources().getString(R.string.current_dicription_choise),
+                        application);
+
+
+                FragmentDispatcher.launchFragment(ApplicationDiscription.class);
+
+            }
         });
 
     }

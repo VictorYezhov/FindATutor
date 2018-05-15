@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
@@ -58,6 +59,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, application_price,  timestamp, contact, applicatin_views;
         public RecyclerView recyclerView;
+        public LinearLayout background;
 
 
         public MyViewHolder(View view) {
@@ -68,7 +70,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
             recyclerView = view.findViewById(R.id.tags_recycle_view);
             contact = view.findViewById(R.id.contact_info);
             applicatin_views = view.findViewById(R.id.application_views);
-
+            background = view.findViewById(R.id.linear_layout_in_item_in_answer_question);
 
 
         }
@@ -96,7 +98,6 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
     public void onBindViewHolder(MyViewHolder holder, final int  position) {
         final QuestionForm application = filtredApplicationList.get(position);
 
-       // holder.recyclerView.setHasFixedSize(true);
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(context);
         holder.recyclerView.setLayoutManager(layoutManager);
         layoutManager.setFlexDirection(FlexDirection.ROW);
@@ -145,11 +146,26 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
                 FragmentDispatcher.launchFragment(ApplicationDiscription.class);
             }
         });
+
+
+
         holder.contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Paper.book().write("user_info", application.getUserId());
                 FragmentDispatcher.launchFragment(UserInfo.class);
+            }
+        });
+
+        holder.background.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Paper.book().write(MainAplication.getContext().getResources().getString(R.string.current_dicription_choise),
+                        application);
+
+
+                FragmentDispatcher.launchFragment(ApplicationDiscription.class);
             }
         });
 

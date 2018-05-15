@@ -137,13 +137,15 @@
 
                                 </LinearLayout>
 
-                                <Button
+                                <com.beardedhen.androidbootstrap.BootstrapButton
                                     android:layout_width="100dp"
                                     android:layout_height="wrap_content"
-                                    android:background="@color/grey"
                                     android:id="@+id/addCommentButton"
                                     android:layout_gravity="center_horizontal"
                                     android:layout_marginTop="8dp"
+                                    app:bootstrapBrand="primary"
+                                    app:roundedCorners="true"
+                                    android:layout_marginBottom="10dp"
                                     android:text="Add comment"
                                     android:textColor="@color/white"/>
 

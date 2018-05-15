@@ -279,6 +279,7 @@ public class AskQuestions extends Fragment {
                     descriptionAskQuestion.setText("");
                     priceAskQuestion.setText("");
                     skillSetTest.clear();
+                    chipAdapter.notifyDataSetChanged();
                 }
             }
         });
