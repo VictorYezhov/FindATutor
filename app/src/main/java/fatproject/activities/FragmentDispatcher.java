@@ -119,7 +119,9 @@ public class FragmentDispatcher extends AppCompatActivity  implements DataBuffer
     }
 
 
-
+    public static FragmentManager getFragmentManaget(){
+        return fragmentManager;
+    }
 
 
     @Override

@@ -35,6 +35,10 @@ android {
             path "CMakeLists.txt"
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -122,6 +126,10 @@ dependencies {
     // volley http library
     implementation 'com.android.volley:volley:1.0.0'
     implementation 'com.google.code.gson:gson:2.8.0'
+
+    // BlankSpace library
+    compile 'com.meetic.marypopup:marypopup:1.0.0'
+    compile 'com.meetic.dragueur:dragueur:1.0.3'
 
 }
 

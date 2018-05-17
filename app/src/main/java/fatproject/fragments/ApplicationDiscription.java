@@ -1,20 +1,18 @@
 package fatproject.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
@@ -22,6 +20,8 @@ import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
+import com.google.android.gms.common.data.DataBufferObserver;
+import com.meetic.marypopup.MaryPopup;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -31,6 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import fatproject.IncomingForms.CommentForm;
 import fatproject.IncomingForms.QuestionForm;
+import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.CommentAdapter;
 import fatproject.entity.Comment;
@@ -45,7 +46,9 @@ import retrofit2.Response;
  * Created by Victor on 01.02.2018.
  */
 
-public class ApplicationDiscription extends Fragment {
+public class ApplicationDiscription extends Fragment implements fatproject.Helpers.Observer {
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -123,6 +126,7 @@ public class ApplicationDiscription extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -159,6 +163,7 @@ public class ApplicationDiscription extends Fragment {
         //----------Comment RecyclerView-----------------
 
         commentAdapter = new CommentAdapter(commentList);
+        commentAdapter.registerObserver(this);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
 
@@ -203,15 +208,13 @@ public class ApplicationDiscription extends Fragment {
 
         String number_view = qf.getQuestion().getViews() + " views";
 
-
         amountOfViews.setText(number_view);
+
+
         return view;
     }
 
-    void refreshCurrentClass(){
-        getAllCommentsOfCurrentQuestion();
-        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
-    }
+
 
     public void getAllCommentsOfCurrentQuestion(){
         QuestionForm qf = Paper.book().read(this.getResources().getString(R.string.current_dicription_choise));
@@ -263,6 +266,21 @@ public class ApplicationDiscription extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public void update() {
+
+        openPopUpWindow();
+    }
+
+    public void openPopUpWindow(){
+        System.out.println("click");
+
+        PopupWindowForJobAccepting popup = new PopupWindowForJobAccepting();
+        popup.show(FragmentDispatcher.getFragmentManaget(), "popup");
+
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

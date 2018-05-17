@@ -146,11 +146,12 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
                     android:visibility="invisible"
-                    android:id="@+id/acceptJobButton">
+                    android:id="@+id/acceptJobLinearLayout">
 
                         <com.beardedhen.androidbootstrap.BootstrapButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/acceptJobButton"
                             android:text="Accept"
                             android:textColor="@color/white"
                             app:bootstrapBrand="success"

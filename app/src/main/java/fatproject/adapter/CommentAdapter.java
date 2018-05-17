@@ -2,6 +2,7 @@ package fatproject.adapter;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -12,11 +13,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.google.android.gms.common.data.DataBufferObserver;
+import com.meetic.marypopup.MaryPopup;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Observable;
 
 import fatproject.IncomingForms.CommentForm;
 import fatproject.activities.MainAplication;
@@ -26,13 +32,16 @@ import fatproject.findatutor.R;
  * Created by Komarenski Max on 21.03.2018.
  */
 
-public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHolder> {
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHolder> implements fatproject.Helpers.Observable {
 
     private List<CommentForm> commentFormList;
 
+
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView dateTime, textComment, price, name;
-        public LinearLayout acceptJobButton;
+        public LinearLayout acceptJobLinearLayout;
+        public BootstrapButton acceptJobButton;
         //public ImageView userImage;
 
 
@@ -44,6 +53,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
             price = (TextView) view.findViewById(R.id.priceOfComment);
             name = (TextView) view.findViewById(R.id.nameOfUserThatLeavedComment);
             acceptJobButton = view.findViewById(R.id.acceptJobButton);
+            acceptJobLinearLayout = view.findViewById(R.id.acceptJobLinearLayout);
             //userImage = view.findViewById(R.id.imageOfUserInComment);
         }
     }
@@ -79,14 +89,22 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         }
         holder.dateTime.setText(new SimpleDateFormat("dd-MM HH:mm").
                 format(oldFormatedDate));
-       //holder.dateTime.setText(commentForm.getComment().getDateTime().toString());
         holder.textComment.setText(commentForm.getComment().getTextComment());
         holder.price.setText(String.valueOf(commentForm.getComment().getPrice()) + "$");
         holder.name.setText(nameAndSureName);
         //holder.userImage.setImageBitmap(bitmap);
         if(!commentForm.getComment().getUserId().equals(MainAplication.getCurrentUser().getId())){
-            holder.acceptJobButton.setVisibility(View.VISIBLE);
+            holder.acceptJobLinearLayout.setVisibility(View.VISIBLE);
         }
+
+        holder.acceptJobButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notifyObservers();
+            }
+        });
+
+
 
     }
 
