@@ -113,7 +113,7 @@ public class FragmentDispatcher extends AppCompatActivity  implements ContractsQ
     private void showNotification(int count, NavigationView navigationView, int where){
         TextView view = (TextView) navigationView.getMenu().findItem(where).getActionView();
         if(count>0){
-            //view.setBackground(MainAplication.getContext().getResources().getDrawable(R.drawable.ic_notifications_red));
+
             view.setBackgroundColor(MainAplication.getContext().getResources().getColor(R.color.red));
             view.setText(String.valueOf(count));
         }
