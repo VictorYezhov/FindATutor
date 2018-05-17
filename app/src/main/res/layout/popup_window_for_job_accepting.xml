@@ -9,7 +9,7 @@
     >
 
     <RelativeLayout
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="200dp">
 
         <TextView
@@ -18,7 +18,8 @@
             android:id="@+id/nameAndSureNameInPopupWindow"
             android:text="Name Surename"/>
 
-        <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.willy.ratingbar.ScaleRatingBar
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/RatingBarInDialogWindow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,7 +38,44 @@
             app:srb_starWidth="30dp"
             app:srb_stepSize="0.5" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/expand_button_in_dialog_window"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00b300"
+                android:elevation="6dp"
+                android:foreground="?selectableItemBackground"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="Tap to toggle expansion"
+                android:textColor="#fff" />
+
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/expandable_layout_in_dialog_window"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:el_duration="500"
+                app:el_expanded="false">
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/reviewRecyclerViewInDialogWindow"
+                    android:scrollbars="vertical" />
+
+            </net.cachapa.expandablelayout.ExpandableLayout>
+
+        </LinearLayout>
+
     </RelativeLayout>
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"

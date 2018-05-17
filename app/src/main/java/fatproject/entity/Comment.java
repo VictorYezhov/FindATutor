@@ -12,7 +12,6 @@ public class Comment {
     private String textComment;
     private Integer price;
     private Long userId;
-
     private Question question;
 
     public Comment(String textComment, Integer price, Long userId) {

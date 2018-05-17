@@ -131,6 +131,9 @@ dependencies {
     compile 'com.meetic.marypopup:marypopup:1.0.0'
     compile 'com.meetic.dragueur:dragueur:1.0.3'
 
+    // expandable layout library
+    compile 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+
 }
 
 

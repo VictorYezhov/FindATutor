@@ -198,4 +198,7 @@ public interface ServerRequests {
 
     @POST("/newAppointment")
     Call<String> sendIdForNewAppointment(@Body IdsForAppointment ifa);
+
+    @GET("/nameOfPersonWhoLeftComment{id}")
+    Call<String> getNameOfPersonWhoLeftComment(@Path("id") Long id);
 }

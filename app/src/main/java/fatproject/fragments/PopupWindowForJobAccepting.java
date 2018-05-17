@@ -5,6 +5,10 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -12,15 +16,22 @@ import android.widget.TextView;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.willy.ratingbar.ScaleRatingBar;
 
+import net.cachapa.expandablelayout.ExpandableLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import fatproject.IncomingForms.ReviewsAndRating;
 import fatproject.SendingForms.IdsForAppointment;
 import fatproject.activities.MainAplication;
+import fatproject.adapter.ReviewsInDialogWindowAdapter;
+import fatproject.entity.Review;
 import fatproject.findatutor.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PopupWindowForJobAccepting extends AppCompatDialogFragment {
+public class PopupWindowForJobAccepting extends AppCompatDialogFragment implements View.OnClickListener{
     private TextView userNameAndSureName;
     private BootstrapButton accessButton;
     private BootstrapButton cancelButton;
@@ -30,6 +41,11 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment {
     private Long id_person_who_leave_comment;
     private Long id_of_question;
     private ReviewsAndRating rar;
+    private ExpandableLayout expandableLayout;
+    private ReviewsInDialogWindowAdapter reviewsInDialogWindowAdapter;
+    private List<Review> reviews = new ArrayList<>();
+    private RecyclerView reviewRecyclerView;
+    private int cheker = 0;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -53,6 +69,28 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment {
         accessButton = view.findViewById(R.id.accessButtonInDialogWindow);
         cancelButton = view.findViewById(R.id.cancelButtonInDialogWindow);
         rb = view.findViewById(R.id.RatingBarInDialogWindow);
+        expandableLayout = view.findViewById(R.id.expandable_layout_in_dialog_window);
+        reviewRecyclerView = view.findViewById(R.id.reviewRecyclerViewInDialogWindow);
+
+        //----------------ReviewRecyclerView-----------------
+        reviewsInDialogWindowAdapter = new ReviewsInDialogWindowAdapter(reviews);
+        RecyclerView.LayoutManager reviewLayoutManager = new LinearLayoutManager(this.getContext());
+
+        reviewRecyclerView.setLayoutManager(reviewLayoutManager);
+        reviewRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        reviewRecyclerView.setAdapter(reviewsInDialogWindowAdapter);
+        reviewsInDialogWindowAdapter.notifyDataSetChanged();
+
+
+        expandableLayout.setOnExpansionUpdateListener(new ExpandableLayout.OnExpansionUpdateListener() {
+            @Override
+            public void onExpansionUpdate(float expansionFraction, int state) {
+
+            }
+        });
+
+        view.findViewById(R.id.expand_button_in_dialog_window).setOnClickListener(this);
+
 
         accessButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,4 +142,14 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment {
         id_of_question = question_id;
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.expand_button_in_dialog_window && cheker == 0) {
+            expandableLayout.expand();
+            cheker = 1;
+        } else {
+            expandableLayout.collapse();
+            cheker = 0;
+        }
+    }
 }

@@ -219,6 +219,9 @@ public class ApplicationDiscription extends Fragment implements CommentObserver 
                 System.err.println("RESPONSE FROM COM");
                 commentList.clear();
                 commentList.addAll(response.body());
+                for(int i = 0; i < response.body().size(); i++){
+                    System.err.println(response.body().get(i).getComment().getQuestion().getId());
+                }
                 commentAdapter.notifyDataSetChanged();
 
                 String number_comment = commentList.size() + " comments";
