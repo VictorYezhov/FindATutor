@@ -91,7 +91,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         holder.acceptJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                notifyObservers(commentForm.getUserName(), commentForm.getUserSurname(), commentForm.getComment().getUserId());
+                notifyObservers(commentForm.getUserName(), commentForm.getUserSurname(), commentForm.getComment().getUserId(), commentForm.getComment().getQuestion().getId());
             }
         });
 
