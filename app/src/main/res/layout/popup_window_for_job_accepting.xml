@@ -19,7 +19,7 @@
             android:text="Name Surename"/>
 
         <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/RatingBarInMaryPopUp"
+            android:id="@+id/RatingBarInDialogWindow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -40,18 +40,33 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp">
 
         <com.beardedhen.androidbootstrap.BootstrapButton
-            android:id="@+id/addCommentButton"
+            android:id="@+id/accessButtonInDialogWindow"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="Pizda"
+            android:layout_marginEnd="73dp"
+            android:text="ACCESS"
             android:textColor="@color/white"
             app:bootstrapBrand="success"
+            app:roundedCorners="true"
+            app:showOutline="false" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/cancelButtonInDialogWindow"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="73dp"
+            android:text="CANCEL"
+            android:textColor="@color/white"
+            app:bootstrapBrand="danger"
             app:roundedCorners="true"
             app:showOutline="false" />
 

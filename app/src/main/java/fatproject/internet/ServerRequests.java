@@ -6,6 +6,8 @@ import java.util.concurrent.locks.Lock;
 
 import fatproject.IncomingForms.CommentForm;
 import fatproject.IncomingForms.QuestionForm;
+import fatproject.IncomingForms.ReviewsAndRating;
+import fatproject.SendingForms.IdsForAppointment;
 import fatproject.SendingForms.LoginForm;
 import fatproject.SendingForms.SendSkillsForm;
 import fatproject.SendingForms.UserInformationForm;
@@ -191,4 +193,9 @@ public interface ServerRequests {
     @POST("/plusOneToViewCounter{id}")
     Call<String> plusOne(@Path("id") Long id);
 
+    @GET("/getReviewsAndRating{id}")
+    Call<ReviewsAndRating> getReviewsAndRating(@Path("id") Long id);
+
+    @POST("/newAppointment")
+    Call<String> sendIdForNewAppointment(IdsForAppointment ifa);
 }

@@ -7,9 +7,9 @@ public interface CommentObservable {
 
     List<CommentObserver> observers = new ArrayList<>();
 
-    default void notifyObservers(){
+    default void notifyObservers(String name, String familyName, Long id){
         for(CommentObserver o : observers){
-            o.update();
+            o.update(name, familyName, id);
         }
     }
 

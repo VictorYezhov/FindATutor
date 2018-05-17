@@ -2,6 +2,6 @@ package fatproject.Helpers;
 
 public interface CommentObserver {
 
-    void update();
+    void update(String name, String familyName, Long id);
 
 }

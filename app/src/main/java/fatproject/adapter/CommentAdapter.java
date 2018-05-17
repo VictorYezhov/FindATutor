@@ -58,8 +58,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.application_comment, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.application_comment, parent, false);
 
         System.out.println("Comment adapter created");
         return new MyViewHolder(itemView);
@@ -80,8 +79,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        holder.dateTime.setText(new SimpleDateFormat("dd-MM HH:mm").
-                format(oldFormatedDate));
+        holder.dateTime.setText(new SimpleDateFormat("dd-MM HH:mm").format(oldFormatedDate));
         holder.textComment.setText(commentForm.getComment().getTextComment());
         holder.price.setText(String.valueOf(commentForm.getComment().getPrice()) + "$");
         holder.name.setText(nameAndSureName);
@@ -93,7 +91,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         holder.acceptJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                notifyObservers();
+                notifyObservers(commentForm.getUserName(), commentForm.getUserSurname(), commentForm.getComment().getUserId());
             }
         });
 

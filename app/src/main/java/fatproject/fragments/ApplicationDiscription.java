@@ -263,15 +263,16 @@ public class ApplicationDiscription extends Fragment implements CommentObserver 
     }
 
     @Override
-    public void update() {
+    public void update(String name, String familyName, Long id) {
 
-        openPopUpWindow();
+        openPopUpWindow(name, familyName,id);
     }
 
-    public void openPopUpWindow(){
+    public void openPopUpWindow(String name, String familyName, Long id){
         System.out.println("click");
 
         PopupWindowForJobAccepting popup = new PopupWindowForJobAccepting();
+        popup.setNameAndFamilyName(name, familyName, id);
         popup.show(FragmentDispatcher.getFragmentManaget(), "popup");
 
     }
