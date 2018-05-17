@@ -69,6 +69,7 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
         accessButton = view.findViewById(R.id.accessButtonInDialogWindow);
         cancelButton = view.findViewById(R.id.cancelButtonInDialogWindow);
         rb = view.findViewById(R.id.RatingBarInDialogWindow);
+
         expandableLayout = view.findViewById(R.id.expandable_layout_in_dialog_window);
         reviewRecyclerView = view.findViewById(R.id.reviewRecyclerViewInDialogWindow);
 
