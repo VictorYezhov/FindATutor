@@ -3,17 +3,17 @@ package fatproject.Helpers;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface Observable {
+public interface CommentObservable {
 
-    List<Observer> observers = new ArrayList<>();
+    List<CommentObserver> observers = new ArrayList<>();
 
     default void notifyObservers(){
-        for(Observer o : observers){
+        for(CommentObserver o : observers){
             o.update();
         }
     }
 
-    default void registerObserver(Observer observer){
+    default void registerObserver(CommentObserver observer){
         observers.add(observer);
     }
 }

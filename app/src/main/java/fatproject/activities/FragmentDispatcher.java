@@ -34,6 +34,7 @@ import fatproject.fragments.Account;
 import fatproject.fragments.AnswerQuestions;
 import fatproject.fragments.AskQuestions;
 import fatproject.fragments.Contacts;
+import fatproject.fragments.Contracts;
 import fatproject.fragments.Settings;
 import io.paperdb.Paper;
 import okhttp3.ResponseBody;
@@ -190,6 +191,10 @@ public class FragmentDispatcher extends AppCompatActivity  implements DataBuffer
             }
             case R.id.acount:{
                 fragmentClass = Account.class;
+                break;
+            }
+            case R.id.contracts: {
+                fragmentClass = Contracts.class;
                 break;
             }
             case R.id.logout:{

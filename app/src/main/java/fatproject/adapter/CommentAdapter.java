@@ -1,29 +1,22 @@
 package fatproject.adapter;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
-import com.google.android.gms.common.data.DataBufferObserver;
-import com.meetic.marypopup.MaryPopup;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Observable;
 
+import fatproject.Helpers.CommentObservable;
 import fatproject.IncomingForms.CommentForm;
 import fatproject.activities.MainAplication;
 import fatproject.findatutor.R;
@@ -32,7 +25,7 @@ import fatproject.findatutor.R;
  * Created by Komarenski Max on 21.03.2018.
  */
 
-public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHolder> implements fatproject.Helpers.Observable {
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHolder> implements CommentObservable {
 
     private List<CommentForm> commentFormList;
 

@@ -7,6 +7,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import fatproject.Helpers.MessageUpdateQueue;
 import fatproject.activities.FragmentDispatcher;
+import fatproject.internet.NotificationType;
 
 /**
  * Created by Victor on 04.05.2018.
@@ -22,10 +23,14 @@ public class FCMAcceptor extends FirebaseMessagingService {
         // TODO: Handle FCM messages here.
 
 
-        Log.d(TAG, "Title: " + remoteMessage.getMessageType());
+        Log.d(TAG, "Type: " + remoteMessage.getData().get("type"));
         Log.d(TAG, "From: " + remoteMessage.getFrom());
-      //  Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
-        updateQueue.add(remoteMessage.getNotification().getBody());
+
+        if(remoteMessage.getData().get("type").equals(NotificationType.PERSONALMESSAGE.getType())){
+            updateQueue.add(remoteMessage.getNotification().getBody());
+        }
+        
+
 
 
 

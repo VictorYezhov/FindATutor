@@ -1,6 +1,6 @@
 package fatproject.Helpers;
 
-public interface Observer {
+public interface CommentObserver {
 
     void update();
 

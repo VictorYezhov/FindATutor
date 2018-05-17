@@ -1,11 +1,9 @@
 package fatproject.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,13 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
-import com.google.android.gms.common.data.DataBufferObserver;
-import com.meetic.marypopup.MaryPopup;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -29,13 +24,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.Helpers.CommentObserver;
 import fatproject.IncomingForms.CommentForm;
 import fatproject.IncomingForms.QuestionForm;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.CommentAdapter;
 import fatproject.entity.Comment;
-import fatproject.entity.Question;
 import fatproject.findatutor.R;
 import io.paperdb.Paper;
 import retrofit2.Call;
@@ -46,7 +41,7 @@ import retrofit2.Response;
  * Created by Victor on 01.02.2018.
  */
 
-public class ApplicationDiscription extends Fragment implements fatproject.Helpers.Observer {
+public class ApplicationDiscription extends Fragment implements CommentObserver {
 
 
 
