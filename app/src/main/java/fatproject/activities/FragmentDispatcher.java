@@ -25,6 +25,8 @@ import com.google.android.gms.common.data.DataBufferObserver;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.Helpers.ContractsQueue;
+import fatproject.Helpers.ContractsQueueObserver;
 import fatproject.Helpers.ImageSaver;
 import fatproject.Helpers.MessageUpdateQueue;
 import fatproject.entity.User;
@@ -48,13 +50,14 @@ import retrofit2.Response;
  * Performs fragment changing if needed
  */
 
-public class FragmentDispatcher extends AppCompatActivity  implements DataBufferObserver{
+public class FragmentDispatcher extends AppCompatActivity  implements ContractsQueueObserver, DataBufferObserver{
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private static FragmentManager fragmentManager;
     private TextView myContacts;
     private MessageUpdateQueue updateQueue = MessageUpdateQueue.getInstance();
+    private ContractsQueue contractsQueue = ContractsQueue.getInstance();
 
     NavigationView navigationView;
 
@@ -69,6 +72,7 @@ public class FragmentDispatcher extends AppCompatActivity  implements DataBuffer
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
         updateQueue.addObserver(this);
+        contractsQueue.addObserver(this);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         View header = navigationView.getHeaderView(0);
@@ -85,7 +89,8 @@ public class FragmentDispatcher extends AppCompatActivity  implements DataBuffer
         myContacts = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().
                 findItem(R.id.contacts));
 
-        showNotification(updateQueue.getSize(), navigationView);
+        showNotification(updateQueue.getSize(), navigationView, R.id.contacts);
+        showNotification(contractsQueue.getSize(), navigationView, R.id.contracts);
 
 
         mToggle.syncState();
@@ -105,10 +110,9 @@ public class FragmentDispatcher extends AppCompatActivity  implements DataBuffer
         }
     }
 
-    private void showNotification(int count, NavigationView navigationView){
-        TextView view = (TextView) navigationView.getMenu().findItem(R.id.contacts).getActionView();
+    private void showNotification(int count, NavigationView navigationView, int where){
+        TextView view = (TextView) navigationView.getMenu().findItem(where).getActionView();
         if(count>0){
-
             //view.setBackground(MainAplication.getContext().getResources().getDrawable(R.drawable.ic_notifications_red));
             view.setBackgroundColor(MainAplication.getContext().getResources().getColor(R.color.red));
             view.setText(String.valueOf(count));
@@ -116,7 +120,6 @@ public class FragmentDispatcher extends AppCompatActivity  implements DataBuffer
         else {
             view.setBackgroundColor(MainAplication.getContext().getResources().getColor(R.color.white));
         }
-
     }
 
 
@@ -274,7 +277,11 @@ public class FragmentDispatcher extends AppCompatActivity  implements DataBuffer
 
     @Override
     public void onDataChanged() {
-        showNotification(updateQueue.getSize(), navigationView);
+        showNotification(updateQueue.getSize(), navigationView, R.id.contacts);
+    }
+    @Override
+    public void updateContracts() {
+        showNotification(contractsQueue.getSize(), navigationView, R.id.contracts);
     }
 
     @Override
@@ -296,5 +303,7 @@ public class FragmentDispatcher extends AppCompatActivity  implements DataBuffer
     public void onDataRangeMoved(int i, int i1, int i2) {
 
     }
+
+
 }
 

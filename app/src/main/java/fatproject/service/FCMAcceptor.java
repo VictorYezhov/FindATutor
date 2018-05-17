@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import fatproject.Helpers.ContractsQueue;
 import fatproject.Helpers.MessageUpdateQueue;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.internet.NotificationType;
@@ -18,23 +19,19 @@ public class FCMAcceptor extends FirebaseMessagingService {
 
     private static final String TAG = "FCM Service";
     private MessageUpdateQueue updateQueue = MessageUpdateQueue.getInstance();
+    private ContractsQueue contractsQueue = ContractsQueue.getInstance();
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // TODO: Handle FCM messages here.
-
 
         Log.d(TAG, "Type: " + remoteMessage.getData().get("type"));
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
         if(remoteMessage.getData().get("type").equals(NotificationType.PERSONALMESSAGE.getType())){
             updateQueue.add(remoteMessage.getNotification().getBody());
+        }else if(remoteMessage.getData().get("type").equals(NotificationType.NEWCONTRACT.getType())){
+            contractsQueue.add(remoteMessage.getNotification().getBody());
         }
-        
-
-
-
-
-
     }
 
 }
