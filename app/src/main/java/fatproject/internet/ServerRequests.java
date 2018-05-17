@@ -197,5 +197,5 @@ public interface ServerRequests {
     Call<ReviewsAndRating> getReviewsAndRating(@Path("id") Long id);
 
     @POST("/newAppointment")
-    Call<String> sendIdForNewAppointment(IdsForAppointment ifa);
+    Call<String> sendIdForNewAppointment(@Body IdsForAppointment ifa);
 }
