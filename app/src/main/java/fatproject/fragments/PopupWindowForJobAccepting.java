@@ -12,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.willy.ratingbar.ScaleRatingBar;
 
 import fatproject.SendingForms.IdsForAppointment;
 import fatproject.activities.MainAplication;
@@ -24,7 +25,7 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment {
     private TextView userNameAndSureName;
     private BootstrapButton accessButton;
     private BootstrapButton cancelButton;
-    private RatingBar rb;
+    private ScaleRatingBar rb;
     private String name;
     private String surename;
     private Long id_person_who_leave_comment;
@@ -46,7 +47,7 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment {
 
         accessButton = view.findViewById(R.id.accessButtonInDialogWindow);
         cancelButton = view.findViewById(R.id.cancelButtonInDialogWindow);
-        rb = view.findViewById(R.id.RatingBarInDialogWindow);
+        //rb = view.findViewById(R.id.RatingBarInDialogWindow);
 
         accessButton.setOnClickListener(new View.OnClickListener() {
             @Override
