@@ -23,14 +23,17 @@ public class User {
     private String mobileNumber;
     private City city;
 
-    private Set<Skill> skills;
 
+    private Set<Skill> skills;
     private List<Job> jobs;
+    private List<Review> reviews;
+
 
 
     public User() {
         skills = new HashSet<>();
         jobs = new ArrayList<>();
+        reviews = new ArrayList<>();
     }
 
     public String getAddress() {
@@ -119,5 +122,13 @@ public class User {
 
     public void setJobs(List<Job> jobs) {
         this.jobs = jobs;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }
