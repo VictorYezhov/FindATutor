@@ -131,6 +131,8 @@ dependencies {
     compile 'com.meetic.marypopup:marypopup:1.0.0'
     compile 'com.meetic.dragueur:dragueur:1.0.3'
 
+    compile 'com.github.andyxialm:MultiStateLayout:0.1.1'
+
 }
 
 

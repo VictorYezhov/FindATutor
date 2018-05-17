@@ -4,16 +4,26 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import fatproject.Helpers.ContractsQueue;
-import fatproject.Helpers.ContractsQueueObserver;
+import fatproject.adapter.ContractsAdapter;
+import fatproject.entity.Appointment;
 import fatproject.findatutor.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,8 +45,11 @@ public class Contracts extends Fragment  {
     private String mParam1;
     private String mParam2;
 
-    @BindView(R.id.test)
-    TextView test;
+
+    @BindView(R.id.contracts_rv)
+    RecyclerView recyclerView;
+
+    private ContractsAdapter contractsAdapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -79,6 +92,28 @@ public class Contracts extends Fragment  {
         View view = inflater.inflate(R.layout.fragment_contracts, container, false);
         ButterKnife.bind(this, view);
 
+
+        Appointment a;
+        List<Appointment> appointments = new ArrayList<>();
+
+        a = new Appointment();
+        a.setId(1L);
+        appointments.add(a);
+        a = new Appointment();
+        a.setId(2L);
+        appointments.add(a);
+        a = new Appointment();
+        a.setId(3L);
+        appointments.add(a);
+        contractsAdapter = new ContractsAdapter(appointments);
+        recyclerView.setAdapter(contractsAdapter);
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());
+        layoutManager.setFlexDirection(FlexDirection.ROW);
+        layoutManager.setJustifyContent(JustifyContent.CENTER);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        contractsAdapter.notifyDataSetChanged();
 
         return view;
     }

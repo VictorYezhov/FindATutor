@@ -10,6 +10,7 @@ public class Appointment {
     private Long id;
     private Long employerId;
     private Long employeeId;
+    private Long questionId;
     private Timestamp timeFor;
     private boolean acceeptedByEmployer;
     private boolean acceptedByEmployee;
@@ -88,5 +89,13 @@ public class Appointment {
 
     public void setSuccessForEmployee(boolean successForEmployee) {
         this.successForEmployee = successForEmployee;
+    }
+
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
     }
 }
