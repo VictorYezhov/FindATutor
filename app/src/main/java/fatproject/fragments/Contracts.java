@@ -5,7 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,10 +110,11 @@ public class Contracts extends Fragment  {
         contractsAdapter = new ContractsAdapter(appointments);
         recyclerView.setAdapter(contractsAdapter);
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());
-        layoutManager.setFlexDirection(FlexDirection.ROW);
+        layoutManager.setFlexDirection(FlexDirection.COLUMN);
         layoutManager.setJustifyContent(JustifyContent.CENTER);
+        SnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         contractsAdapter.notifyDataSetChanged();
 
