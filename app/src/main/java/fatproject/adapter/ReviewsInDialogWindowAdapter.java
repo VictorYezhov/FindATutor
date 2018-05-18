@@ -44,8 +44,9 @@ public class ReviewsInDialogWindowAdapter extends RecyclerView.Adapter<ReviewsIn
     @Override
     public void onBindViewHolder(@NonNull ReviewsInDialogWindowAdapter.MyViewHolder holder, int position) {
         Review review = reviews.get(position);
-        holder.reviewText.setText(review.getReview());
-        holder.author.setText(getNameOfPersonWhoLeftReview(review.getFrom()));
+        String quote_review = "''" + review.getReview() + "''";
+        holder.reviewText.setText(quote_review);
+        getNameOfPersonWhoLeftReview(review.getFrom() , holder);
 
     }
 
@@ -54,11 +55,12 @@ public class ReviewsInDialogWindowAdapter extends RecyclerView.Adapter<ReviewsIn
         return reviews.size();
     }
 
-    public String getNameOfPersonWhoLeftReview(Long id){
+    public void getNameOfPersonWhoLeftReview(Long id, ReviewsInDialogWindowAdapter.MyViewHolder holder){
         MainAplication.getServerRequests().getNameOfPersonWhoLeftComment(id).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 name = response.body();
+                holder.author.setText(name);
             }
 
             @Override
@@ -66,8 +68,6 @@ public class ReviewsInDialogWindowAdapter extends RecyclerView.Adapter<ReviewsIn
 
             }
         });
-
-        return name;
     }
 
 }

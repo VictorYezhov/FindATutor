@@ -58,8 +58,6 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
 
         builder.setView(view);
 
-
-
         rar = new ReviewsAndRating();
         userNameAndSureName = view.findViewById(R.id.nameAndSureNameInPopupWindow);
 
@@ -125,6 +123,10 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
                 rar.setRating(response.body().getRating());
                 rar.setReviews(response.body().getReviews());
                 rb.setRating(rar.getRating());
+                reviews.clear();
+                reviews.addAll(rar.getReviews());
+                reviewsInDialogWindowAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -132,6 +134,8 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
 
             }
         });
+
+
 
         return builder.create();
     }
@@ -152,5 +156,7 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
             expandableLayout.collapse();
             cheker = 0;
         }
+
+
     }
 }
