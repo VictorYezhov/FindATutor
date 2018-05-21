@@ -199,6 +199,18 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             }
         });
 
+        if(appointment.isAcceeptedByEmployer()){
+            holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.white_check);
+        }else {
+            holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.close_white);
+        }
+
+        if(appointment.isAcceptedByEmployee()){
+            holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.white_check);
+        }else{
+            holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.close_white);
+        }
+
     }
 
     @Override
