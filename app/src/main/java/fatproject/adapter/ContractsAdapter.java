@@ -132,7 +132,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
 
         if(appointment.getEmployerId().equals(MainAplication.getCurrentUser().getId())){
-            holder.personRight.setText("he/she");
+            getNameOfYourPartner(appointment.getEmployeeId(), holder.personRight);
             holder.personLeft.setText("You");
             holder.buttonForPersonWhoGetsKnowledge.setClickable(true);
             holder.buttonForPersonWhoGetsKnowledge.setOnClickListener(new View.OnClickListener() {
@@ -142,8 +142,8 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                 }
             });
         }else {
+            getNameOfYourPartner(appointment.getEmployerId(), holder.personLeft);
             holder.personRight.setText("You");
-            holder.personLeft.setText("he/she");
             holder.buttonForPersonWhoSharesKnowledge.setClickable(true);
             holder.buttonForPersonWhoSharesKnowledge.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -215,6 +215,20 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
             @Override
             public void onFailure(Call<QuestionTopicAndPrice> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void  getNameOfYourPartner(Long user_id, TextView textView){
+        MainAplication.getServerRequests().getNameOfYourPartner(user_id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                textView.setText(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
 
             }
         });

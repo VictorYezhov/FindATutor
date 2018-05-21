@@ -209,4 +209,7 @@ public interface ServerRequests {
 
     @GET("/getTopicAndPriceOfQuestion{id}")
     Call<QuestionTopicAndPrice> getTopicAndPriceOfQuestion(@Path("id") Long id);
+
+    @GET("/getNameOfYourPartner{id}")
+    Call<String> getNameOfYourPartner(@Path("id") Long id);
 }
