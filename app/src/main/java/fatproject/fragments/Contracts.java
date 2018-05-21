@@ -18,6 +18,7 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,12 +102,15 @@ public class Contracts extends Fragment  {
 
         a = new Appointment();
         a.setId(1L);
+        a.setTimeFor(new Timestamp(System.currentTimeMillis()));
         appointments.add(a);
         a = new Appointment();
         a.setId(2L);
+        a.setTimeFor(new Timestamp(System.currentTimeMillis()));
         appointments.add(a);
         a = new Appointment();
         a.setId(3L);
+        a.setTimeFor(new Timestamp(System.currentTimeMillis()));
         appointments.add(a);
 
         Typeface mainFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Light.otf");

@@ -1,6 +1,7 @@
 package fatproject.activities;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -52,9 +53,11 @@ import retrofit2.Response;
 
 public class FragmentDispatcher extends AppCompatActivity  implements ContractsQueueObserver, DataBufferObserver{
 
+    private static FragmentDispatcher instance;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private static FragmentManager fragmentManager;
+    private static android.app.FragmentManager normalManager;
     private TextView myContacts;
     private MessageUpdateQueue updateQueue = MessageUpdateQueue.getInstance();
     private ContractsQueue contractsQueue = ContractsQueue.getInstance();
@@ -65,8 +68,14 @@ public class FragmentDispatcher extends AppCompatActivity  implements ContractsQ
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        instance = this;
+
         MainAplication.translate();
         fragmentManager = getSupportFragmentManager();
+
+        normalManager = getFragmentManager();
+
+
         setContentView(R.layout.fragments_manager);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
@@ -127,6 +136,9 @@ public class FragmentDispatcher extends AppCompatActivity  implements ContractsQ
         return fragmentManager;
     }
 
+    public static android.app.FragmentManager getNormalManager(){
+        return normalManager;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -159,7 +171,9 @@ public class FragmentDispatcher extends AppCompatActivity  implements ContractsQ
     }
 
 
-
+    public static Context getContext() {
+        return instance;
+    }
     /**
      * When option from a side selected this function called
      */

@@ -6,6 +6,11 @@
   <color name="accent">#FFFFFF</color>
   <color name="transparent">#99FFFFFF</color>
 
+  <color name="mdtp_accent_color">#2196F3</color>
+  <color name="mdtp_accent_color_dark">#FFFFFF</color>
+
+
+
   <color name="black">#000000</color>
   <color name="jet">#222222</color>
   <color name="oil">#333333</color>

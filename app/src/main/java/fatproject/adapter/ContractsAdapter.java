@@ -1,7 +1,9 @@
 package fatproject.adapter;
 
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +12,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import fatproject.activities.FragmentDispatcher;
+import fatproject.activities.MainAplication;
 import fatproject.entity.Appointment;
 import fatproject.entity.Job;
 import fatproject.findatutor.R;
+import fatproject.fragments.Contracts;
+
+
 
 /**
  * Created by Victor on 17.05.2018.
@@ -40,10 +55,11 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         public ImageButton buttonForPersonWhoGetsKnowledge;
         public ImageButton buttonForPersonWhoSharesKnowledge;
         public BootstrapButton changeDate;
+        public DateAndTimeChangeListener listener;
+
 
         public MyViewHolder(View view) {
             super(view);
-
             buttonForPersonWhoGetsKnowledge = view.findViewById(R.id.buttonForPersonWhoGetsKnowledge);
             buttonForPersonWhoSharesKnowledge = view.findViewById(R.id.buttonForPersonWhoSharesKnowledge);
             dateAndPriceWord = view.findViewById(R.id.dateAndPriceWord);
@@ -53,9 +69,28 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             price = view.findViewById(R.id.priceInContractItem);
             date = view.findViewById(R.id.dateInContractItem);
 
-
         }
 
+    }
+
+
+    public class DateAndTimeChangeListener implements  TimePickerDialog.OnTimeSetListener {
+
+        public MyViewHolder holder;
+        public int appointmentId;
+        private int year, month, day;
+
+        public DateAndTimeChangeListener(MyViewHolder holder, int appointmentId) {
+            this.holder = holder;
+            this.appointmentId = appointmentId;
+        }
+
+
+        @Override
+        public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+
+
+        }
 
     }
 
@@ -75,6 +110,20 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         holder.topic.setTypeface(fontForAnotherSymbols);
         holder.price.setTypeface(fontForAnotherSymbols);
         holder.date.setTypeface(fontForAnotherSymbols);
+        DateAndTimeChangeListener listener = new DateAndTimeChangeListener(holder, position);
+        holder.listener = listener;
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date oldFormatedDate = null;
+        try {
+            oldFormatedDate = formatter.parse(appointment.getTimeFor().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        holder.date.setText(new SimpleDateFormat("dd-MM-yyyy HH:mm").
+                format(oldFormatedDate));
+
+
 
         holder.buttonForPersonWhoGetsKnowledge.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,12 +135,45 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         holder.changeDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd =  DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+
+                        TimePickerDialog tpd = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+                                Log.d("Time", String.valueOf(hourOfDay)+ " "+ String.valueOf(minute)+ " "+String.valueOf(second));
+
+                                String min = String.valueOf(minute);
+                                if(min.equals("0")){
+                                    min = min+"0";
+                                }
+                                holder.date.setText(year+"-"+monthOfYear+"-"+dayOfMonth+" "+hourOfDay+":"+min);
+                                appointments.get(position).setTimeFor(new Timestamp(year, monthOfYear, dayOfMonth,
+                                        hourOfDay, minute, 0,0));
+                                Log.d("test", "setting time for "+position);
+                            }
+                        }, true);
+                        tpd.setAccentColor(MainAplication.getContext().getResources().getColor(R.color.blue));
+                        tpd.show(FragmentDispatcher.getNormalManager(), "TimePickerDialog");
+                        Log.d("Date", String.valueOf(year)+ " "+ String.valueOf(monthOfYear)+ " "+String.valueOf(dayOfMonth));
+                        Date dateTime = new Date(appointments.get(position).getTimeFor().getTime());
+
+                        appointments.get(position).setTimeFor(new Timestamp(year, monthOfYear, dayOfMonth,
+                                dateTime.getHours(), dateTime.getMinutes(), 0,0));
+                    }
+                });
+
+                dpd.setAccentColor(MainAplication.getContext().getResources().getColor(R.color.blue));
+                dpd.show(FragmentDispatcher.getNormalManager(), "DatePickerDialog");
+
 
             }
         });
 
 
-        //buttonForPersonWhoGetsKnowledge.setImageResource(R.mipmap.ic_not_signed);
+
     }
 
     @Override
