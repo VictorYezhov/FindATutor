@@ -134,6 +134,8 @@ dependencies {
     // expandable layout library
     compile 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
 
+    compile 'com.wdullaer:materialdatetimepicker:3.6.0'
+
 }
 
 

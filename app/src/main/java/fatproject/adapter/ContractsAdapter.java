@@ -22,11 +22,10 @@ import fatproject.findatutor.R;
  */
 
 public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyViewHolder> {
-    TextView topic, topicWord, date, price, dateAndPriceWord;
-    BootstrapButton changeDate;
-    Typeface fontForTopicWords, fontForAnotherSymbols;
-    ImageButton buttonForPersonWhoGetsKnowledge;
-    ImageButton buttonForPersonWhoSharesKnowledge;
+
+
+    private Typeface fontForTopicWords, fontForAnotherSymbols;
+
 
     private List<Appointment> appointments;
 
@@ -40,6 +39,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         public TextView topic,topicWord,date,price,dateAndPriceWord;
         public ImageButton buttonForPersonWhoGetsKnowledge;
         public ImageButton buttonForPersonWhoSharesKnowledge;
+        public BootstrapButton changeDate;
 
         public MyViewHolder(View view) {
             super(view);
@@ -80,6 +80,13 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             @Override
             public void onClick(View v) {
                 holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.mipmap.ic_not_signed);
+            }
+        });
+
+        holder.changeDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
