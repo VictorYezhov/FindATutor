@@ -24,9 +24,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.activities.MainAplication;
 import fatproject.adapter.ContractsAdapter;
 import fatproject.entity.Appointment;
 import fatproject.findatutor.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -56,6 +60,7 @@ public class Contracts extends Fragment  {
     private ContractsAdapter contractsAdapter;
 
     private OnFragmentInteractionListener mListener;
+    List<Appointment> appointments = new ArrayList<>();
 
     public Contracts() {
         // Required empty public constructor
@@ -97,26 +102,10 @@ public class Contracts extends Fragment  {
         ButterKnife.bind(this, view);
 
 
-        Appointment a;
-        List<Appointment> appointments = new ArrayList<>();
-
-        a = new Appointment();
-        a.setId(1L);
-        a.setTimeFor(new Timestamp(System.currentTimeMillis()));
-        appointments.add(a);
-        a = new Appointment();
-        a.setId(2L);
-        a.setTimeFor(new Timestamp(System.currentTimeMillis()));
-        appointments.add(a);
-        a = new Appointment();
-        a.setId(3L);
-        a.setTimeFor(new Timestamp(System.currentTimeMillis()));
-        appointments.add(a);
-
         Typeface mainFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Light.otf");
         Typeface fontForMajorityOfWordAndNumbers = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NHaasGroteskTXPro55Rg.ttf");
 
-        contractsAdapter = new ContractsAdapter(appointments,mainFont, fontForMajorityOfWordAndNumbers);
+        contractsAdapter = new ContractsAdapter(appointments, mainFont, fontForMajorityOfWordAndNumbers);
         recyclerView.setAdapter(contractsAdapter);
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());
         layoutManager.setFlexDirection(FlexDirection.COLUMN);
@@ -126,6 +115,8 @@ public class Contracts extends Fragment  {
         recyclerView.setLayoutManager(layoutManager);
 
         contractsAdapter.notifyDataSetChanged();
+
+        getAllUserAppointment();
 
         return view;
     }
@@ -145,6 +136,21 @@ public class Contracts extends Fragment  {
         mListener = null;
     }
 
+    public void getAllUserAppointment(){
+        MainAplication.getServerRequests().getAllUserAppointments(MainAplication.getCurrentUser().getId()).enqueue(new Callback<List<Appointment>>() {
+            @Override
+            public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
+                appointments.clear();
+                appointments.addAll(response.body());
+                contractsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Appointment>> call, Throwable t) {
+
+            }
+        });
+    }
 
 
     /**

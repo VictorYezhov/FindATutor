@@ -11,6 +11,7 @@ import fatproject.SendingForms.IdsForAppointment;
 import fatproject.SendingForms.LoginForm;
 import fatproject.SendingForms.SendSkillsForm;
 import fatproject.SendingForms.UserInformationForm;
+import fatproject.entity.Appointment;
 import fatproject.entity.Category;
 import fatproject.entity.Contact;
 import fatproject.entity.Country;
@@ -201,4 +202,7 @@ public interface ServerRequests {
 
     @GET("/nameOfPersonWhoLeftComment{id}")
     Call<String> getNameOfPersonWhoLeftComment(@Path("id") Long id);
+
+    @GET("/getAllUserAppointments{id}")
+    Call<List<Appointment>> getAllUserAppointments(@Path("id") Long id);
 }

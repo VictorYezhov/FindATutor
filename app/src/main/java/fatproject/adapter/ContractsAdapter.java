@@ -60,6 +60,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
         public MyViewHolder(View view) {
             super(view);
+
             buttonForPersonWhoGetsKnowledge = view.findViewById(R.id.buttonForPersonWhoGetsKnowledge);
             buttonForPersonWhoSharesKnowledge = view.findViewById(R.id.buttonForPersonWhoSharesKnowledge);
             dateAndPriceWord = view.findViewById(R.id.dateAndPriceWord);
@@ -125,12 +126,29 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
 
 
-        holder.buttonForPersonWhoGetsKnowledge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.mipmap.ic_not_signed);
-            }
-        });
+        if(appointment.getEmployerId().equals(MainAplication.getCurrentUser().getId())){
+            holder.buttonForPersonWhoGetsKnowledge.setClickable(true);
+            holder.buttonForPersonWhoGetsKnowledge.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.white_check);
+                }
+            });
+        }else {
+            holder.buttonForPersonWhoSharesKnowledge.setClickable(true);
+            holder.buttonForPersonWhoSharesKnowledge.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.white_check);
+                }
+            });
+        }
+
+
+
+
+
+
 
         holder.changeDate.setOnClickListener(new View.OnClickListener() {
             @Override
