@@ -229,7 +229,9 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         MainAplication.getServerRequests().getNameOfYourPartner(user_id).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                textView.setText(response.body());
+                String name = response.body();
+               name = name.replace('@',' ');
+                textView.setText(name);
             }
 
             @Override
