@@ -28,7 +28,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="Topic"
-                android:textSize="25sp"
+                android:textSize="23sp"
                 android:textColor="@color/black"
                 />
 
@@ -39,46 +39,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="Question title"
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/description_word_of_question_in_contract"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="Description"
-                android:textSize="25sp"
-                android:textColor="@color/black"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/description_of_question_in_contract"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="asdasdasdsadsadasdsadsadadasdasdadsasdsad"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textColor="@color/black"/>
 
         </LinearLayout>
@@ -103,10 +64,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/dateAndPriceWord"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="Date and price"
-                android:textSize="25sp"
+                android:textSize="23sp"
                 android:textColor="@color/black"
                 />
 
@@ -133,13 +95,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/dateInContractItem"
                         android:layout_marginStart="10dp"
                         android:text="28.08.1999"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         android:textColor="@color/black"/>
 
                     <com.beardedhen.androidbootstrap.BootstrapButton
-                        android:id="@+id/accessButtonInDialogWindow"
+                        android:id="@+id/changeDate"
                         android:layout_width="80dp"
                         android:layout_height="35dp"
                         android:layout_marginStart="10dp"
@@ -164,47 +127,57 @@
                         android:layout_height="wrap_content"
                         app:srcCompat = "@drawable/ic_attach_money_black_24dp"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="3dp"
                         />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/priceInContractItem"
                         android:layout_marginLeft="10dp"
                         android:text="1999$"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="17sp" />
 
                 </LinearLayout>
 
-
-
             </LinearLayout>
-            
-            
-            
+
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
-    
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
+        <ImageButton
+            android:src="@mipmap/ic_signed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OK"/>
+            android:id="@+id/buttonForPersonWhoGetsKnowledge"
+            android:background="@color/white"
+            />
 
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:text="CANCEL" />
+            android:src="@mipmap/ic_not_signed"
+            android:id="@+id/buttonForPersonWhoSharesKnowledge"
+            android:background="@color/white"
+            />
 
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="*By pressing these buttons you authomatically prove that you are fucking dilbil"
+        android:textStyle="italic"
+        android:textColor="@color/dark_grey"
+        android:layout_marginLeft="20dp"
+        />
 
 </LinearLayout>

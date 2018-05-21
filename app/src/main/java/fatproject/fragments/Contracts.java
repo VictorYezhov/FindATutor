@@ -1,6 +1,7 @@
 package fatproject.fragments;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -107,7 +108,11 @@ public class Contracts extends Fragment  {
         a = new Appointment();
         a.setId(3L);
         appointments.add(a);
-        contractsAdapter = new ContractsAdapter(appointments);
+
+        Typeface mainFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Light.otf");
+        Typeface fontForMajorityOfWordAndNumbers = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NHaasGroteskTXPro55Rg.ttf");
+
+        contractsAdapter = new ContractsAdapter(appointments,mainFont, fontForMajorityOfWordAndNumbers);
         recyclerView.setAdapter(contractsAdapter);
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());
         layoutManager.setFlexDirection(FlexDirection.COLUMN);
