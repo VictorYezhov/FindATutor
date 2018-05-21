@@ -112,6 +112,10 @@ public interface ServerRequests {
     @Headers({ "Content-Type: application/json;charset=UTF-8"})
     Call<User> sendGoogleUser(@Body User user);
 
+    @POST("/updateAppointment")
+    Call<String> updateAppointment(@Body Appointment appointment);
+
+
 
     @POST("/updatePhoto{id}")
     @Multipart

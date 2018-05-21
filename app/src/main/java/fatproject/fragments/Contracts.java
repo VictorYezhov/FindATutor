@@ -112,6 +112,8 @@ public class Contracts extends Fragment  {
         layoutManager.setJustifyContent(JustifyContent.CENTER);
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
+
+
         recyclerView.setLayoutManager(layoutManager);
 
         contractsAdapter.notifyDataSetChanged();

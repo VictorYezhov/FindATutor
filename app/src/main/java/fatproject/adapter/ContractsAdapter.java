@@ -79,26 +79,57 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
     }
 
+    public class DateAndTimeChangeListener implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
-    public class DateAndTimeChangeListener implements  TimePickerDialog.OnTimeSetListener {
+        private  int year, monthOfYear, dayOfMonth;
+        private int currentAppointentCounter;
 
-        public MyViewHolder holder;
-        public int appointmentId;
-        private int year, month, day;
 
-        public DateAndTimeChangeListener(MyViewHolder holder, int appointmentId) {
-            this.holder = holder;
-            this.appointmentId = appointmentId;
+        @Override
+        public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+            Date dateTime = new Date(appointments.get(currentAppointentCounter).getTimeFor().getTime());
+            this.year = year;
+            this.monthOfYear = monthOfYear;
+            this.dayOfMonth = dayOfMonth;
+            Log.d("year", String.valueOf(year));
+            dateTime.setYear(year);
+            dateTime.setMonth(monthOfYear);
+            dateTime.setDate(dayOfMonth);
+            appointments.get(currentAppointentCounter).setTimeFor(new Timestamp(year - 1900, monthOfYear, dayOfMonth,
+                    dateTime.getHours(), dateTime.getMinutes(), 0,0));
+
+            TimePickerDialog tpd = TimePickerDialog.newInstance(this, true);
+            tpd.setAccentColor(MainAplication.getContext().getResources().getColor(R.color.blue));
+            tpd.show(FragmentDispatcher.getNormalManager(), "TimePickerDialog");
+
         }
-
 
         @Override
         public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
 
+            appointments.get(currentAppointentCounter).setTimeFor(new Timestamp(year-1900, monthOfYear, dayOfMonth,
+                    hourOfDay, minute, 0,0));
+            MainAplication.getServerRequests().updateAppointment(appointments.get(currentAppointentCounter)).enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    FragmentDispatcher.launchFragment(Contracts.class);
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+
+                }
+            });
 
         }
 
+        public void setTarget(int position){
+            currentAppointentCounter = position;
+        }
     }
+
+
+
 
     @Override
     public ContractsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -110,14 +141,15 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
     @Override
     public void onBindViewHolder(ContractsAdapter.MyViewHolder holder, int position) {
+        Log.d("rendering", String.valueOf(position));
         Appointment appointment = appointments.get(position);
+
         holder.dateAndPriceWord.setTypeface(fontForTopicWords);
         holder.topicWord.setTypeface(fontForTopicWords);
         holder.topic.setTypeface(fontForAnotherSymbols);
         holder.price.setTypeface(fontForAnotherSymbols);
         holder.date.setTypeface(fontForAnotherSymbols);
-        DateAndTimeChangeListener listener = new DateAndTimeChangeListener(holder, position);
-        holder.listener = listener;
+
 
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date oldFormatedDate = null;
@@ -157,37 +189,11 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
         holder.changeDate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
-                DatePickerDialog dpd =  DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-
-                        TimePickerDialog tpd = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-                                Log.d("Time", String.valueOf(hourOfDay)+ " "+ String.valueOf(minute)+ " "+String.valueOf(second));
-
-                                String min = String.valueOf(minute);
-                                if(min.equals("0")){
-                                    min = min+"0";
-                                }
-                                holder.date.setText(year+"-"+monthOfYear+"-"+dayOfMonth+" "+hourOfDay+":"+min);
-                                appointments.get(position).setTimeFor(new Timestamp(year, monthOfYear, dayOfMonth,
-                                        hourOfDay, minute, 0,0));
-                                Log.d("test", "setting time for "+position);
-                            }
-                        }, true);
-                        tpd.setAccentColor(MainAplication.getContext().getResources().getColor(R.color.blue));
-                        tpd.show(FragmentDispatcher.getNormalManager(), "TimePickerDialog");
-                        Log.d("Date", String.valueOf(year)+ " "+ String.valueOf(monthOfYear)+ " "+String.valueOf(dayOfMonth));
-                        Date dateTime = new Date(appointments.get(position).getTimeFor().getTime());
-
-                        appointments.get(position).setTimeFor(new Timestamp(year, monthOfYear, dayOfMonth,
-                                dateTime.getHours(), dateTime.getMinutes(), 0,0));
-                    }
-                });
-
+                DateAndTimeChangeListener l = new DateAndTimeChangeListener();
+                l.setTarget(position);
+                DatePickerDialog dpd = DatePickerDialog.newInstance(l, now);
                 dpd.setAccentColor(MainAplication.getContext().getResources().getColor(R.color.blue));
                 dpd.show(FragmentDispatcher.getNormalManager(), "DatePickerDialog");
 
@@ -197,7 +203,9 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
 
 
+
     }
+
 
     @Override
     public int getItemCount() {
