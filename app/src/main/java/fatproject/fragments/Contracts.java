@@ -106,12 +106,15 @@ public class Contracts extends Fragment  {
         Typeface fontForMajorityOfWordAndNumbers = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NHaasGroteskTXPro55Rg.ttf");
 
         contractsAdapter = new ContractsAdapter(appointments, mainFont, fontForMajorityOfWordAndNumbers);
+        contractsAdapter.setHasStableIds(true);
         recyclerView.setAdapter(contractsAdapter);
+        recyclerView.setItemViewCacheSize(10);
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());
         layoutManager.setFlexDirection(FlexDirection.COLUMN);
         layoutManager.setJustifyContent(JustifyContent.CENTER);
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
+
 
 
         recyclerView.setLayoutManager(layoutManager);
