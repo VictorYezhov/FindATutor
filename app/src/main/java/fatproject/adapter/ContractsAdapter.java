@@ -23,13 +23,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import fatproject.IncomingForms.QuestionTopicAndPrice;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.entity.Appointment;
 import fatproject.entity.Job;
 import fatproject.findatutor.R;
 import fatproject.fragments.Contracts;
-
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -51,7 +54,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView topic,topicWord,date,price,dateAndPriceWord;
+        public TextView topic,topicWord,date,price,dateAndPriceWord,personRight,personLeft;
         public ImageButton buttonForPersonWhoGetsKnowledge;
         public ImageButton buttonForPersonWhoSharesKnowledge;
         public BootstrapButton changeDate;
@@ -64,6 +67,8 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             buttonForPersonWhoGetsKnowledge = view.findViewById(R.id.buttonForPersonWhoGetsKnowledge);
             buttonForPersonWhoSharesKnowledge = view.findViewById(R.id.buttonForPersonWhoSharesKnowledge);
             dateAndPriceWord = view.findViewById(R.id.dateAndPriceWord);
+            personLeft = view.findViewById(R.id.personLeft);
+            personRight = view.findViewById(R.id.personRight);
             changeDate = view.findViewById(R.id.changeDate);
             topicWord = view.findViewById(R.id.Topic_word_of_question_in_contract);
             topic = view.findViewById(R.id.Topic_of_question_in_contract);
@@ -127,6 +132,8 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
 
         if(appointment.getEmployerId().equals(MainAplication.getCurrentUser().getId())){
+            holder.personRight.setText("he/she");
+            holder.personLeft.setText("You");
             holder.buttonForPersonWhoGetsKnowledge.setClickable(true);
             holder.buttonForPersonWhoGetsKnowledge.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -135,6 +142,8 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                 }
             });
         }else {
+            holder.personRight.setText("You");
+            holder.personLeft.setText("he/she");
             holder.buttonForPersonWhoSharesKnowledge.setClickable(true);
             holder.buttonForPersonWhoSharesKnowledge.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -144,11 +153,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             });
         }
 
-
-
-
-
-
+        getTopicAndPriceOfQuestion(appointment.getQuestionId(), holder); //Change topic and price of contract.
 
         holder.changeDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,5 +205,19 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
     }
 
 
+    public void getTopicAndPriceOfQuestion(Long question_id, ContractsAdapter.MyViewHolder holder){
+        MainAplication.getServerRequests().getTopicAndPriceOfQuestion(question_id).enqueue(new Callback<QuestionTopicAndPrice>() {
+            @Override
+            public void onResponse(Call<QuestionTopicAndPrice> call, Response<QuestionTopicAndPrice> response) {
+                holder.topic.setText(response.body().getTopic());
+                holder.price.setText(response.body().getPrice().toString());
+            }
+
+            @Override
+            public void onFailure(Call<QuestionTopicAndPrice> call, Throwable t) {
+
+            }
+        });
+    }
 
 }

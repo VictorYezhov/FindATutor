@@ -164,31 +164,64 @@
             android:layout_marginTop="12dp"
             >
 
-            <ImageButton
-                android:id="@+id/buttonForPersonWhoGetsKnowledge"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="25dp"
-                android:adjustViewBounds="true"
-                android:background="@color/transparent"
-                android:scaleType="centerInside"
-                android:src="@drawable/close_white"
-                android:clickable="false"/>
+                android:layout_marginStart="17dp"
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/buttonForPersonWhoSharesKnowledge"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/personLeft"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="12dp"
+                    android:text="person1" />
+
+                <ImageButton
+                    android:id="@+id/buttonForPersonWhoGetsKnowledge"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="25dp"
+                    android:adjustViewBounds="true"
+                    android:background="@color/transparent"
+                    android:clickable="false"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/close_white" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginEnd="24dp"
-                android:adjustViewBounds="true"
-                android:background="@color/transparent"
-                android:scaleType="centerInside"
-                android:src="@drawable/close_white"
-                android:clickable="false"/>
+                android:layout_marginEnd="17dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/personRight"
+                    android:layout_marginRight="12dp"
+                    android:layout_gravity="center"
+                    android:text="person2" />
+
+                <ImageButton
+                    android:id="@+id/buttonForPersonWhoSharesKnowledge"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="24dp"
+                    android:adjustViewBounds="true"
+                    android:background="@color/transparent"
+                    android:clickable="false"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/close_white" />
+
+            </LinearLayout>
 
         </RelativeLayout>
 

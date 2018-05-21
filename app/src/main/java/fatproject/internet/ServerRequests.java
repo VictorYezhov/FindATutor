@@ -6,6 +6,7 @@ import java.util.concurrent.locks.Lock;
 
 import fatproject.IncomingForms.CommentForm;
 import fatproject.IncomingForms.QuestionForm;
+import fatproject.IncomingForms.QuestionTopicAndPrice;
 import fatproject.IncomingForms.ReviewsAndRating;
 import fatproject.SendingForms.IdsForAppointment;
 import fatproject.SendingForms.LoginForm;
@@ -205,4 +206,7 @@ public interface ServerRequests {
 
     @GET("/getAllUserAppointments{id}")
     Call<List<Appointment>> getAllUserAppointments(@Path("id") Long id);
+
+    @GET("/getTopicAndPriceOfQuestion{id}")
+    Call<QuestionTopicAndPrice> getTopicAndPriceOfQuestion(@Path("id") Long id);
 }
