@@ -78,54 +78,55 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
     }
 
-//    public class DateAndTimeChangeListener implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
-//
-//        private  int year, monthOfYear, dayOfMonth;
-//        private int currentAppointentCounter;
-//
-//
-//        @Override
-//        public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-//            Date dateTime = new Date(appointments.get(currentAppointentCounter).getTimeFor().getTime());
-//            this.year = year;
-//            this.monthOfYear = monthOfYear;
-//            this.dayOfMonth = dayOfMonth;
-//            Log.d("year", String.valueOf(year));
-//            dateTime.setYear(year);
-//            dateTime.setMonth(monthOfYear);
-//            dateTime.setDate(dayOfMonth);
-//            appointments.get(currentAppointentCounter).setTimeFor(new Timestamp(year - 1900, monthOfYear, dayOfMonth,
-//                    dateTime.getHours(), dateTime.getMinutes(), 0,0));
-//
-//            TimePickerDialog tpd = TimePickerDialog.newInstance(this, true);
-//            tpd.setAccentColor(MainAplication.getContext().getResources().getColor(R.color.blue));
-//            tpd.show(FragmentDispatcher.getNormalManager(), "TimePickerDialog");
-//
-//        }
-//
-//        @Override
-//        public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-//
-//            appointments.get(currentAppointentCounter).setTimeFor(new Timestamp(year-1900, monthOfYear, dayOfMonth,
-//                    hourOfDay, minute, 0,0));
-//            MainAplication.getServerRequests().updateAppointment(appointments.get(currentAppointentCounter)).enqueue(new Callback<String>() {
-//                @Override
-//                public void onResponse(Call<String> call, Response<String> response) {
-//                    FragmentDispatcher.launchFragment(Contracts.class);
-//                }
-//
-//                @Override
-//                public void onFailure(Call<String> call, Throwable t) {
-//
-//                }
-//            });
-//
-//        }
-//
-//        public void setTarget(int position){
-//            currentAppointentCounter = position;
-//        }
-//    }
+    public class DateAndTimeChangeListener implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
+
+        private  int year, monthOfYear, dayOfMonth;
+        private int currentAppointentCounter;
+
+
+        @Override
+        public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+            Date dateTime = new Date(appointments.get(currentAppointentCounter).getTimeFor().getTime());
+            this.year = year;
+            this.monthOfYear = monthOfYear;
+            this.dayOfMonth = dayOfMonth;
+            Log.d("year", String.valueOf(year));
+            dateTime.setYear(year);
+            dateTime.setMonth(monthOfYear);
+            dateTime.setDate(dayOfMonth);
+            appointments.get(currentAppointentCounter).setTimeFor(new Timestamp(year - 1900, monthOfYear, dayOfMonth,
+                    dateTime.getHours(), dateTime.getMinutes(), 0,0));
+
+            TimePickerDialog tpd = TimePickerDialog.newInstance(this, true);
+            tpd.setAccentColor(MainAplication.getContext().getResources().getColor(R.color.blue));
+            tpd.show(FragmentDispatcher.getNormalManager(), "TimePickerDialog");
+
+        }
+
+        @Override
+        public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+
+            appointments.get(currentAppointentCounter).setTimeFor(new Timestamp(year-1900, monthOfYear, dayOfMonth,
+                    hourOfDay, minute, 0,0));
+            notifyDataSetChanged();
+            MainAplication.getServerRequests().updateAppointment(appointments.get(currentAppointentCounter)).enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    //FragmentDispatcher.launchFragment(Contracts.class);
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+
+                }
+            });
+
+        }
+
+        public void setTarget(int position){
+            currentAppointentCounter = position;
+        }
+    }
 
 
 
@@ -186,17 +187,17 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
         getTopicAndPriceOfQuestion(appointment.getQuestionId(), holder); //Change topic and price of contract.
 
-//        holder.changeDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Calendar now = Calendar.getInstance();
-//                DateAndTimeChangeListener l = new DateAndTimeChangeListener();
-//                l.setTarget(position);
-//                DatePickerDialog dpd = DatePickerDialog.newInstance(l, now);
-//                dpd.setAccentColor(MainAplication.getContext().getResources().getColor(R.color.blue));
-//                dpd.show(FragmentDispatcher.getNormalManager(), "DatePickerDialog");
-//            }
-//        });
+        holder.changeDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar now = Calendar.getInstance();
+                DateAndTimeChangeListener l = new DateAndTimeChangeListener();
+                l.setTarget(position);
+                DatePickerDialog dpd = DatePickerDialog.newInstance(l, now);
+                dpd.setAccentColor(MainAplication.getContext().getResources().getColor(R.color.blue));
+                dpd.show(FragmentDispatcher.getNormalManager(), "DatePickerDialog");
+            }
+        });
 
     }
 

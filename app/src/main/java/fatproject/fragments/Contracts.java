@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
@@ -109,13 +110,10 @@ public class Contracts extends Fragment  {
         contractsAdapter.setHasStableIds(true);
         recyclerView.setAdapter(contractsAdapter);
         recyclerView.setItemViewCacheSize(10);
-        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this.getContext());
-        layoutManager.setFlexDirection(FlexDirection.COLUMN);
-        layoutManager.setJustifyContent(JustifyContent.CENTER);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL, false);
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
-
-
 
         recyclerView.setLayoutManager(layoutManager);
 
