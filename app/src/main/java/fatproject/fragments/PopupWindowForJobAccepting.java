@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import fatproject.IncomingForms.ReviewsAndRating;
 import fatproject.SendingForms.IdsForAppointment;
+import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ReviewsInDialogWindowAdapter;
 import fatproject.entity.Review;
@@ -107,6 +109,9 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
                 });
 
                 onStop();
+
+                EasyPopupWindow easyPopupWindow = new EasyPopupWindow();
+                easyPopupWindow.show(FragmentDispatcher.getFragmentManaget(), "popup");
             }
         });
 

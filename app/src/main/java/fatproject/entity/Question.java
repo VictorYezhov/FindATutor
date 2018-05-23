@@ -25,6 +25,7 @@ public class Question {
     private Integer price;
     private Integer views;
     private Category category;
+    private Long userId;
 
     private Set<Skill> skills;
 
@@ -130,6 +131,14 @@ public class Question {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

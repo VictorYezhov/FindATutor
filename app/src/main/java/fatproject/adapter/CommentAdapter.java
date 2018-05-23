@@ -84,7 +84,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         holder.price.setText(String.valueOf(commentForm.getComment().getPrice()) + "$");
         holder.name.setText(nameAndSureName);
         //holder.userImage.setImageBitmap(bitmap);
-        if(!commentForm.getComment().getUserId().equals(MainAplication.getCurrentUser().getId())){
+        if(MainAplication.getCurrentUser().getId().equals(commentForm.getComment().getQuestion().getUserId())){
             holder.acceptJobLinearLayout.setVisibility(View.VISIBLE);
         }
 
