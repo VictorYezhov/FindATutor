@@ -1,5 +1,8 @@
 package fatproject.adapter;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.andrognito.flashbar.Flashbar;
+import com.andrognito.flashbar.anim.FlashAnim;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -41,14 +46,18 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
 
     private Typeface fontForTopicWords, fontForAnotherSymbols;
+    private Context context;
+    private Activity activity;
 
 
     private List<Appointment> appointments;
 
-    public ContractsAdapter(List<Appointment> appointments, Typeface font1, Typeface font2) {
+    public ContractsAdapter(List<Appointment> appointments, Typeface font1, Typeface font2, Context context, Activity activity) {
         this.appointments = appointments;
         this.fontForTopicWords = font1;
         this.fontForAnotherSymbols = font2;
+        this.context = context;
+        this.activity = activity;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -164,27 +173,33 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
         if(appointment.isAcceeptedByEmployer()){
             holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.success_b);
-            holder.buttonForPersonWhoGetsKnowledge.setClickable(false);
+            holder.buttonForPersonWhoGetsKnowledge.setEnabled(false);
         } else{
             holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.unsuccess_b);
         }
 
         if(appointment.isAcceptedByEmployee()){
             holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.success_b);
-            holder.buttonForPersonWhoSharesKnowledge.setClickable(false);
+            holder.buttonForPersonWhoSharesKnowledge.setEnabled(false);
         }else{
             holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.unsuccess_b);
+
         }
 
 
         if(appointment.getEmployerId().equals(MainAplication.getCurrentUser().getId())){
             getNameOfYourPartner(appointment.getEmployeeId(), holder.personRight);
             holder.personLeft.setText("You");
-            holder.buttonForPersonWhoGetsKnowledge.setClickable(true);
             holder.buttonForPersonWhoGetsKnowledge.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    showFlashBarOnShortClickListener(context, activity);
+                }
+            });
+            holder.buttonForPersonWhoGetsKnowledge.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    holder.buttonForPersonWhoGetsKnowledge.setEnabled(false);
                     holder.buttonForPersonWhoGetsKnowledge.setVisibility(View.INVISIBLE);
                     holder.animationViewOfFirstPerson.playAnimation();
 
@@ -194,21 +209,26 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                             holder.animationViewOfFirstPerson.setVisibility(View.INVISIBLE);
                             holder.buttonForPersonWhoGetsKnowledge.setVisibility(View.VISIBLE);
                             holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.success_b);
-                            holder.buttonForPersonWhoGetsKnowledge.setClickable(false);
-                            //send to server that person`s willing to ...
+                            changeAcceptingOfPersonOnServerSide(appointment.getId(), appointment.getEmployerId(), true);
                         }
                     }, holder.animationViewOfFirstPerson.getDuration());
-
+                    return false;
                 }
             });
+
         }else {
             getNameOfYourPartner(appointment.getEmployerId(), holder.personLeft);
             holder.personRight.setText("You");
-            holder.buttonForPersonWhoSharesKnowledge.setClickable(true);
             holder.buttonForPersonWhoSharesKnowledge.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    showFlashBarOnShortClickListener(context, activity);
+                }
+            });
+            holder.buttonForPersonWhoSharesKnowledge.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    holder.buttonForPersonWhoSharesKnowledge.setEnabled(false);
                     holder.buttonForPersonWhoSharesKnowledge.setVisibility(View.INVISIBLE);
                     holder.animationViewOfSecondPerson.playAnimation();
 
@@ -218,13 +238,13 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                             holder.animationViewOfSecondPerson.setVisibility(View.INVISIBLE);
                             holder.buttonForPersonWhoSharesKnowledge.setVisibility(View.VISIBLE);
                             holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.success_b);
-                            holder.buttonForPersonWhoSharesKnowledge.setClickable(false);
-                            //send to server that person`s willing to ...
+                            changeAcceptingOfPersonOnServerSide(appointment.getId(), appointment.getEmployeeId(), true);
                         }
                     }, holder.animationViewOfSecondPerson.getDuration());
-
+                    return false;
                 }
             });
+
         }
 
         getTopicAndPriceOfQuestion(appointment.getQuestionId(), holder); //Change topic and price of contract.
@@ -284,7 +304,43 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         });
     }
 
-//    public void changeAcceptingOfPersonOnServerSide(){
-//
-//    }
+    public void changeAcceptingOfPersonOnServerSide(Long contract_id, Long person_id, boolean accepting){
+        MainAplication.getServerRequests().changeAcceptingOnServerSide(contract_id, person_id, accepting).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.err.println(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void showFlashBarOnShortClickListener(Context c, Activity a){
+                Flashbar flashbar = new Flashbar.Builder(a)
+                        .gravity(Flashbar.Gravity.BOTTOM)
+                        .title("Make Long Pressing")
+                        .message("To prove that you are willing to meet, please make long pressing.")
+                        .messageColor(Color.WHITE)
+                        .titleColor(Color.WHITE)
+                        .backgroundColorRes(R.color.blue)
+                        .dismissOnTapOutside()
+                        .enterAnimation(FlashAnim.with(c)
+                                .animateBar()
+                                .duration(400)
+                                .slideFromLeft()
+                                .alpha()
+                                .overshoot())
+                        .exitAnimation(FlashAnim.with(c)
+                                .animateBar()
+                                .duration(450)
+                                .slideFromRight()
+                                .accelerateDecelerate())
+                        .build();
+
+                    flashbar.show();
+
+            }
 }

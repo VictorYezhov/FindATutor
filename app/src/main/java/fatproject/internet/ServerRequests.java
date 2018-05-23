@@ -216,4 +216,9 @@ public interface ServerRequests {
 
     @GET("/getNameOfYourPartner{id}")
     Call<String> getNameOfYourPartner(@Path("id") Long id);
+
+    @POST("/changeAcceptingOnServerSide")
+    Call<String> changeAcceptingOnServerSide(@Query("contract_id") Long contract_id,
+                                             @Query("person_id") Long person_id,
+                                             @Query("accepting") boolean accepting);
 }

@@ -106,7 +106,7 @@ public class Contracts extends Fragment  {
         Typeface mainFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Light.otf");
         Typeface fontForMajorityOfWordAndNumbers = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NHaasGroteskTXPro55Rg.ttf");
 
-        contractsAdapter = new ContractsAdapter(appointments, mainFont, fontForMajorityOfWordAndNumbers);
+        contractsAdapter = new ContractsAdapter(appointments, mainFont, fontForMajorityOfWordAndNumbers, this.getContext(), this.getActivity());
         contractsAdapter.setHasStableIds(true);
         recyclerView.setAdapter(contractsAdapter);
         recyclerView.setItemViewCacheSize(10);
