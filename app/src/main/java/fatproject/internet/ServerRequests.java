@@ -220,5 +220,6 @@ public interface ServerRequests {
     @POST("/changeAcceptingOnServerSide")
     Call<String> changeAcceptingOnServerSide(@Query("contract_id") Long contract_id,
                                              @Query("person_id") Long person_id,
-                                             @Query("accepting") boolean accepting);
+                                             @Query("accepting") boolean accepting,
+                                             @Query("another_person_id") Long another_person_id);
 }

@@ -209,7 +209,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                             holder.animationViewOfFirstPerson.setVisibility(View.INVISIBLE);
                             holder.buttonForPersonWhoGetsKnowledge.setVisibility(View.VISIBLE);
                             holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.success_b);
-                            changeAcceptingOfPersonOnServerSide(appointment.getId(), appointment.getEmployerId(), true);
+                            changeAcceptingOfPersonOnServerSide(appointment.getId(), appointment.getEmployerId(), true, appointment.getEmployeeId());
                         }
                     }, holder.animationViewOfFirstPerson.getDuration());
                     return false;
@@ -217,6 +217,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             });
 
         }else {
+            holder.changeDate.setVisibility(View.INVISIBLE);
             getNameOfYourPartner(appointment.getEmployerId(), holder.personLeft);
             holder.personRight.setText("You");
             holder.buttonForPersonWhoSharesKnowledge.setOnClickListener(new View.OnClickListener() {
@@ -238,7 +239,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                             holder.animationViewOfSecondPerson.setVisibility(View.INVISIBLE);
                             holder.buttonForPersonWhoSharesKnowledge.setVisibility(View.VISIBLE);
                             holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.success_b);
-                            changeAcceptingOfPersonOnServerSide(appointment.getId(), appointment.getEmployeeId(), true);
+                            changeAcceptingOfPersonOnServerSide(appointment.getId(), appointment.getEmployeeId(), true, appointment.getEmployerId());
                         }
                     }, holder.animationViewOfSecondPerson.getDuration());
                     return false;
@@ -304,8 +305,8 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         });
     }
 
-    public void changeAcceptingOfPersonOnServerSide(Long contract_id, Long person_id, boolean accepting){
-        MainAplication.getServerRequests().changeAcceptingOnServerSide(contract_id, person_id, accepting).enqueue(new Callback<String>() {
+    public void changeAcceptingOfPersonOnServerSide(Long contract_id, Long person_id, boolean accepting, Long another_person_id){
+        MainAplication.getServerRequests().changeAcceptingOnServerSide(contract_id, person_id, accepting, another_person_id).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 System.err.println(response.body());

@@ -135,6 +135,12 @@ public class ApplicationDiscription extends Fragment implements CommentObserver 
         getAllCommentsOfCurrentQuestion();
         final QuestionForm questionForm = Paper.book().read(key);
 
+        if(questionForm.getUserId().equals(MainAplication.getCurrentUser().getId())){
+            editTextAddComment.setVisibility(View.INVISIBLE);
+            editTextPriceComment.setVisibility(View.INVISIBLE);
+            addCommentButton.setVisibility(View.INVISIBLE);
+        }
+
         Typeface grotesk55 = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NHaasGroteskTXPro55Rg.ttf");
         Typeface grotesk75 = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NHaasGroteskTXPro-75Bd.ttf");
         title.setTypeface(grotesk55);

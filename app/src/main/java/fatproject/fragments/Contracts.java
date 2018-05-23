@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.Helpers.ContractsQueue;
+import fatproject.Helpers.ContractsQueueObserver;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ContractsAdapter;
 import fatproject.entity.Appointment;
@@ -42,11 +45,12 @@ import retrofit2.Response;
  * Use the {@link Contracts#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Contracts extends Fragment  {
+public class Contracts extends Fragment implements ContractsQueueObserver {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private ContractsQueue queue = ContractsQueue.getInstance();
 
 
 
@@ -153,6 +157,11 @@ public class Contracts extends Fragment  {
 
             }
         });
+    }
+
+    @Override
+    public void updateContracts() {
+        Log.d("Queue", "works");
     }
 
 
