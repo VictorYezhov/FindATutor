@@ -40,6 +40,8 @@ public class MainAplication extends Application {
 
         Paper.init(this);
 
+        deleteUsersPhoto();
+
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
                 .setLenient()
                 .create();

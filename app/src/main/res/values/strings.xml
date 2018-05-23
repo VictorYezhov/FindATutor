@@ -8,6 +8,9 @@
 
     <string name="open" translatable="false">Open</string>
     <string name="close" translatable="false">Close</string>
+    <string name="welcome_messages">Hello dear, %1$s! I want to let you know that i choose you as a mentor
+        for my question " %2$s ". We can choose a day that best fits for us both, and i will place in our contract,
+        what you can find in "Arrangements" section.</string>
 
     <string name="number">Number :   </string>
     <string name="City">City :   </string>
