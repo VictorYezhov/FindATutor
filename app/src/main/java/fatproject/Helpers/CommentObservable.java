@@ -13,6 +13,8 @@ public interface CommentObservable {
         }
     }
 
+
+
     default void registerObserver(CommentObserver observer){
         observers.add(observer);
     }

@@ -8,5 +8,6 @@ public interface ContractsQueueObserver {
 
     void updateContracts();
 
+    void dataChanged();
 
 }

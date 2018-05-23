@@ -17,8 +17,18 @@ public interface ContractsQueueObservable {
             o.updateContracts();
         }
     }
+
+    default void changed(){
+        for(ContractsQueueObserver o : observers){
+            o.dataChanged();
+        }
+    }
     default void addObserver(ContractsQueueObserver observer){
         observers.add(observer);
+    }
+
+    default void removeObserver(ContractsQueueObserver observer){
+        observers.remove(observer);
     }
 
 }

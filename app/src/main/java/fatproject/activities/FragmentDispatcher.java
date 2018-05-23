@@ -299,6 +299,11 @@ public class FragmentDispatcher extends AppCompatActivity  implements ContractsQ
     }
 
     @Override
+    public void dataChanged() {
+        showNotification(contractsQueue.getSize(), navigationView, R.id.contracts);
+    }
+
+    @Override
     public void onDataRangeChanged(int i, int i1) {
 
     }

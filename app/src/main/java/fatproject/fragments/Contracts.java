@@ -116,6 +116,9 @@ public class Contracts extends Fragment implements ContractsQueueObserver {
         recyclerView.setItemViewCacheSize(10);
 
         queue.addObserver(this);
+        queue.clear();
+
+        queue.changed();
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL, false);
         SnapHelper snapHelper = new LinearSnapHelper();
@@ -166,9 +169,20 @@ public class Contracts extends Fragment implements ContractsQueueObserver {
         String id = queue.pop();
         if(id != null)
             updateAppointment(Long.decode(id));
+        queue.changed();
 
     }
 
+    @Override
+    public void dataChanged() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        queue.removeObserver(this);
+    }
 
     /**
      * This interface must be implemented by activities that contain this

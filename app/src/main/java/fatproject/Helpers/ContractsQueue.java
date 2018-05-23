@@ -55,5 +55,9 @@ public class ContractsQueue  implements ContractsQueueObservable{
         queue.remove(id);
     }
 
+    public void clear(){
+        queue.clear();
+    }
+
 
 }
