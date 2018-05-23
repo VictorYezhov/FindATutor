@@ -17,10 +17,11 @@ import java.util.Set;
 public class ContractsQueue  implements ContractsQueueObservable{
 
 
-    private static Set<String> queue = new HashSet<>();
+    private static Queue<String> queue;
     private static ContractsQueue instance;
 
     private ContractsQueue(){
+        queue = new ArrayDeque<>();
     }
 
     public static ContractsQueue getInstance(){
@@ -42,13 +43,9 @@ public class ContractsQueue  implements ContractsQueueObservable{
         return  res;
     }
     public String pop(){
-        Iterator<String> iter = queue.iterator();
-        if(iter.hasNext()) {
-            String s = iter.next();
-            queue.remove(s);
-            return  s;
-        }else
-            return null;
+
+        return  queue.poll();
+
     }
     public  int getSize(){
         return queue.size();
