@@ -138,6 +138,21 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
     }
 
 
+    public void updateAppointment(Appointment appointment){
+        for(int i = 0; i < appointments.size(); i++){
+            if(appointments.get(i).getId().equals(appointment.getId())){
+//                appointments.remove(appointments.get(i));
+                appointments.get(i).setAcceeptedByEmployer(appointment.isAcceeptedByEmployer());
+                appointments.get(i).setAcceptedByEmployee(appointment.isAcceptedByEmployee());
+                appointments.get(i).setSuccessForEmployee(appointment.isSuccessForEmployee());
+                appointments.get(i).setSuccessForEmployer(appointment.isSuccessForEmployer());
+
+            }
+        }
+//        appointments.add(0, appointment);
+        System.err.println("here");
+        notifyDataSetChanged();
+    }
 
 
     @Override

@@ -50,7 +50,7 @@ public class Contracts extends Fragment implements ContractsQueueObserver {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private ContractsQueue queue = ContractsQueue.getInstance();
+    private ContractsQueue queue;
 
 
 
@@ -96,7 +96,7 @@ public class Contracts extends Fragment implements ContractsQueueObserver {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
+        queue = ContractsQueue.getInstance();
     }
 
     @Override
@@ -114,6 +114,8 @@ public class Contracts extends Fragment implements ContractsQueueObserver {
         contractsAdapter.setHasStableIds(true);
         recyclerView.setAdapter(contractsAdapter);
         recyclerView.setItemViewCacheSize(10);
+
+        queue.addObserver(this);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL, false);
         SnapHelper snapHelper = new LinearSnapHelper();
@@ -161,7 +163,9 @@ public class Contracts extends Fragment implements ContractsQueueObserver {
 
     @Override
     public void updateContracts() {
-        Log.d("Queue", "works");
+        String id = queue.pop();
+        if(id != null)
+            updateAppointment(Long.decode(id));
     }
 
 
@@ -178,5 +182,21 @@ public class Contracts extends Fragment implements ContractsQueueObserver {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void updateAppointment(Long id){
+        MainAplication.getServerRequests().updateAppointmentById(id).enqueue(new Callback<Appointment>() {
+            @Override
+            public void onResponse(Call<Appointment> call, Response<Appointment> response) {
+
+                contractsAdapter.updateAppointment(response.body());
+
+            }
+
+            @Override
+            public void onFailure(Call<Appointment> call, Throwable t) {
+
+            }
+        });
     }
 }

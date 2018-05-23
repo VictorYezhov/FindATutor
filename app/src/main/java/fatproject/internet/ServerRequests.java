@@ -222,4 +222,7 @@ public interface ServerRequests {
                                              @Query("person_id") Long person_id,
                                              @Query("accepting") boolean accepting,
                                              @Query("another_person_id") Long another_person_id);
+
+    @GET("/updateAppointment{id}")
+    Call<Appointment> updateAppointmentById(@Path("id") Long id);
 }

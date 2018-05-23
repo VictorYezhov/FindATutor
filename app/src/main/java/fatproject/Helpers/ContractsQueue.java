@@ -5,6 +5,7 @@ import com.google.android.gms.common.data.DataBufferObserver;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
@@ -16,12 +17,10 @@ import java.util.Set;
 public class ContractsQueue  implements ContractsQueueObservable{
 
 
-    private static Set<String> queue;
+    private static Set<String> queue = new HashSet<>();
     private static ContractsQueue instance;
 
     private ContractsQueue(){
-        queue = new HashSet<>(10);
-
     }
 
     public static ContractsQueue getInstance(){
@@ -41,6 +40,15 @@ public class ContractsQueue  implements ContractsQueueObservable{
     public  boolean contains(String id){
         boolean res = queue.contains(id);
         return  res;
+    }
+    public String pop(){
+        Iterator<String> iter = queue.iterator();
+        if(iter.hasNext()) {
+            String s = iter.next();
+            queue.remove(s);
+            return  s;
+        }else
+            return null;
     }
     public  int getSize(){
         return queue.size();
