@@ -64,7 +64,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         public TextView topic,topicWord,date,price,dateAndPriceWord,personRight,personLeft;
         public ImageButton buttonForPersonWhoGetsKnowledge, buttonForPersonWhoSharesKnowledge;
         public BootstrapButton changeDate;
-        public LottieAnimationView animationViewOfFirstPerson, animationViewOfSecondPerson;
+        public LottieAnimationView animationView;
 
 
         public MyViewHolder(View view) {
@@ -72,8 +72,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
             buttonForPersonWhoSharesKnowledge = view.findViewById(R.id.buttonForPersonWhoSharesKnowledge);
             buttonForPersonWhoGetsKnowledge = view.findViewById(R.id.buttonForPersonWhoGetsKnowledge);
-            animationViewOfSecondPerson = view.findViewById(R.id.animation_view_person2);
-            animationViewOfFirstPerson = view.findViewById(R.id.animation_view_person1);
+            animationView = view.findViewById(R.id.animation_view);
             dateAndPriceWord = view.findViewById(R.id.dateAndPriceWord);
             personLeft = view.findViewById(R.id.personLeft);
             personRight = view.findViewById(R.id.personRight);
@@ -216,17 +215,17 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                 public boolean onLongClick(View v) {
                     holder.buttonForPersonWhoGetsKnowledge.setEnabled(false);
                     holder.buttonForPersonWhoGetsKnowledge.setVisibility(View.INVISIBLE);
-                    holder.animationViewOfFirstPerson.playAnimation();
+                    holder.animationView.playAnimation();
 
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
-                            holder.animationViewOfFirstPerson.setVisibility(View.INVISIBLE);
+                            holder.animationView.setVisibility(View.INVISIBLE);
                             holder.buttonForPersonWhoGetsKnowledge.setVisibility(View.VISIBLE);
                             holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.success_b);
                             changeAcceptingOfPersonOnServerSide(appointment.getId(), appointment.getEmployerId(), true, appointment.getEmployeeId());
                         }
-                    }, holder.animationViewOfFirstPerson.getDuration());
+                    }, holder.animationView.getDuration());
                     return false;
                 }
             });
@@ -246,17 +245,17 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                 public boolean onLongClick(View v) {
                     holder.buttonForPersonWhoSharesKnowledge.setEnabled(false);
                     holder.buttonForPersonWhoSharesKnowledge.setVisibility(View.INVISIBLE);
-                    holder.animationViewOfSecondPerson.playAnimation();
+                    holder.animationView.playAnimation();
 
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
-                            holder.animationViewOfSecondPerson.setVisibility(View.INVISIBLE);
+                            holder.animationView.setVisibility(View.INVISIBLE);
                             holder.buttonForPersonWhoSharesKnowledge.setVisibility(View.VISIBLE);
                             holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.success_b);
                             changeAcceptingOfPersonOnServerSide(appointment.getId(), appointment.getEmployeeId(), true, appointment.getEmployerId());
                         }
-                    }, holder.animationViewOfSecondPerson.getDuration());
+                    }, holder.animationView.getDuration());
                     return false;
                 }
             });

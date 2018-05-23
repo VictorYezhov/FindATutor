@@ -260,23 +260,11 @@
                 android:layout_height="wrap_content">
 
                 <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/animation_view_person1"
+                    android:id="@+id/animation_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginBottom="30dp"
                     android:visibility="visible"
-                    app:lottie_autoPlay="false"
-                    app:lottie_loop="false"
-                    app:lottie_rawRes="@raw/success2" />
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/animation_view_person2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="175dp"
-                    android:layout_marginBottom="240dp"
-                    android:visibility="visible"
+                    android:layout_centerHorizontal="true"
                     app:lottie_autoPlay="false"
                     app:lottie_loop="false"
                     app:lottie_rawRes="@raw/success" />
