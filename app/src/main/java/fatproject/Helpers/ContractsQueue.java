@@ -34,8 +34,10 @@ public class ContractsQueue  implements ContractsQueueObservable{
     }
 
     public void add(String s){
-        queue.add(s);
-        notiifyObservers();
+        if(!queue.contains(s)) {
+            queue.add(s);
+            notiifyObservers();
+        }
     }
 
     public  boolean contains(String id){
@@ -43,7 +45,6 @@ public class ContractsQueue  implements ContractsQueueObservable{
         return  res;
     }
     public String pop(){
-
         return  queue.poll();
 
     }
