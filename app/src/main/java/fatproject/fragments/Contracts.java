@@ -166,7 +166,7 @@ public class Contracts extends Fragment implements ContractsQueueObserver {
         String id = queue.pop();
         if(id != null)
             updateAppointment(Long.decode(id));
-        queue.notiifyObservers();
+
     }
 
 
