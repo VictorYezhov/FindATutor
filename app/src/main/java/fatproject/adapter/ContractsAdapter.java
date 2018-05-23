@@ -1,16 +1,16 @@
 package fatproject.adapter;
 
 import android.graphics.Typeface;
-import android.os.Build;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -27,9 +27,7 @@ import fatproject.IncomingForms.QuestionTopicAndPrice;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.entity.Appointment;
-import fatproject.entity.Job;
 import fatproject.findatutor.R;
-import fatproject.fragments.Contracts;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,16 +53,18 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView topic,topicWord,date,price,dateAndPriceWord,personRight,personLeft;
-        public ImageButton buttonForPersonWhoGetsKnowledge;
-        public ImageButton buttonForPersonWhoSharesKnowledge;
+        public ImageButton buttonForPersonWhoGetsKnowledge, buttonForPersonWhoSharesKnowledge;
         public BootstrapButton changeDate;
+        public LottieAnimationView animationViewOfFirstPerson, animationViewOfSecondPerson;
 
 
         public MyViewHolder(View view) {
             super(view);
 
-            buttonForPersonWhoGetsKnowledge = view.findViewById(R.id.buttonForPersonWhoGetsKnowledge);
             buttonForPersonWhoSharesKnowledge = view.findViewById(R.id.buttonForPersonWhoSharesKnowledge);
+            buttonForPersonWhoGetsKnowledge = view.findViewById(R.id.buttonForPersonWhoGetsKnowledge);
+            animationViewOfSecondPerson = view.findViewById(R.id.animation_view_person2);
+            animationViewOfFirstPerson = view.findViewById(R.id.animation_view_person1);
             dateAndPriceWord = view.findViewById(R.id.dateAndPriceWord);
             personLeft = view.findViewById(R.id.personLeft);
             personRight = view.findViewById(R.id.personRight);
@@ -162,6 +162,20 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                 format(oldFormatedDate));
 
 
+        if(appointment.isAcceeptedByEmployer()){
+            holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.success_b);
+            holder.buttonForPersonWhoGetsKnowledge.setClickable(false);
+        } else{
+            holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.unsuccess_b);
+        }
+
+        if(appointment.isAcceptedByEmployee()){
+            holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.success_b);
+            holder.buttonForPersonWhoSharesKnowledge.setClickable(false);
+        }else{
+            holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.unsuccess_b);
+        }
+
 
         if(appointment.getEmployerId().equals(MainAplication.getCurrentUser().getId())){
             getNameOfYourPartner(appointment.getEmployeeId(), holder.personRight);
@@ -170,7 +184,21 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             holder.buttonForPersonWhoGetsKnowledge.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.white_check);
+
+                    holder.buttonForPersonWhoGetsKnowledge.setVisibility(View.INVISIBLE);
+                    holder.animationViewOfFirstPerson.playAnimation();
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            holder.animationViewOfFirstPerson.setVisibility(View.INVISIBLE);
+                            holder.buttonForPersonWhoGetsKnowledge.setVisibility(View.VISIBLE);
+                            holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.success_b);
+                            holder.buttonForPersonWhoGetsKnowledge.setClickable(false);
+                            //send to server that person`s willing to ...
+                        }
+                    }, holder.animationViewOfFirstPerson.getDuration());
+
                 }
             });
         }else {
@@ -180,7 +208,21 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             holder.buttonForPersonWhoSharesKnowledge.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.white_check);
+
+                    holder.buttonForPersonWhoSharesKnowledge.setVisibility(View.INVISIBLE);
+                    holder.animationViewOfSecondPerson.playAnimation();
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            holder.animationViewOfSecondPerson.setVisibility(View.INVISIBLE);
+                            holder.buttonForPersonWhoSharesKnowledge.setVisibility(View.VISIBLE);
+                            holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.success_b);
+                            holder.buttonForPersonWhoSharesKnowledge.setClickable(false);
+                            //send to server that person`s willing to ...
+                        }
+                    }, holder.animationViewOfSecondPerson.getDuration());
+
                 }
             });
         }
@@ -198,18 +240,6 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                 dpd.show(FragmentDispatcher.getNormalManager(), "DatePickerDialog");
             }
         });
-
-        if(appointment.isAcceeptedByEmployer()){
-            holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.white_check);
-        }else {
-            holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.close_white);
-        }
-
-        if(appointment.isAcceptedByEmployee()){
-            holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.white_check);
-        }else{
-            holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.close_white);
-        }
 
     }
 
@@ -243,7 +273,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 String name = response.body();
-               name = name.replace('@',' ');
+                name = name.replace('@',' ');
                 textView.setText(name);
             }
 
@@ -254,4 +284,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         });
     }
 
+//    public void changeAcceptingOfPersonOnServerSide(){
+//
+//    }
 }
