@@ -1,291 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#F0F0F0">
 
-
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp">
+        android:layout_height="501dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Topic_word_of_question_in_contract"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="Topic"
-                android:textSize="23sp"
-                android:textColor="@color/black"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Topic_of_question_in_contract"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="Question title"
-                android:textSize="17sp"
-                android:textColor="@color/black"/>
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/dateAndPriceWord"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="Date and price"
-                android:textSize="23sp"
-                android:textColor="@color/black"
-                />
-
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:orientation="horizontal"
+                <TextView
+                    android:id="@+id/Topic_word_of_question_in_contract"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="Topic"
+                    android:textColor="@color/black"
+                    android:textSize="23sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="3dp"
-                        app:srcCompat="@drawable/ic_schedule_black_24dp"
-                        />
+                <TextView
+                    android:id="@+id/Topic_of_question_in_contract"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="Question title"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/dateInContractItem"
-                        android:layout_marginStart="10dp"
-                        android:text="28.08.1999"
-                        android:textSize="17sp"
-                        android:textColor="@color/black"/>
+            </LinearLayout>
 
-                    <com.beardedhen.androidbootstrap.BootstrapButton
-                        android:id="@+id/changeDate"
-                        android:layout_width="80dp"
-                        android:layout_height="35dp"
-                        android:layout_marginStart="10dp"
-                        android:text="CHANGE"
-                        android:textColor="@color/white"
-                        app:bootstrapBrand="success"
-                        app:roundedCorners="true"
-                        app:bootstrapSize="sm"
-                        app:showOutline="false" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
 
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/dateAndPriceWord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="Date and price"
+                    android:textColor="@color/black"
+                    android:textSize="23sp" />
 
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <ImageView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srcCompat = "@drawable/ic_attach_money_black_24dp"
-                        android:layout_marginStart="10dp"
-                        />
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
 
-                    <TextView
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="3dp"
+                            app:srcCompat="@drawable/ic_schedule_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/dateInContractItem"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="28.08.1999"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
+
+                        <com.beardedhen.androidbootstrap.BootstrapButton
+                            android:id="@+id/changeDate"
+                            android:layout_width="80dp"
+                            android:layout_height="35dp"
+                            android:layout_marginStart="10dp"
+                            android:text="CHANGE"
+                            android:textColor="@color/white"
+                            app:bootstrapBrand="success"
+                            app:bootstrapSize="sm"
+                            app:roundedCorners="true"
+                            app:showOutline="false" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/priceInContractItem"
-                        android:layout_marginLeft="10dp"
-                        android:text="1999$"
-                        android:textColor="@color/black"
-                        android:textSize="17sp" />
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            app:srcCompat="@drawable/ic_attach_money_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/priceInContractItem"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="1999$"
+                            android:textColor="@color/black"
+                            android:textSize="17sp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
 
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        >
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/white">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/relativeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginTop="12dp">
+
+
+                        <TextView
+                            android:id="@+id/personLeft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="1dp"
+                            android:text="person1"
+                            app:layout_constraintBottom_toTopOf="@+id/buttonForPersonWhoGetsKnowledge"
+                            app:layout_constraintEnd_toEndOf="@+id/buttonForPersonWhoGetsKnowledge"
+                            app:layout_constraintStart_toStartOf="@+id/buttonForPersonWhoGetsKnowledge"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <ImageButton
+                            android:id="@+id/buttonForPersonWhoGetsKnowledge"
+                            android:layout_width="121dp"
+                            android:layout_height="114dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginStart="56dp"
+                            android:layout_marginTop="8dp"
+                            android:adjustViewBounds="true"
+                            android:background="@color/transparent"
+                            android:clickable="false"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/unsuccess_b"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/personLeft" />
+
+
+                        <TextView
+                            android:id="@+id/personRight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="15dp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="1dp"
+                            android:text="person2"
+                            app:layout_constraintBottom_toTopOf="@+id/buttonForPersonWhoSharesKnowledge"
+                            app:layout_constraintEnd_toEndOf="@+id/buttonForPersonWhoSharesKnowledge"
+                            app:layout_constraintStart_toStartOf="@+id/buttonForPersonWhoSharesKnowledge"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <ImageButton
+                            android:id="@+id/buttonForPersonWhoSharesKnowledge"
+                            android:layout_width="121dp"
+                            android:layout_height="114dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="56dp"
+                            android:layout_marginTop="8dp"
+                            android:adjustViewBounds="true"
+                            android:background="@color/transparent"
+                            android:clickable="false"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/unsuccess_b"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/personRight" />
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </RelativeLayout>
+
+
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginTop="12dp"
-                    >
+                    android:layout_height="wrap_content">
 
-                    <LinearLayout
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/animation_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="17dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/personLeft"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginBottom="6dp"
-                            android:text="person1" />
-
-
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageButton
-                                android:id="@+id/buttonForPersonWhoGetsKnowledge"
-                                android:layout_width="150dp"
-                                android:layout_height="100dp"
-                                android:layout_marginStart="25dp"
-                                android:adjustViewBounds="true"
-                                android:background="@color/transparent"
-                                android:clickable="false"
-                                android:scaleType="centerInside"
-                                android:src="@drawable/unsuccess_b" />
-
-                        </RelativeLayout>
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginEnd="17dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/personRight"
-                            android:layout_marginEnd="12dp"
-                            android:layout_marginBottom="6dp"
-                            android:layout_gravity="center"
-                            android:text="person2" />
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageButton
-                                android:id="@+id/buttonForPersonWhoSharesKnowledge"
-                                android:layout_width="150dp"
-                                android:layout_height="100dp"
-                                android:layout_marginEnd="25dp"
-                                android:adjustViewBounds="true"
-                                android:background="@color/transparent"
-                                android:clickable="false"
-                                android:scaleType="centerInside"
-                                android:src="@drawable/unsuccess_b" />
-
-                        </RelativeLayout>
-
-
-                    </LinearLayout>
+                        android:layout_centerHorizontal="true"
+                        android:visibility="visible"
+                        app:lottie_autoPlay="false"
+                        app:lottie_loop="false"
+                        app:lottie_rawRes="@raw/success" />
 
                 </RelativeLayout>
 
             </RelativeLayout>
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        </android.support.v7.widget.CardView>
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/animation_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:layout_centerHorizontal="true"
-                    app:lottie_autoPlay="false"
-                    app:lottie_loop="false"
-                    app:lottie_rawRes="@raw/success" />
+    </LinearLayout>
 
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-
-
-    </android.support.v7.widget.CardView>
-
-
-
-    <TextView
-        android:layout_width="match_parent"
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="*By pressing these buttons you authomatically prove that you are fucking dilbil"
-        android:textStyle="italic"
-        android:textColor="@color/dark_grey"
-        android:layout_marginLeft="20dp"
-        />
+        app:barrierDirection="left" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
