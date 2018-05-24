@@ -145,6 +145,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                 appointments.get(i).setAcceptedByEmployee(appointment.isAcceptedByEmployee());
                 appointments.get(i).setSuccessForEmployee(appointment.isSuccessForEmployee());
                 appointments.get(i).setSuccessForEmployer(appointment.isSuccessForEmployer());
+                appointments.get(i).setTimeFor(appointment.getTimeFor());
 
             }
         }

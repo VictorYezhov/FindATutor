@@ -62,6 +62,10 @@ public interface ServerRequests {
     Call<String> createNewChat(@Query("side1") Long side1, @Query("side2")Long side2);
 
 
+    @GET("/getQuestionTitle{id}")
+    Call<String> getQuestionTitle(@Path("id") Long id);
+
+
 
     /**
      * Used when user add`s to himself new skills

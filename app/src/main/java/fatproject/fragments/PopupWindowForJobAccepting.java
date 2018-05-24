@@ -19,6 +19,7 @@ import com.willy.ratingbar.ScaleRatingBar;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,10 @@ import fatproject.SendingForms.IdsForAppointment;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ReviewsInDialogWindowAdapter;
+import fatproject.entity.Message;
 import fatproject.entity.Review;
 import fatproject.findatutor.R;
+import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -107,6 +110,21 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
 
                     }
                 });
+                MainAplication.getServerRequests().
+                        createNewChat(id_person_who_leave_comment, MainAplication.getCurrentUser().getId())
+                        .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if(response.body()!=null){
+                            sendWelcomeMessage(Long.decode(response.body()));
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+
+                    }
+                });
+
 
                 onStop();
 
@@ -143,6 +161,50 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
 
 
         return builder.create();
+    }
+
+
+    public void sendWelcomeMessage(Long contactId){
+
+        MainAplication.getServerRequests().getQuestionTitle(id_of_question).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Message message = new Message();
+                String textMessage = getString(R.string.welcome_messages, name+surename, response.body().replaceAll("@", " "));
+                message.setContactId(contactId);
+                message.setFrom(MainAplication.getCurrentUser().getId());
+                message.setColor(0);
+                message.setRead(false);
+                message.setMessage(textMessage);
+                message.setTimestamp(new Timestamp(System.currentTimeMillis()));
+                List<Message> cashedMessages = Paper.book().read("messages"+contactId);
+                if(cashedMessages!=null) {
+                    cashedMessages.add(message);
+                    Paper.book().write("messages" + contactId, cashedMessages);
+                }else {
+                    cashedMessages = new ArrayList<>();
+                    cashedMessages.add(message);
+                    Paper.book().write("messages" + contactId, cashedMessages);
+                }
+                MainAplication.getServerRequests().sendMessage(message).enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        Log.d("Message :", response.body());
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.d("Message :", "sending fail");
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+
+
     }
 
     public void setNameAndFamilyName(String s1, String s2, Long id, Long question_id){
