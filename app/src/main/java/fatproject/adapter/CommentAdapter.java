@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.beardedhen.androidbootstrap.BootstrapBadge;
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.api.attributes.BootstrapBrand;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -20,6 +22,10 @@ import fatproject.Helpers.CommentObservable;
 import fatproject.IncomingForms.CommentForm;
 import fatproject.activities.MainAplication;
 import fatproject.findatutor.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.Query;
 
 /**
  * Created by Komarenski Max on 21.03.2018.
@@ -33,7 +39,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView dateTime, textComment, price, name;
-        public LinearLayout acceptJobLinearLayout;
         public BootstrapButton acceptJobButton;
         //public ImageView userImage;
 
@@ -46,7 +51,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
             price = (TextView) view.findViewById(R.id.priceOfComment);
             name = (TextView) view.findViewById(R.id.nameOfUserThatLeavedComment);
             acceptJobButton = view.findViewById(R.id.acceptJobButton);
-            acceptJobLinearLayout = view.findViewById(R.id.acceptJobLinearLayout);
             //userImage = view.findViewById(R.id.imageOfUserInComment);
         }
     }
@@ -84,8 +88,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         holder.price.setText(String.valueOf(commentForm.getComment().getPrice()) + "$");
         holder.name.setText(nameAndSureName);
         //holder.userImage.setImageBitmap(bitmap);
-        if(MainAplication.getCurrentUser().getId().equals(commentForm.getComment().getQuestion().getUserId())){
-            holder.acceptJobLinearLayout.setVisibility(View.VISIBLE);
+        if(!MainAplication.getCurrentUser().getId().equals(commentForm.getComment().getQuestion().getUserId())){
+            holder.acceptJobButton.setVisibility(View.INVISIBLE);
         }
 
         holder.acceptJobButton.setOnClickListener(new View.OnClickListener() {
