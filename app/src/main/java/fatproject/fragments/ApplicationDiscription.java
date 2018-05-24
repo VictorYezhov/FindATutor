@@ -163,7 +163,7 @@ public class ApplicationDiscription extends Fragment implements CommentObserver 
 
         //----------Comment RecyclerView-----------------
 
-        commentAdapter = new CommentAdapter(commentList);
+        commentAdapter = new CommentAdapter(commentList, questionForm.getUserId());
         commentAdapter.registerObserver(this);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());

@@ -34,6 +34,7 @@ import retrofit2.http.Query;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHolder> implements CommentObservable {
 
     private List<CommentForm> commentFormList;
+    private Long userId;
 
 
 
@@ -55,8 +56,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         }
     }
 
-    public CommentAdapter(List<CommentForm> commentFormList) {
+    public CommentAdapter(List<CommentForm> commentFormList, Long userId) {
         this.commentFormList = commentFormList;
+        this.userId = userId;
     }
 
     @NonNull
@@ -88,7 +90,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         holder.price.setText(String.valueOf(commentForm.getComment().getPrice()) + "$");
         holder.name.setText(nameAndSureName);
         //holder.userImage.setImageBitmap(bitmap);
-        if(!MainAplication.getCurrentUser().getId().equals(commentForm.getComment().getQuestion().getUserId())){
+        if(!MainAplication.getCurrentUser().getId().equals(userId)){
             holder.acceptJobButton.setVisibility(View.INVISIBLE);
         }
 
