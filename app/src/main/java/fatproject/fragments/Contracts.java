@@ -1,26 +1,17 @@
 package fatproject.fragments;
 
-import android.content.Context;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexboxLayoutManager;
-import com.google.android.flexbox.JustifyContent;
-
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +23,7 @@ import fatproject.Helpers.ContractsQueueObserver;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ContractsAdapter;
+import fatproject.dialogWindows.PopupWindowForContractDeleting;
 import fatproject.entity.Appointment;
 import fatproject.findatutor.R;
 import retrofit2.Call;

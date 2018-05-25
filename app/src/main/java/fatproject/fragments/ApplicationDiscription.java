@@ -31,6 +31,7 @@ import fatproject.IncomingForms.QuestionForm;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.CommentAdapter;
+import fatproject.dialogWindows.PopupWindowForJobAccepting;
 import fatproject.entity.Comment;
 import fatproject.findatutor.R;
 import io.paperdb.Paper;

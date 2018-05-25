@@ -34,7 +34,6 @@ import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.entity.Appointment;
 import fatproject.findatutor.R;
-import fatproject.fragments.PopupWindowForContractDeleting;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

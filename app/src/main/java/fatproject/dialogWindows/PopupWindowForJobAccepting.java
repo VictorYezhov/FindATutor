@@ -1,4 +1,4 @@
-package fatproject.fragments;
+package fatproject.dialogWindows;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;

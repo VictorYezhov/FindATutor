@@ -1,8 +1,7 @@
-package fatproject.fragments;
+package fatproject.dialogWindows;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
@@ -15,6 +14,7 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.findatutor.R;
+import fatproject.fragments.Contracts;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

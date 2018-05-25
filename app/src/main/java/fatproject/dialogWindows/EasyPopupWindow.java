@@ -1,4 +1,4 @@
-package fatproject.fragments;
+package fatproject.dialogWindows;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
