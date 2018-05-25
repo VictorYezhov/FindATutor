@@ -229,4 +229,8 @@ public interface ServerRequests {
 
     @GET("/updateAppointment{id}")
     Call<Appointment> updateAppointmentById(@Path("id") Long id);
+
+    @POST("/checkIfTwoUsersAreContacted")
+    Call<Boolean> checkIfTwoUsersAreContacted(@Query("personWhoAskedQuestion") Long personWhoAskedQuestion,
+                                              @Query("personWhoLeftComment") Long personWhoLeftComment);
 }

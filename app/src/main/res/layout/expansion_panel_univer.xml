@@ -92,7 +92,7 @@
                 android:layout_height="40dp"
                 android:id="@+id/addUniverButton"
                 android:layout_gravity="center"
-                android:text="Add University"
+                android:text="@string/addUniversity"
                 android:textColor="@color/white"
                 android:background="@color/blue"/>
 

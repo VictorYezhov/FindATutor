@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="Search" />
+                android:hint="@string/search" />
         </android.support.design.widget.TextInputLayout>
 
 
@@ -33,7 +33,7 @@
             android:id="@+id/saveSkillsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SAVE"/>
+            android:text="@string/save"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/allAvailableSkills"
         android:layout_width="match_parent"

@@ -164,7 +164,7 @@ public class ApplicationDiscription extends Fragment implements CommentObserver 
 
         //----------Comment RecyclerView-----------------
 
-        commentAdapter = new CommentAdapter(commentList);
+        commentAdapter = new CommentAdapter(commentList, questionForm.getUserId());
         commentAdapter.registerObserver(this);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -184,7 +184,8 @@ public class ApplicationDiscription extends Fragment implements CommentObserver 
         commentAdapter.notifyDataSetChanged();
         //------------------------------------------------
 
-        editTextPriceComment.setText(questionForm.getQuestion().getPrice().toString());
+        String price_str = questionForm.getQuestion().getPrice().toString();
+        editTextPriceComment.setText(price_str);
 
         addCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override

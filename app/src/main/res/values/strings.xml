@@ -12,12 +12,36 @@
         for my question " %2$s ". We can choose a day that best fits for us both, and i will place in our contract,
         what you can find in "Arrangements" section.</string>
 
+    <string name="popupMessage">Dear, %3$s you chose %4$s as a tutor for your question.we send him
+        a automatic mail. You can find it in your contacts list, and in arrangements section</string>
+
     <string name="number">Number :   </string>
     <string name="City">City :   </string>
+    <string name="readyToDoThat">I\'m ready to do that for: </string>
+    <string name="accept">Accept</string>
+    <string name="topic">Topic</string>
+    <string name="dateAndPrice">Date and price</string>
+    <string name="change">CHANGE</string>
+    <string name="ui">User information</string>
+    <string name="placeOfJob">A Place of the job</string>
+    <string name="addUniversity">Add University</string>
+    <string name="yourQuestions">Your Questions</string>
+    <string name="search">Search</string>
+    <string name="description">Description</string>
+    <string name="addComment">Add comment</string>
+    <string name="price">Price</string>
+    <string name="tags">Tags</string>
+    <string name="addTag">Add TAG</string>
+    <string name="Number">Number</string>
+    <string name="enterMessage">Enter message</string>
+    <string name="send">SEND</string>
+    <string name="save">SAVE</string>
+    <string name="openReviews">Open reviews</string>
 
     <string name="Univer">University</string>
     <string name="Job">Job</string>
-
+    <string name="arrangements">Arrangements</string>
+    <string name="country">Country</string>
     <string name="error">Please full the field</string>
     <string name="addJob">ADD JOB</string>>
 
@@ -47,7 +71,7 @@
     <string name="lang">Language</string>
     <string name="notification">Notification</string>
     <string name="skills">Skills</string>
-    <string name="tittle">Tittle</string>
+    <string name="title">Title</string>
     <string name="chose_please">Choose Category</string>
 
     <!-- Strings related to Settings -->

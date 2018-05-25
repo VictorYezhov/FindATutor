@@ -32,9 +32,9 @@
                     android:theme="@style/MyEditText"
                     android:id="@+id/editTextNumber"
                     android:imeOptions="actionGo"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:singleLine="true"
-                    android:hint="Number"
+                    android:hint="@string/Number"
                     />
             </android.support.design.widget.TextInputLayout>
 
@@ -55,7 +55,7 @@
                     android:imeOptions="actionGo"
                     android:inputType="text"
                     android:singleLine="true"
-                    android:hint="Country"
+                    android:hint="@string/country"
                     />
             </android.support.design.widget.TextInputLayout>
 
@@ -85,7 +85,7 @@
                 android:layout_height="60dp"
                 android:id="@+id/addNumberOrCityButton"
                 android:layout_gravity="center"
-                android:text="Change"
+                android:text="@string/change"
                 android:textColor="@color/white"
                 android:background="@color/blue"/>
 

@@ -26,8 +26,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.Helpers.AppointmentObserver;
 import fatproject.Helpers.ContractsQueue;
 import fatproject.Helpers.ContractsQueueObserver;
+import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ContractsAdapter;
 import fatproject.entity.Appointment;
@@ -45,7 +47,7 @@ import retrofit2.Response;
  * Use the {@link Contracts#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Contracts extends Fragment implements ContractsQueueObserver {
+public class Contracts extends Fragment implements ContractsQueueObserver, AppointmentObserver{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -111,6 +113,7 @@ public class Contracts extends Fragment implements ContractsQueueObserver {
         Typeface fontForMajorityOfWordAndNumbers = Typeface.createFromAsset(getActivity().getAssets(), "fonts/NHaasGroteskTXPro55Rg.ttf");
 
         contractsAdapter = new ContractsAdapter(appointments, mainFont, fontForMajorityOfWordAndNumbers, this.getContext(), this.getActivity());
+        contractsAdapter.registerObserver(this);
         contractsAdapter.setHasStableIds(true);
         recyclerView.setAdapter(contractsAdapter);
         recyclerView.setItemViewCacheSize(10);
@@ -182,6 +185,12 @@ public class Contracts extends Fragment implements ContractsQueueObserver {
     public void onDestroy() {
         super.onDestroy();
         queue.removeObserver(this);
+    }
+
+    @Override
+    public void update() {
+        PopupWindowForContractDeleting popup = new PopupWindowForContractDeleting();
+        popup.show(FragmentDispatcher.getFragmentManaget(), "popup");
     }
 
     /**

@@ -28,11 +28,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import fatproject.Helpers.AppointmentObservable;
 import fatproject.IncomingForms.QuestionTopicAndPrice;
 import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.entity.Appointment;
 import fatproject.findatutor.R;
+import fatproject.fragments.PopupWindowForContractDeleting;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,7 +44,7 @@ import retrofit2.Response;
  * Created by Victor on 17.05.2018.
  */
 
-public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyViewHolder> {
+public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyViewHolder> implements AppointmentObservable{
 
 
     private Typeface fontForTopicWords, fontForAnotherSymbols;
@@ -61,9 +63,9 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView topic,topicWord,date,price,dateAndPriceWord,personRight,personLeft;
+        public TextView topic,topicWord,date,price,dateAndPriceWord,personRight,personLeft,dangerZoneWord;
         public ImageButton buttonForPersonWhoGetsKnowledge, buttonForPersonWhoSharesKnowledge;
-        public BootstrapButton changeDate;
+        public BootstrapButton changeDate, deleteContractButton;
         public LottieAnimationView animationView;
 
 
@@ -72,6 +74,8 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
             buttonForPersonWhoSharesKnowledge = view.findViewById(R.id.buttonForPersonWhoSharesKnowledge);
             buttonForPersonWhoGetsKnowledge = view.findViewById(R.id.buttonForPersonWhoGetsKnowledge);
+            dangerZoneWord = view.findViewById(R.id.dangerZoneWord);
+            deleteContractButton = view.findViewById(R.id.deleteContractButton);
             animationView = view.findViewById(R.id.animation_view);
             dateAndPriceWord = view.findViewById(R.id.dateAndPriceWord);
             personLeft = view.findViewById(R.id.personLeft);
@@ -169,6 +173,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
         holder.dateAndPriceWord.setTypeface(fontForTopicWords);
         holder.topicWord.setTypeface(fontForTopicWords);
+        holder.dangerZoneWord.setTypeface(fontForTopicWords);
         holder.topic.setTypeface(fontForAnotherSymbols);
         holder.price.setTypeface(fontForAnotherSymbols);
         holder.date.setTypeface(fontForAnotherSymbols);
@@ -277,6 +282,15 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                 DatePickerDialog dpd = DatePickerDialog.newInstance(l, now);
                 dpd.setAccentColor(MainAplication.getContext().getResources().getColor(R.color.blue));
                 dpd.show(FragmentDispatcher.getNormalManager(), "DatePickerDialog");
+            }
+        });
+
+        holder.deleteContractButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                PopupWindowForContractDeleting popupWindow = new PopupWindowForContractDeleting();
+//                popupWindow.show(FragmentDispatcher.getFragmentManaget(), "popup");
+                notifyObservers();
             }
         });
 

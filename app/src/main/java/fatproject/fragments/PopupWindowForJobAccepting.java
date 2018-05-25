@@ -51,6 +51,7 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
     private List<Review> reviews = new ArrayList<>();
     private RecyclerView reviewRecyclerView;
     private int cheker = 0;
+    String nameAndSureName;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -66,7 +67,7 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
         rar = new ReviewsAndRating();
         userNameAndSureName = view.findViewById(R.id.nameAndSureNameInPopupWindow);
 
-        String nameAndSureName = name + " " + surename;
+        nameAndSureName = name + " " + surename;
         userNameAndSureName.setText(nameAndSureName);
 
         accessButton = view.findViewById(R.id.accessButtonInDialogWindow);
@@ -127,8 +128,10 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
 
 
                 onStop();
-
+                System.err.println(nameAndSureName);
                 EasyPopupWindow easyPopupWindow = new EasyPopupWindow();
+                easyPopupWindow.initialiseMessage("Dear, %3$s you chose %4$s as a tutor for your question. \n" +
+                        "we send him a automatic mail.   You can find it in your contacts list, and in arrangements section", MainAplication.getCurrentUser().getName(),nameAndSureName);
                 easyPopupWindow.show(FragmentDispatcher.getFragmentManaget(), "popup");
             }
         });
