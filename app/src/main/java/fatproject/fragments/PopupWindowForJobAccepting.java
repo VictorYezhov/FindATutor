@@ -52,6 +52,7 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
     private RecyclerView reviewRecyclerView;
     private int cheker = 0;
     String nameAndSureName;
+    private PopupWindowForJobAccepting instance = this;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -125,21 +126,16 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
 
                     }
                 });
-
-
-                onStop();
                 System.err.println(nameAndSureName);
-                EasyPopupWindow easyPopupWindow = new EasyPopupWindow();
-                easyPopupWindow.initialiseMessage("Dear, %3$s you chose %4$s as a tutor for your question. \n" +
-                        "we send him a automatic mail.   You can find it in your contacts list, and in arrangements section", MainAplication.getCurrentUser().getName(),nameAndSureName);
-                easyPopupWindow.show(FragmentDispatcher.getFragmentManaget(), "popup");
+
             }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onStop();
+                instance.onDestroy();
+                instance.dismiss();
             }
         });
 
@@ -192,7 +188,15 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
                 MainAplication.getServerRequests().sendMessage(message).enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                        Log.d("Message :", response.body());
+                        if(response.body()!=null) {
+                            Log.d("Message :", response.body());
+                        }
+                        instance.onDestroy();
+                        instance.dismiss();
+                        EasyPopupWindow easyPopupWindow = new EasyPopupWindow();
+                        easyPopupWindow.initialiseMessage("Dear, %3$s you chose %4$s as a tutor for your question. \n" +
+                                "we send him a automatic mail.   You can find it in your contacts list, and in arrangements section", MainAplication.getCurrentUser().getName(),nameAndSureName);
+                        easyPopupWindow.show(FragmentDispatcher.getFragmentManaget(), "popup");
                     }
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {

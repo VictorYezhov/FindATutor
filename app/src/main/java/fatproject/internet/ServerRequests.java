@@ -233,4 +233,7 @@ public interface ServerRequests {
     @POST("/checkIfTwoUsersAreContacted")
     Call<Boolean> checkIfTwoUsersAreContacted(@Query("personWhoAskedQuestion") Long personWhoAskedQuestion,
                                               @Query("personWhoLeftComment") Long personWhoLeftComment);
+
+    @POST("/deleteAppointment{id}")
+    Call<String> deleteAppointment(@Path("id") Long id);
 }

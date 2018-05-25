@@ -188,9 +188,11 @@ public class Contracts extends Fragment implements ContractsQueueObserver, Appoi
     }
 
     @Override
-    public void update() {
+    public void update(Long id) {
         PopupWindowForContractDeleting popup = new PopupWindowForContractDeleting();
+        popup.initialise(id);
         popup.show(FragmentDispatcher.getFragmentManaget(), "popup");
+        contractsAdapter.notifyDataSetChanged();
     }
 
     /**

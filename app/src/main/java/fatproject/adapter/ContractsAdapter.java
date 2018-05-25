@@ -290,7 +290,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             public void onClick(View v) {
 //                PopupWindowForContractDeleting popupWindow = new PopupWindowForContractDeleting();
 //                popupWindow.show(FragmentDispatcher.getFragmentManaget(), "popup");
-                notifyObservers();
+                notifyObservers(appointment.getId());
             }
         });
 
@@ -336,6 +336,8 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             }
         });
     }
+
+
 
     public void changeAcceptingOfPersonOnServerSide(Long contract_id, Long person_id, boolean accepting, Long another_person_id){
         MainAplication.getServerRequests().changeAcceptingOnServerSide(contract_id, person_id, accepting, another_person_id).enqueue(new Callback<String>() {

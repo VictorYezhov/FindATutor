@@ -2,5 +2,5 @@ package fatproject.Helpers;
 
 public interface AppointmentObserver {
 
-    void update();
+    void update(Long id);
 }
