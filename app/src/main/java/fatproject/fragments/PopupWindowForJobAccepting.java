@@ -131,7 +131,7 @@ public class PopupWindowForJobAccepting extends AppCompatDialogFragment implemen
                 System.err.println(nameAndSureName);
                 EasyPopupWindow easyPopupWindow = new EasyPopupWindow();
                 easyPopupWindow.initialiseMessage("Dear, %3$s you chose %4$s as a tutor for your question. \n" +
-                        "we send him a automatic mail. You can find it in your contacts list, and in arrangements section", MainAplication.getCurrentUser().getName(),nameAndSureName);
+                        "we send him a automatic mail.   You can find it in your contacts list, and in arrangements section", MainAplication.getCurrentUser().getName(),nameAndSureName);
                 easyPopupWindow.show(FragmentDispatcher.getFragmentManaget(), "popup");
             }
         });

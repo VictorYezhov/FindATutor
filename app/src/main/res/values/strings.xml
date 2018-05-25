@@ -12,6 +12,9 @@
         for my question " %2$s ". We can choose a day that best fits for us both, and i will place in our contract,
         what you can find in "Arrangements" section.</string>
 
+    <string name="popupMessage">Dear, %3$s you chose %4$s as a tutor for your question.we send him
+        a automatic mail. You can find it in your contacts list, and in arrangements section</string>
+
     <string name="number">Number :   </string>
     <string name="City">City :   </string>
     <string name="readyToDoThat">I\'m ready to do that for: </string>
