@@ -183,7 +183,8 @@ public class ApplicationDiscription extends Fragment implements CommentObserver 
         commentAdapter.notifyDataSetChanged();
         //------------------------------------------------
 
-        editTextPriceComment.setText(questionForm.getQuestion().getPrice().toString());
+        String price_str = questionForm.getQuestion().getPrice().toString();
+        editTextPriceComment.setText(price_str);
 
         addCommentButton.setOnClickListener(new View.OnClickListener() {
             @Override

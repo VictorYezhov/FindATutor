@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/delete_item_of_job_recyclerView"
-            android:text="DELETE"
+            android:text="@string/delete"
             android:textColor="@color/white"/>
 
 

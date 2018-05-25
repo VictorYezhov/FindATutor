@@ -87,7 +87,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
         }
         holder.dateTime.setText(new SimpleDateFormat("dd-MM HH:mm").format(oldFormatedDate));
         holder.textComment.setText(commentForm.getComment().getTextComment());
-        holder.price.setText(String.valueOf(commentForm.getComment().getPrice()) + "$");
+        String price_str = String.valueOf(commentForm.getComment().getPrice()) + "$";
+        holder.price.setText(price_str);
         holder.name.setText(nameAndSureName);
         //holder.userImage.setImageBitmap(bitmap);
         if(!MainAplication.getCurrentUser().getId().equals(userId)){

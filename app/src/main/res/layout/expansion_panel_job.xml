@@ -22,8 +22,8 @@
                 android:background="@android:color/white"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:paddingRight="16dp"
-                android:paddingLeft="7dp">
+                android:paddingEnd="16dp"
+                android:paddingStart="7dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -36,10 +36,10 @@
                 <android.support.v7.widget.AppCompatImageView
                     android:adjustViewBounds="true"
                     android:id="@+id/headerIndicator"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_width="wrap_content"
                     app:srcCompat="@drawable/ic_add_black_24dp" />
 
@@ -83,7 +83,7 @@
                     android:imeOptions="actionGo"
                     android:inputType="text"
                     android:singleLine="true"
-                    android:hint="A Place of the job"
+                    android:hint="@string/placeOfJob"
                     />
             </android.support.design.widget.TextInputLayout>
 

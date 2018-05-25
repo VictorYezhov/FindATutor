@@ -58,7 +58,7 @@
                 android:imeOptions="actionGo"
                 android:inputType="text"
                 android:singleLine="true"
-                android:hint="Country"
+                android:hint="@string/country"
                 />
         </android.support.design.widget.TextInputLayout>
 

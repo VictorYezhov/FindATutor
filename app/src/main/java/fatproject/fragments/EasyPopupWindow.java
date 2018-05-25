@@ -12,9 +12,9 @@ import fatproject.findatutor.R;
 
 public class EasyPopupWindow extends AppCompatDialogFragment implements View.OnClickListener {
 
-    String messageForUser;
-    String namePerson1;
-    String namePerson2;
+    private String messageForUser;
+    private String namePerson1;
+    private String namePerson2;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
