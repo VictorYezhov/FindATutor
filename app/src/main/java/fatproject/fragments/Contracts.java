@@ -26,6 +26,7 @@ import fatproject.adapter.ContractsAdapter;
 import fatproject.dialogWindows.PopupWindowForContractDeleting;
 import fatproject.entity.Appointment;
 import fatproject.findatutor.R;
+import fatproject.service.Checker;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -149,6 +150,7 @@ public class Contracts extends Fragment implements ContractsQueueObserver, Appoi
             public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
                 appointments.clear();
                 appointments.addAll(response.body());
+                Checker.setAppointments(appointments);
                 contractsAdapter.notifyDataSetChanged();
             }
 

@@ -34,6 +34,7 @@ import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.entity.Appointment;
 import fatproject.findatutor.R;
+import fatproject.service.Checker;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -97,7 +98,12 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
         @Override
         public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-            Date dateTime = new Date(appointments.get(currentAppointentCounter).getTimeFor().getTime());
+            Date dateTime;
+            if(appointments.get(currentAppointentCounter).getTimeFor()!=null) {
+                 dateTime = new Date(appointments.get(currentAppointentCounter).getTimeFor().getTime());
+            }else {
+                dateTime = Calendar.getInstance().getTime();
+            }
             this.year = year;
             this.monthOfYear = monthOfYear;
             this.dayOfMonth = dayOfMonth;
@@ -153,6 +159,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             }
         }
         System.err.println("here");
+        Checker.setAppointments(appointments);
         notifyDataSetChanged();
     }
 

@@ -13,6 +13,7 @@ import fatproject.Helpers.StrConstansts;
 import fatproject.entity.User;
 import fatproject.internet.ServerRequests;
 import fatproject.internet.URLs;
+import fatproject.service.AppointmentScheduler;
 import fatproject.service.FirebaseIDService;
 import io.paperdb.Paper;
 import retrofit2.Retrofit;
@@ -39,6 +40,7 @@ public class MainAplication extends Application {
 
 
         Paper.init(this);
+        AppointmentScheduler.init();
 
         deleteUsersPhoto();
 

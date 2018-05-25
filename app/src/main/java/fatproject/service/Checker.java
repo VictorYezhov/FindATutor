@@ -1,6 +1,7 @@
 package fatproject.service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class Checker implements Runnable {
 
     public static void setAppointments(List<Appointment> appointments) {
         Checker.appointments = appointments;
+        AppointmentScheduler.reInit();
     }
 
     public static int getPeriod() {
@@ -72,19 +74,25 @@ public class Checker implements Runnable {
     public void run() {
         Timestamp currentTimeStamp = new Timestamp(Calendar.getInstance().getTime().getTime());
         System.out.println("CHECKING:  "+ currentTimeStamp);
-            for (int i = 0; i< appointments.size(); i++) {
-                TimeUnit newUnit = differenceCounter.countDifference(currentTimeStamp.getTime(), appointments.get(i).getTimeFor().getTime());
-                if (newUnit == null){
+        if(appointments != null) {
+            TimeUnit newUnit;
+            for (int i = 0; i < appointments.size(); i++) {
+                if(appointments.get(i).getTimeFor() != null) {
+                    newUnit = differenceCounter.countDifference(currentTimeStamp.getTime(), appointments.get(i).getTimeFor().getTime());
+                }else {
+                    break;
+                }
+                if (newUnit == null) {
                     System.out.println("NOTIFICATION");
                     appointments.remove(i);
                     reset();
-                    AppointmentScheduler.run();
-                }
-                else if(newUnit != timeUnit){
+                    AppointmentScheduler.reInit();
+                } else if (newUnit != timeUnit) {
                     timeUnit = newUnit;
                     AppointmentScheduler.speedUp();
                 }
             }
+        }
     }
 
 }

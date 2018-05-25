@@ -40,9 +40,10 @@ public class AppointmentScheduler {
         scheduler.scheduleAtFixedRate(checker, delay, Checker.getPeriod(), Checker.getTimeUnit());
     }
 
-    public static void run(){
-        if(scheduler != null)
+    public static void reInit(){
+        if(scheduler != null){
             scheduler.shutdown();
+        }
         scheduler = Executors.newScheduledThreadPool(1);
         checker = Checker.getInstance();
         scheduler.scheduleAtFixedRate(checker, delay, Checker.getPeriod(), Checker.getTimeUnit());
