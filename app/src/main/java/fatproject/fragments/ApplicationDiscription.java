@@ -20,6 +20,7 @@ import com.google.android.flexbox.JustifyContent;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -191,6 +192,7 @@ public class ApplicationDiscription extends Fragment implements CommentObserver 
 
                 Comment c = new Comment(editTextAddComment.getText().toString(), Integer.parseInt(editTextPriceComment.getText().toString()), MainAplication.getCurrentUser().getId());
                 c.setQuestion(null);
+                c.setDateTime(new Timestamp(Calendar.getInstance().getTime().getTime()));
                 sendCommentToServer(c , questionForm.getQuestion().getId());
 
                 editTextAddComment.setText("");

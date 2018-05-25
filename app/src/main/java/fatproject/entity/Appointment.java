@@ -17,6 +17,7 @@ public class Appointment {
     private boolean ended;
     private boolean successForEmployer;
     private boolean successForEmployee;
+    private boolean started;
 
 
     public Long getId() {
@@ -97,5 +98,13 @@ public class Appointment {
 
     public void setQuestionId(Long questionId) {
         this.questionId = questionId;
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
     }
 }

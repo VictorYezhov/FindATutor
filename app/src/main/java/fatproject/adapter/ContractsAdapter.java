@@ -149,7 +149,6 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
             }
         }
-//        appointments.add(0, appointment);
         System.err.println("here");
         notifyDataSetChanged();
     }
@@ -175,15 +174,19 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         holder.date.setTypeface(fontForAnotherSymbols);
 
 
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date oldFormatedDate = null;
-        try {
-            oldFormatedDate = formatter.parse(appointment.getTimeFor().toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if(appointment.getTimeFor()!=null) {
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date oldFormatedDate = null;
+            try {
+                oldFormatedDate = formatter.parse(appointment.getTimeFor().toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            holder.date.setText(new SimpleDateFormat("dd-MM-yyyy HH:mm").
+                    format(oldFormatedDate));
+        }else {
+            holder.date.setText("Date is not set yet");
         }
-        holder.date.setText(new SimpleDateFormat("dd-MM-yyyy HH:mm").
-                format(oldFormatedDate));
 
 
         if(appointment.isAcceeptedByEmployer()){

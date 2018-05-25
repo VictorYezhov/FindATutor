@@ -1,9 +1,13 @@
 package fatproject.SendingForms;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+
 public class IdsForAppointment {
     private Long id_employ;
     private Long id_employer;
     private Long question_id;
+
 
     public IdsForAppointment(Long id_employ, Long id_employer, Long question_id) {
         this.id_employ = id_employ;

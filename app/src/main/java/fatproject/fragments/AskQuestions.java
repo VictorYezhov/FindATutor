@@ -24,7 +24,9 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -260,6 +262,7 @@ public class AskQuestions extends Fragment {
                 newQuestion.setSkills(skillSetTest);
                 newQuestion.setPrice(price);
                 newQuestion.setViews(0);
+                newQuestion.setDateTime(new Timestamp(Calendar.getInstance().getTime().getTime()));
 
                 if(newQuestion.getTitle().equals("")){
                     showSnackbar("Enter the topic of your question.", view);

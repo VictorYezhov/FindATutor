@@ -21,6 +21,7 @@ import com.google.android.gms.common.data.DataBufferObserver;
 import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -252,7 +253,7 @@ public class ChatFragment extends Fragment implements DataBufferObserver {
                 message.setColor(0);
                 message.setRead(false);
                 message.setMessage(textMessage);
-                message.setTimestamp(new Timestamp(System.currentTimeMillis()));
+                message.setTimestamp(new Timestamp(Calendar.getInstance().getTime().getTime()));
                 messages.add(message);
                 messagesAdapter.notifyDataSetChanged();
                 List<Message> cashedMessages = Paper.book().read("messages"+contactId);
