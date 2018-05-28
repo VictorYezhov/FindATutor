@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -70,6 +71,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         public ImageButton buttonForPersonWhoGetsKnowledge, buttonForPersonWhoSharesKnowledge;
         public BootstrapButton changeDate, deleteContractButton;
         public LottieAnimationView animationView, animationViewBlue;
+        public CardView reviewCardView, dangerZoneCardView, buttonsCardView;
 
 
         public MyViewHolder(View view) {
@@ -77,6 +79,9 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
             buttonForPersonWhoSharesKnowledge = view.findViewById(R.id.buttonForPersonWhoSharesKnowledge);
             buttonForPersonWhoGetsKnowledge = view.findViewById(R.id.buttonForPersonWhoGetsKnowledge);
+            reviewCardView = view.findViewById(R.id.reviewCardView);
+            dangerZoneCardView = view.findViewById(R.id.dangerZoneCardView);
+            buttonsCardView = view.findViewById(R.id.buttonsCardView);
             dangerZoneWord = view.findViewById(R.id.dangerZoneWord);
             deleteContractButton = view.findViewById(R.id.deleteContractButton);
             animationViewBlue = view.findViewById(R.id.animation_view_blue);
@@ -227,7 +232,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
 
 
-        if(!appointment.isStarted()){
+        if(!appointment.isStarted() && !appointment.isEnded()){
 
             setImageOfButtons(appointment.isAcceeptedByEmployer(), holder.buttonForPersonWhoGetsKnowledge,
                         R.drawable.success_b, R.drawable.unsuccess_b);
@@ -252,7 +257,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                         holder.animationView, appointment.getEmployeeId(), appointment.getEmployerId());
 
             }
-        }else if(appointment.isStarted()){
+        }else if(appointment.isStarted() && !appointment.isEnded()){
 
             setImageOfButtons(appointment.isSuccessForEmployer(), holder.buttonForPersonWhoGetsKnowledge,
                     R.drawable.success_blue, R.drawable.unsuccess_grey);
@@ -274,6 +279,8 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                         holder.buttonForPersonWhoSharesKnowledge, holder.animationViewBlue, appointment.getEmployeeId(), appointment.getEmployerId());
 
             }
+        }else if(appointment.isEnded()){
+
         }
 
 
