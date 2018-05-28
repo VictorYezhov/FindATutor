@@ -276,7 +276,7 @@
                         app:layout_constraintVertical_bias="0.964" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ImageInContractItem"
+                        android:id="@+id/imageInContractItem"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginStart="16dp"
@@ -292,8 +292,8 @@
                         android:text="Name Surename"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        app:layout_constraintStart_toEndOf="@+id/ImageInContractItem"
-                        app:layout_constraintTop_toTopOf="@+id/ImageInContractItem" />
+                        app:layout_constraintStart_toEndOf="@+id/imageInContractItem"
+                        app:layout_constraintTop_toTopOf="@+id/imageInContractItem" />
 
                     <com.willy.ratingbar.ScaleRatingBar xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/RatingBarInContractItem"
@@ -302,7 +302,7 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        app:layout_constraintStart_toEndOf="@+id/ImageInContractItem"
+                        app:layout_constraintStart_toEndOf="@+id/imageInContractItem"
                         app:layout_constraintTop_toBottomOf="@+id/nameAndSureNameInContractItem"
                         app:srb_clearRatingEnabled="true"
                         app:srb_clickable="true"
@@ -334,7 +334,7 @@
                         app:bootstrapSize="md"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ImageInContractItem" />
+                        app:layout_constraintTop_toBottomOf="@+id/imageInContractItem" />
 
                     <com.beardedhen.androidbootstrap.BootstrapButton
                         android:id="@+id/sendReviewInContactItem"
