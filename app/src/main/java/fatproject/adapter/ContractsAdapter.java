@@ -239,18 +239,18 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                 allOperationsWithFieldWhereButtonsAre1(appointment,
                         holder.personRight, holder.personLeft,
                         holder.buttonForPersonWhoGetsKnowledge,
-                        holder.animationView);
+                        holder.animationView, appointment.getEmployerId(), appointment.getEmployeeId());
 
             }else {
                 holder.changeDate.setVisibility(View.INVISIBLE);
 
                 allOperationsWithFieldWhereButtonsAre1(appointment,
-                        holder.personLeft, holder.personRight,
+                        holder.personLeft,holder.personRight,
                         holder.buttonForPersonWhoSharesKnowledge,
-                        holder.animationView);
+                        holder.animationView, appointment.getEmployeeId(), appointment.getEmployerId());
 
             }
-        }else {
+        }else if(appointment.isStarted()){
 
             setImageOfButtons(appointment.isSuccessForEmployer(), holder.buttonForPersonWhoGetsKnowledge,
                     R.drawable.success_blue, R.drawable.unsuccess_grey);
@@ -363,9 +363,9 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
     private void allOperationsWithFieldWhereButtonsAre1(Appointment appointment,
                                                        TextView p1, TextView p2,
                                                        ImageView button,
-                                                       LottieAnimationView animation){
+                                                       LottieAnimationView animation, Long id_person_1, Long id_person_2){
 
-        getNameOfYourPartner(appointment.getEmployeeId(), p1);
+        getNameOfYourPartner(id_person_2, p1);
         p2.setText(YOU);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -386,7 +386,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                         animation.setVisibility(View.INVISIBLE);
                         button.setVisibility(View.VISIBLE);
                         button.setImageResource(R.drawable.success_b);
-                        changeAcceptingOfPersonOnServerSide(appointment.getId(), appointment.getEmployerId(), true, appointment.getEmployeeId());
+                        changeAcceptingOfPersonOnServerSide(appointment.getId(), id_person_1, true, id_person_2);
                     }
                 }, animation.getDuration());
                 return false;
