@@ -35,6 +35,7 @@ import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.entity.Appointment;
 import fatproject.findatutor.R;
+import fatproject.service.AppointmentScheduler;
 import fatproject.service.Checker;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -164,6 +165,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         }
         System.err.println("here");
         Checker.setAppointments(appointments);
+        //AppointmentScheduler.reInit();
         notifyDataSetChanged();
     }
 

@@ -11,6 +11,7 @@ public class AppointmentScheduler {
     private static ScheduledExecutorService scheduler;
     private static Checker checker;
     private static AppointmentScheduler instance;
+    private static ScheduledFuture<?> task;
 
     private final static int delay = 0;
 
@@ -33,36 +34,28 @@ public class AppointmentScheduler {
 
 
     public static  void init(){
-        if(scheduler != null)
-            scheduler.shutdown();
         scheduler = Executors.newScheduledThreadPool(1);
         checker = Checker.getInstance();
-        scheduler.scheduleAtFixedRate(checker, delay, Checker.getPeriod(), Checker.getTimeUnit());
+        task = scheduler.scheduleAtFixedRate(checker, delay, Checker.getPeriod(), Checker.getTimeUnit());
     }
 
     public static void reInit(){
-        if(scheduler != null){
-            scheduler.shutdown();
+        if (task != null)
+        {
+            task.cancel(true);
         }
-        scheduler = Executors.newScheduledThreadPool(1);
+        Checker.reset();
         checker = Checker.getInstance();
-        scheduler.scheduleAtFixedRate(checker, delay, Checker.getPeriod(), Checker.getTimeUnit());
+        task = scheduler.scheduleAtFixedRate(checker, delay, Checker.getPeriod(), Checker.getTimeUnit());
     }
 
     public static void speedUp(){
         System.out.println("Speed up! "+ Checker.getTimeUnit().name());
-        scheduler.shutdown();
-        scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(checker, delay, Checker.getPeriod(), Checker.getTimeUnit());
+        if (task != null)
+        {
+            task.cancel(true);
+        }
+        task = scheduler.scheduleAtFixedRate(checker, delay, Checker.getPeriod(), Checker.getTimeUnit());
     }
-
-
-
-
-
-
-
-
-
 
 }

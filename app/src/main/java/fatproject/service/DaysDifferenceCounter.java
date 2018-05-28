@@ -17,7 +17,6 @@ public class DaysDifferenceCounter implements DifferenceCounter{
 
     @Override
     public TimeUnit countDifference(long current, long timestampOfAppointment) {
-
         long diffDays = (timestampOfAppointment - current)/ (24 * 60 * 60 * 1000);
         if(diffDays <= 0){
             return nextStage.countDifference(current, timestampOfAppointment);

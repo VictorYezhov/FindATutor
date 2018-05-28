@@ -26,6 +26,7 @@ import fatproject.adapter.ContractsAdapter;
 import fatproject.dialogWindows.PopupWindowForContractDeleting;
 import fatproject.entity.Appointment;
 import fatproject.findatutor.R;
+import fatproject.service.AppointmentScheduler;
 import fatproject.service.Checker;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -208,9 +209,7 @@ public class Contracts extends Fragment implements ContractsQueueObserver, Appoi
         MainAplication.getServerRequests().updateAppointmentById(id).enqueue(new Callback<Appointment>() {
             @Override
             public void onResponse(Call<Appointment> call, Response<Appointment> response) {
-
                 contractsAdapter.updateAppointment(response.body());
-
             }
 
             @Override

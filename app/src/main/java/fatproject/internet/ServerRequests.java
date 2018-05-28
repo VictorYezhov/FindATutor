@@ -242,4 +242,8 @@ public interface ServerRequests {
 
     @POST("/deleteAppointment{id}")
     Call<String> deleteAppointment(@Path("id") Long id);
+
+
+    @POST("/startAppointment")
+    Call<String> startAppointment(@Query("id") Long id);
 }

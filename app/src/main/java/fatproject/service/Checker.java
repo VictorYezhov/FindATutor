@@ -7,7 +7,12 @@ import java.util.List;
 
 import java.util.concurrent.TimeUnit;
 
+import fatproject.Helpers.Listener;
+import fatproject.activities.MainAplication;
 import fatproject.entity.Appointment;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Victor on 25.05.2018.
@@ -24,6 +29,7 @@ public class Checker implements Runnable {
         period = 1;
         timeUnit = TimeUnit.DAYS;
         differenceCounter = new DaysDifferenceCounter();
+        appointments = new ArrayList<>();
     }
 
     public static Checker getInstance() {
@@ -50,7 +56,8 @@ public class Checker implements Runnable {
     }
 
     public static void setAppointments(List<Appointment> appointments) {
-        Checker.appointments = appointments;
+        Checker.appointments.clear();
+        Checker.appointments.addAll(appointments);
         AppointmentScheduler.reInit();
     }
 
@@ -73,27 +80,40 @@ public class Checker implements Runnable {
     @Override
     public void run() {
         Timestamp currentTimeStamp = new Timestamp(Calendar.getInstance().getTime().getTime());
-        System.out.println("CHECKING:  "+ currentTimeStamp);
-        if(appointments != null) {
-            TimeUnit newUnit;
-            for (int i = 0; i < appointments.size(); i++) {
-                if(appointments.get(i).getTimeFor() != null) {
-                    newUnit = differenceCounter.countDifference(currentTimeStamp.getTime(), appointments.get(i).getTimeFor().getTime());
-                }else {
-                    break;
+        System.out.println("CHECKING:\n Current date: "+ currentTimeStamp+"\nCurrent timeunit "+timeUnit);
+        List<Appointment> to_remove = new ArrayList<>();
+        TimeUnit newTimeUnit = timeUnit;
+        int i = 0;
+        for(Appointment appointment : appointments){
+            if(appointment.getTimeFor()!=null &&  !appointment.isStarted()){
+                newTimeUnit = differenceCounter.countDifference(currentTimeStamp.getTime(), appointment.getTimeFor().getTime());
+
+                if(newTimeUnit == null){
+                    MainAplication.getServerRequests().startAppointment(appointment.getId()).enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            System.out.println("Starting appointment");
+                            AppointmentScheduler.reInit();
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+
+                        }
+                    });
+                    to_remove.add(appointment);
                 }
-                if (newUnit == null) {
-                    System.out.println("NOTIFICATION");
-                    appointments.remove(i);
-                    reset();
-                    AppointmentScheduler.reInit();
-                } else if (newUnit != timeUnit) {
-                    timeUnit = newUnit;
-                    AppointmentScheduler.speedUp();
-                }
+
             }
+        }
+        if(newTimeUnit != timeUnit) {
+            timeUnit = newTimeUnit;
+            appointments.removeAll(to_remove);
+            AppointmentScheduler.speedUp();
+        }
+
+
         }
     }
 
-}
 
