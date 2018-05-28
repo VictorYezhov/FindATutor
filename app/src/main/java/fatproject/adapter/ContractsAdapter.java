@@ -170,7 +170,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         }
         System.err.println("here");
         Checker.setAppointments(appointments);
-        //AppointmentScheduler.reInit();
+
         notifyDataSetChanged();
     }
 
