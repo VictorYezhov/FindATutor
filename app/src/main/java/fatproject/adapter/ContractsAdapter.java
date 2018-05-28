@@ -265,13 +265,13 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
                 allOperationsWithFieldWhereButtonsAre2(holder.changeDate,
                         appointment,holder.personRight,holder.personLeft,
-                        holder.buttonForPersonWhoGetsKnowledge, holder.animationViewBlue);
+                        holder.buttonForPersonWhoGetsKnowledge, holder.animationViewBlue, appointment.getEmployerId(), appointment.getEmployeeId());
 
             }else {
 
                 allOperationsWithFieldWhereButtonsAre2(holder.changeDate,
                         appointment, holder.personLeft, holder.personRight,
-                        holder.buttonForPersonWhoSharesKnowledge, holder.animationViewBlue);
+                        holder.buttonForPersonWhoSharesKnowledge, holder.animationViewBlue, appointment.getEmployeeId(), appointment.getEmployerId());
 
             }
         }
@@ -400,10 +400,11 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                                                         Appointment appointment,
                                                         TextView p1, TextView p2,
                                                         ImageView button,
-                                                        LottieAnimationView animation){
+                                                        LottieAnimationView animation,
+                                                        Long id_person_1, Long id_person_2){
         dateB.setVisibility(View.INVISIBLE);
 
-        getNameOfYourPartner(appointment.getEmployeeId(), p1);
+        getNameOfYourPartner(id_person_2, p1);
         p2.setText(YOU);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -424,7 +425,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                         animation.setVisibility(View.INVISIBLE);
                         button.setVisibility(View.VISIBLE);
                         button.setImageResource(R.drawable.success_blue);
-                        changeVariableOfContractEnd(appointment.getId(), appointment.getEmployerId(), true, appointment.getEmployeeId());
+                        changeVariableOfContractEnd(appointment.getId(), id_person_1, true, id_person_2);
                     }
                 }, animation.getDuration());
                 return false;
