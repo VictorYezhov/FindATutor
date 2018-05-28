@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -50,6 +51,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
     private Typeface fontForTopicWords, fontForAnotherSymbols;
     private Context context;
     private Activity activity;
+    private String YOU = "You";
 
 
     private List<Appointment> appointments;
@@ -66,7 +68,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         public TextView topic,topicWord,date,price,dateAndPriceWord,personRight,personLeft,dangerZoneWord;
         public ImageButton buttonForPersonWhoGetsKnowledge, buttonForPersonWhoSharesKnowledge;
         public BootstrapButton changeDate, deleteContractButton;
-        public LottieAnimationView animationView;
+        public LottieAnimationView animationView, animationViewBlue;
 
 
         public MyViewHolder(View view) {
@@ -76,6 +78,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             buttonForPersonWhoGetsKnowledge = view.findViewById(R.id.buttonForPersonWhoGetsKnowledge);
             dangerZoneWord = view.findViewById(R.id.dangerZoneWord);
             deleteContractButton = view.findViewById(R.id.deleteContractButton);
+            animationViewBlue = view.findViewById(R.id.animation_view_blue);
             animationView = view.findViewById(R.id.animation_view);
             dateAndPriceWord = view.findViewById(R.id.dateAndPriceWord);
             personLeft = view.findViewById(R.id.personLeft);
@@ -125,6 +128,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
             appointments.get(currentAppointentCounter).setTimeFor(new Timestamp(year-1900, monthOfYear, dayOfMonth,
                     hourOfDay, minute, 0,0));
+            //System.err.println(appointments.get(currentAppointentCounter).getTimeFor());
             notifyDataSetChanged();
             MainAplication.getServerRequests().updateAppointment(appointments.get(currentAppointentCounter)).enqueue(new Callback<String>() {
                 @Override
@@ -174,7 +178,6 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
     @Override
     public void onBindViewHolder(ContractsAdapter.MyViewHolder holder, int position) {
-        //Log.d("rendering", String.valueOf(position));
         Appointment appointment = appointments.get(position);
 
         holder.dateAndPriceWord.setTypeface(fontForTopicWords);
@@ -199,84 +202,6 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             holder.date.setText("Date is not set yet");
         }
 
-
-        if(appointment.isAcceeptedByEmployer()){
-            holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.success_b);
-            holder.buttonForPersonWhoGetsKnowledge.setEnabled(false);
-        } else{
-            holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.unsuccess_b);
-        }
-
-        if(appointment.isAcceptedByEmployee()){
-            holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.success_b);
-            holder.buttonForPersonWhoSharesKnowledge.setEnabled(false);
-        }else{
-            holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.unsuccess_b);
-
-        }
-
-
-        if(appointment.getEmployerId().equals(MainAplication.getCurrentUser().getId())){
-            getNameOfYourPartner(appointment.getEmployeeId(), holder.personRight);
-            holder.personLeft.setText("You");
-            holder.buttonForPersonWhoGetsKnowledge.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showFlashBarOnShortClickListener(context, activity);
-                }
-            });
-            holder.buttonForPersonWhoGetsKnowledge.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    holder.buttonForPersonWhoGetsKnowledge.setEnabled(false);
-                    holder.buttonForPersonWhoGetsKnowledge.setVisibility(View.INVISIBLE);
-                    holder.animationView.playAnimation();
-
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        public void run() {
-                            holder.animationView.setVisibility(View.INVISIBLE);
-                            holder.buttonForPersonWhoGetsKnowledge.setVisibility(View.VISIBLE);
-                            holder.buttonForPersonWhoGetsKnowledge.setImageResource(R.drawable.success_b);
-                            changeAcceptingOfPersonOnServerSide(appointment.getId(), appointment.getEmployerId(), true, appointment.getEmployeeId());
-                        }
-                    }, holder.animationView.getDuration());
-                    return false;
-                }
-            });
-
-        }else {
-            holder.changeDate.setVisibility(View.INVISIBLE);
-            getNameOfYourPartner(appointment.getEmployerId(), holder.personLeft);
-            holder.personRight.setText("You");
-            holder.buttonForPersonWhoSharesKnowledge.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showFlashBarOnShortClickListener(context, activity);
-                }
-            });
-            holder.buttonForPersonWhoSharesKnowledge.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    holder.buttonForPersonWhoSharesKnowledge.setEnabled(false);
-                    holder.buttonForPersonWhoSharesKnowledge.setVisibility(View.INVISIBLE);
-                    holder.animationView.playAnimation();
-
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        public void run() {
-                            holder.animationView.setVisibility(View.INVISIBLE);
-                            holder.buttonForPersonWhoSharesKnowledge.setVisibility(View.VISIBLE);
-                            holder.buttonForPersonWhoSharesKnowledge.setImageResource(R.drawable.success_b);
-                            changeAcceptingOfPersonOnServerSide(appointment.getId(), appointment.getEmployeeId(), true, appointment.getEmployerId());
-                        }
-                    }, holder.animationView.getDuration());
-                    return false;
-                }
-            });
-
-        }
-
         getTopicAndPriceOfQuestion(appointment.getQuestionId(), holder); //Change topic and price of contract.
 
         holder.changeDate.setOnClickListener(new View.OnClickListener() {
@@ -294,11 +219,61 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         holder.deleteContractButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                PopupWindowForContractDeleting popupWindow = new PopupWindowForContractDeleting();
-//                popupWindow.show(FragmentDispatcher.getFragmentManaget(), "popup");
                 notifyObservers(appointment.getId());
             }
         });
+
+
+
+        if(!appointment.isStarted()){
+
+            setImageOfButtons(appointment.isAcceeptedByEmployer(), holder.buttonForPersonWhoGetsKnowledge,
+                        R.drawable.success_b, R.drawable.unsuccess_b);
+
+            setImageOfButtons(appointment.isAcceptedByEmployee(), holder.buttonForPersonWhoSharesKnowledge,
+                    R.drawable.success_b,R.drawable.unsuccess_b);
+
+
+            if(appointment.getEmployerId().equals(MainAplication.getCurrentUser().getId())){
+
+                allOperationsWithFieldWhereButtonsAre1(appointment,
+                        holder.personRight, holder.personLeft,
+                        holder.buttonForPersonWhoGetsKnowledge,
+                        holder.animationView);
+
+            }else {
+                holder.changeDate.setVisibility(View.INVISIBLE);
+
+                allOperationsWithFieldWhereButtonsAre1(appointment,
+                        holder.personLeft, holder.personRight,
+                        holder.buttonForPersonWhoSharesKnowledge,
+                        holder.animationView);
+
+            }
+        }else {
+
+            setImageOfButtons(appointment.isSuccessForEmployer(), holder.buttonForPersonWhoGetsKnowledge,
+                    R.drawable.success_blue, R.drawable.unsuccess_grey);
+
+            setImageOfButtons(appointment.isSuccessForEmployee(),holder.buttonForPersonWhoSharesKnowledge,
+                    R.drawable.success_blue, R.drawable.unsuccess_grey);
+
+
+            if(appointment.getEmployerId().equals(MainAplication.getCurrentUser().getId())){
+
+                allOperationsWithFieldWhereButtonsAre2(holder.changeDate,
+                        appointment,holder.personRight,holder.personLeft,
+                        holder.buttonForPersonWhoGetsKnowledge, holder.animationViewBlue);
+
+            }else {
+
+                allOperationsWithFieldWhereButtonsAre2(holder.changeDate,
+                        appointment, holder.personLeft, holder.personRight,
+                        holder.buttonForPersonWhoSharesKnowledge, holder.animationViewBlue);
+
+            }
+        }
+
 
     }
 
@@ -312,7 +287,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         return appointments.get(position).getId();
     }
 
-    public void getTopicAndPriceOfQuestion(Long question_id, ContractsAdapter.MyViewHolder holder){
+    private void getTopicAndPriceOfQuestion(Long question_id, ContractsAdapter.MyViewHolder holder){
         MainAplication.getServerRequests().getTopicAndPriceOfQuestion(question_id).enqueue(new Callback<QuestionTopicAndPrice>() {
             @Override
             public void onResponse(Call<QuestionTopicAndPrice> call, Response<QuestionTopicAndPrice> response) {
@@ -327,7 +302,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         });
     }
 
-    public void  getNameOfYourPartner(Long user_id, TextView textView){
+    private void  getNameOfYourPartner(Long user_id, TextView textView){
         MainAplication.getServerRequests().getNameOfYourPartner(user_id).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -345,7 +320,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
 
 
-    public void changeAcceptingOfPersonOnServerSide(Long contract_id, Long person_id, boolean accepting, Long another_person_id){
+    private void changeAcceptingOfPersonOnServerSide(Long contract_id, Long person_id, boolean accepting, Long another_person_id){
         MainAplication.getServerRequests().changeAcceptingOnServerSide(contract_id, person_id, accepting, another_person_id).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
@@ -359,7 +334,104 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         });
     }
 
-    public void showFlashBarOnShortClickListener(Context c, Activity a){
+    private void changeVariableOfContractEnd(Long contract_id, Long person_id, boolean end, Long another_person_id){
+        MainAplication.getServerRequests().sayServerThatMeetingIsOver(contract_id, person_id, end, another_person_id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                System.err.println(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void setImageOfButtons(boolean person,
+                                   ImageView b,
+                                   int picture1, int picture2){
+        if(person){
+            b.setImageResource(picture1);
+            b.setEnabled(false);
+        } else{
+            b.setImageResource(picture2);
+        }
+
+    }
+
+    private void allOperationsWithFieldWhereButtonsAre1(Appointment appointment,
+                                                       TextView p1, TextView p2,
+                                                       ImageView button,
+                                                       LottieAnimationView animation){
+
+        getNameOfYourPartner(appointment.getEmployeeId(), p1);
+        p2.setText(YOU);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFlashBarOnShortClickListener(context, activity);
+            }
+        });
+        button.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+                animation.playAnimation();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        animation.setVisibility(View.INVISIBLE);
+                        button.setVisibility(View.VISIBLE);
+                        button.setImageResource(R.drawable.success_b);
+                        changeAcceptingOfPersonOnServerSide(appointment.getId(), appointment.getEmployerId(), true, appointment.getEmployeeId());
+                    }
+                }, animation.getDuration());
+                return false;
+            }
+        });
+    }
+
+    private void allOperationsWithFieldWhereButtonsAre2(BootstrapButton dateB,
+                                                        Appointment appointment,
+                                                        TextView p1, TextView p2,
+                                                        ImageView button,
+                                                        LottieAnimationView animation){
+        dateB.setVisibility(View.INVISIBLE);
+
+        getNameOfYourPartner(appointment.getEmployeeId(), p1);
+        p2.setText(YOU);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFlashBarOnShortClickListener(context, activity);
+            }
+        });
+        button.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+                animation.playAnimation();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        animation.setVisibility(View.INVISIBLE);
+                        button.setVisibility(View.VISIBLE);
+                        button.setImageResource(R.drawable.success_blue);
+                        changeVariableOfContractEnd(appointment.getId(), appointment.getEmployerId(), true, appointment.getEmployeeId());
+                    }
+                }, animation.getDuration());
+                return false;
+            }
+        });
+    }
+
+
+    private void showFlashBarOnShortClickListener(Context c, Activity a){
                 Flashbar flashbar = new Flashbar.Builder(a)
                         .gravity(Flashbar.Gravity.BOTTOM)
                         .title("Make Long Pressing")

@@ -227,6 +227,12 @@ public interface ServerRequests {
                                              @Query("accepting") boolean accepting,
                                              @Query("another_person_id") Long another_person_id);
 
+    @POST("/changeVariableOfContractEnd")
+    Call<String> sayServerThatMeetingIsOver(@Query("contract_id") Long contract_id,
+                                            @Query("person_id") Long person_id,
+                                            @Query("end") boolean end,
+                                            @Query("another_person_id") Long another_person_id);
+
     @GET("/updateAppointment{id}")
     Call<Appointment> updateAppointmentById(@Path("id") Long id);
 
