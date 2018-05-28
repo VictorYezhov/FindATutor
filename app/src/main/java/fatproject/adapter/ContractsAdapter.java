@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,8 +19,10 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.andrognito.flashbar.Flashbar;
 import com.andrognito.flashbar.anim.FlashAnim;
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+import com.willy.ratingbar.ScaleRatingBar;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -29,6 +32,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import fatproject.Helpers.AppointmentObservable;
 import fatproject.IncomingForms.QuestionTopicAndPrice;
 import fatproject.activities.FragmentDispatcher;
@@ -66,10 +70,14 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView topic,topicWord,date,price,dateAndPriceWord,personRight,personLeft,dangerZoneWord;
+        public TextView topic,topicWord,date,price,dateAndPriceWord,personRight,personLeft,dangerZoneWord,nameAndSureName;
         public ImageButton buttonForPersonWhoGetsKnowledge, buttonForPersonWhoSharesKnowledge;
-        public BootstrapButton changeDate, deleteContractButton;
+        public BootstrapButton changeDate, deleteContractButton, sendReView;
         public LottieAnimationView animationView, animationViewBlue;
+        public CardView reviewCardView, dangerZoneCardView, buttonsCardView;
+        public CircleImageView avatar;
+        public ScaleRatingBar stars;
+        public BootstrapEditText leaveReviewEditText;
 
 
         public MyViewHolder(View view) {
@@ -77,7 +85,14 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
             buttonForPersonWhoSharesKnowledge = view.findViewById(R.id.buttonForPersonWhoSharesKnowledge);
             buttonForPersonWhoGetsKnowledge = view.findViewById(R.id.buttonForPersonWhoGetsKnowledge);
+            reviewCardView = view.findViewById(R.id.reviewCardView);
+            dangerZoneCardView = view.findViewById(R.id.dangerZoneCardView);
+            buttonsCardView = view.findViewById(R.id.buttonsCardView);
             dangerZoneWord = view.findViewById(R.id.dangerZoneWord);
+            avatar = view.findViewById(R.id.imageInContractItem);
+            leaveReviewEditText = view.findViewById(R.id.leaveReviewEditText);
+            nameAndSureName = view.findViewById(R.id.nameAndSureNameInContractItem);
+            sendReView = view.findViewById(R.id.sendReviewInContactItem);
             deleteContractButton = view.findViewById(R.id.deleteContractButton);
             animationViewBlue = view.findViewById(R.id.animation_view_blue);
             animationView = view.findViewById(R.id.animation_view);
@@ -85,6 +100,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             personLeft = view.findViewById(R.id.personLeft);
             personRight = view.findViewById(R.id.personRight);
             changeDate = view.findViewById(R.id.changeDate);
+            stars = view.findViewById(R.id.RatingBarInContractItem);
             topicWord = view.findViewById(R.id.Topic_word_of_question_in_contract);
             topic = view.findViewById(R.id.Topic_of_question_in_contract);
             price = view.findViewById(R.id.priceInContractItem);
@@ -227,7 +243,9 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
 
 
 
-        if(!appointment.isStarted()){
+        if(!appointment.isStarted() && !appointment.isEnded()){
+
+            holder.reviewCardView.setVisibility(View.GONE);
 
             setImageOfButtons(appointment.isAcceeptedByEmployer(), holder.buttonForPersonWhoGetsKnowledge,
                         R.drawable.success_b, R.drawable.unsuccess_b);
@@ -252,7 +270,9 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                         holder.animationView, appointment.getEmployeeId(), appointment.getEmployerId());
 
             }
-        }else if(appointment.isStarted()){
+        }else if(appointment.isStarted() && !appointment.isEnded()){
+
+            holder.reviewCardView.setVisibility(View.GONE);
 
             setImageOfButtons(appointment.isSuccessForEmployer(), holder.buttonForPersonWhoGetsKnowledge,
                     R.drawable.success_blue, R.drawable.unsuccess_grey);
@@ -274,6 +294,22 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                         holder.buttonForPersonWhoSharesKnowledge, holder.animationViewBlue, appointment.getEmployeeId(), appointment.getEmployerId());
 
             }
+        }else if(appointment.isEnded()){
+            holder.dangerZoneCardView.setVisibility(View.GONE);
+            holder.buttonsCardView.setVisibility(View.GONE);
+            holder.changeDate.setVisibility(View.GONE);
+            holder.reviewCardView.setVisibility(View.VISIBLE);
+
+            holder.sendReView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    System.err.println("review: " + holder.leaveReviewEditText.getText());
+                    System.err.println("rating: " + holder.stars.getRating());
+                }
+            });
+
+
         }
 
 
