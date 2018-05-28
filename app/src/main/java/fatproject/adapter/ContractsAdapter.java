@@ -299,13 +299,26 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             holder.buttonsCardView.setVisibility(View.GONE);
             holder.changeDate.setVisibility(View.GONE);
             holder.reviewCardView.setVisibility(View.VISIBLE);
+            getNameOfYourPartner(appointment.getEmployeeId(), holder.nameAndSureName);
 
             holder.sendReView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    System.err.println("review: " + holder.leaveReviewEditText.getText());
-                    System.err.println("rating: " + holder.stars.getRating());
+                    MainAplication.getServerRequests().sendReviewAndRating(appointment.getEmployeeId(),
+                            holder.stars.getRating(),
+                            holder.leaveReviewEditText.getText().toString(),
+                            appointment.getEmployerId()).enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            System.err.println(response.body());
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+
+                        }
+                    });
                 }
             });
 

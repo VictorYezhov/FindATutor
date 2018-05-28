@@ -18,7 +18,7 @@ public class User {
     private String familyName;
     private String email;
     private String password;
-    private int rating;
+    private float rating;
     private String address;
     private String mobileNumber;
     private City city;
@@ -92,11 +92,11 @@ public class User {
         this.password = password;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 

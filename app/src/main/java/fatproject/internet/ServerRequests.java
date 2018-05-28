@@ -233,6 +233,12 @@ public interface ServerRequests {
                                             @Query("end") boolean end,
                                             @Query("another_person_id") Long another_person_id);
 
+    @POST("/sendReviewAndRating")
+    Call<String> sendReviewAndRating(@Query("user_about") Long id_about,
+                                     @Query("rating") float rating,
+                                     @Query("review") String reviewText,
+                                     @Query("user_from") Long id_from);
+
     @GET("/updateAppointment{id}")
     Call<Appointment> updateAppointmentById(@Path("id") Long id);
 
