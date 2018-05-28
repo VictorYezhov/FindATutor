@@ -85,10 +85,11 @@ public class Checker implements Runnable {
         TimeUnit newTimeUnit = timeUnit;
         int i = 0;
         for(Appointment appointment : appointments){
-            if(appointment.getTimeFor()!=null &&  !appointment.isStarted()){
+            if(appointment.getTimeFor() != null &&  !appointment.isStarted()){
                 newTimeUnit = differenceCounter.countDifference(currentTimeStamp.getTime(), appointment.getTimeFor().getTime());
 
                 if(newTimeUnit == null){
+                    appointment.setStarted(true);
                     MainAplication.getServerRequests().startAppointment(appointment.getId()).enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {

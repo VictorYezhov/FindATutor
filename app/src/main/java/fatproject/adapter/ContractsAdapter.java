@@ -160,10 +160,10 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                 appointments.get(i).setSuccessForEmployee(appointment.isSuccessForEmployee());
                 appointments.get(i).setSuccessForEmployer(appointment.isSuccessForEmployer());
                 appointments.get(i).setTimeFor(appointment.getTimeFor());
+                //appointments.get(i).setStarted(appointment.isStarted());
 
             }
         }
-        System.err.println("here");
         Checker.setAppointments(appointments);
 
         notifyDataSetChanged();
