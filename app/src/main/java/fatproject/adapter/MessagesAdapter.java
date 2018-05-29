@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -83,7 +84,12 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         ((ViewHolder) holder).message.setText(message.getMessage());
         holder.message.setTextSize(20);
 
-        String timestamp = getTimeStamp(message.getTimestamp().toString());
+        String timestamp;
+        try {
+            timestamp = getTimeStamp(message.getTimestamp().toString());
+        }catch (NullPointerException e ){
+            timestamp = new Timestamp(Calendar.getInstance().getTime().getTime()).toString();
+        }
 
 
         ((ViewHolder) holder).timestamp.setText(timestamp);
