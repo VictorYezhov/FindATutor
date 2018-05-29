@@ -116,6 +116,7 @@ public class ChatFragment extends Fragment implements DataBufferObserver {
         loadMessages();
         messagesAdapter = new MessagesAdapter(messages);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+        layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(messagesAdapter);
