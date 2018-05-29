@@ -39,6 +39,8 @@ public class MainAplication extends Application {
         idService = new FirebaseIDService();
 
 
+
+
         Paper.init(this);
         AppointmentScheduler.init();
 

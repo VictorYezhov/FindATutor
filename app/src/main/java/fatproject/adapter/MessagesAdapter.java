@@ -88,7 +88,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         try {
             timestamp = getTimeStamp(message.getTimestamp().toString());
         }catch (NullPointerException e ){
-            timestamp = new Timestamp(Calendar.getInstance().getTime().getTime()).toString();
+            timestamp = getTimeStamp(new Timestamp(Calendar.getInstance().getTime().getTime()).toString());
         }
 
 
