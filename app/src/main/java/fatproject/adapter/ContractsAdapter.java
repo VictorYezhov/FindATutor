@@ -175,12 +175,20 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         for(int i = 0; i < appointments.size(); i++){
             if(appointments.get(i).getId().equals(appointment.getId())){
 //                appointments.remove(appointments.get(i));
-                appointments.get(i).setAcceeptedByEmployer(appointment.isAcceeptedByEmployer());
-                appointments.get(i).setAcceptedByEmployee(appointment.isAcceptedByEmployee());
-                appointments.get(i).setSuccessForEmployee(appointment.isSuccessForEmployee());
-                appointments.get(i).setSuccessForEmployer(appointment.isSuccessForEmployer());
-                appointments.get(i).setTimeFor(appointment.getTimeFor());
-                //appointments.get(i).setStarted(appointment.isStarted());
+                Appointment updated = new Appointment();
+                updated.setAcceeptedByEmployer(appointment.isAcceeptedByEmployer());
+                updated.setAcceptedByEmployee(appointment.isAcceptedByEmployee());
+                updated.setSuccessForEmployee(appointment.isSuccessForEmployee());
+                updated.setSuccessForEmployer(appointment.isSuccessForEmployer());
+                updated.setTimeFor(appointment.getTimeFor());
+                updated.setStarted(appointment.isStarted());
+                updated.setId(appointment.getId());
+                updated.setQuestionId(appointment.getQuestionId());
+                updated.setEnded(appointment.isEnded());
+                updated.setEmployeeId(appointment.getEmployeeId());
+                updated.setEmployerId(appointment.getEmployerId());
+                appointments.remove(i);
+                appointments.add(i,updated);
 
             }
         }

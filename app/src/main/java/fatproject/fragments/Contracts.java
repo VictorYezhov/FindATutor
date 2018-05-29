@@ -153,6 +153,7 @@ public class Contracts extends Fragment implements ContractsQueueObserver, Appoi
                 appointments.addAll(response.body());
                 Checker.setAppointments(appointments);
                 contractsAdapter.notifyDataSetChanged();
+                AppointmentScheduler.reInit();
             }
 
             @Override

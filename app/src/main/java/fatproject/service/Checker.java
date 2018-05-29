@@ -57,8 +57,12 @@ public class Checker implements Runnable {
 
     public static void setAppointments(List<Appointment> appointments) {
         Checker.appointments.clear();
-        Checker.appointments.addAll(appointments);
-        AppointmentScheduler.reInit();
+        for(Appointment a : appointments){
+            if(!a.isStarted()){
+                Checker.appointments.add(a);
+            }
+        }
+       // AppointmentScheduler.reInit();
     }
 
     public static int getPeriod() {
@@ -88,7 +92,7 @@ public class Checker implements Runnable {
             if(appointment.getTimeFor() != null &&  !appointment.isStarted()){
                 newTimeUnit = differenceCounter.countDifference(currentTimeStamp.getTime(), appointment.getTimeFor().getTime());
 
-                if(newTimeUnit == null){
+                if(newTimeUnit == null && !appointment.isStarted()){
                     appointment.setStarted(true);
                     MainAplication.getServerRequests().startAppointment(appointment.getId()).enqueue(new Callback<String>() {
                         @Override
@@ -107,7 +111,7 @@ public class Checker implements Runnable {
 
             }
         }
-        if(newTimeUnit != timeUnit) {
+        if(newTimeUnit != timeUnit && timeUnit != null) {
             timeUnit = newTimeUnit;
             appointments.removeAll(to_remove);
             AppointmentScheduler.speedUp();
