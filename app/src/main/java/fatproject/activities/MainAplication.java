@@ -42,7 +42,6 @@ public class MainAplication extends Application {
         Paper.init(this);
         AppointmentScheduler.init();
 
-        deleteUsersPhoto();
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
                 .setLenient()

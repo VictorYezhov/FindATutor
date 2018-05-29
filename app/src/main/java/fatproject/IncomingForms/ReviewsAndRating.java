@@ -8,7 +8,7 @@ import fatproject.entity.Review;
 public class ReviewsAndRating {
 
     private List<Review> reviews;
-    private int rating;
+    private float rating;
 
     public ReviewsAndRating() {
         reviews = new ArrayList<>();
@@ -22,11 +22,11 @@ public class ReviewsAndRating {
         this.reviews = reviews;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 

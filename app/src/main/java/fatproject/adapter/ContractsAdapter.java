@@ -70,7 +70,8 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView topic,topicWord,date,price,dateAndPriceWord,personRight,personLeft,dangerZoneWord,nameAndSureName;
+        public TextView topic,topicWord,date,price,dateAndPriceWord, thankYouText;
+        public TextView personRight,personLeft,dangerZoneWord,nameAndSureName;
         public ImageButton buttonForPersonWhoGetsKnowledge, buttonForPersonWhoSharesKnowledge;
         public BootstrapButton changeDate, deleteContractButton, sendReView;
         public LottieAnimationView animationView, animationViewBlue;
@@ -78,6 +79,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
         public CircleImageView avatar;
         public ScaleRatingBar stars;
         public BootstrapEditText leaveReviewEditText;
+        public ImageView imagePressHere;
 
 
         public MyViewHolder(View view) {
@@ -88,6 +90,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             reviewCardView = view.findViewById(R.id.reviewCardView);
             dangerZoneCardView = view.findViewById(R.id.dangerZoneCardView);
             buttonsCardView = view.findViewById(R.id.buttonsCardView);
+            imagePressHere = view.findViewById(R.id.imagePressHere);
             dangerZoneWord = view.findViewById(R.id.dangerZoneWord);
             avatar = view.findViewById(R.id.imageInContractItem);
             leaveReviewEditText = view.findViewById(R.id.leaveReviewEditText);
@@ -100,6 +103,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             personLeft = view.findViewById(R.id.personLeft);
             personRight = view.findViewById(R.id.personRight);
             changeDate = view.findViewById(R.id.changeDate);
+            thankYouText = view.findViewById(R.id.thank_you_text_in_contract_item);
             stars = view.findViewById(R.id.RatingBarInContractItem);
             topicWord = view.findViewById(R.id.Topic_word_of_question_in_contract);
             topic = view.findViewById(R.id.Topic_of_question_in_contract);
@@ -299,28 +303,43 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             holder.buttonsCardView.setVisibility(View.GONE);
             holder.changeDate.setVisibility(View.GONE);
             holder.reviewCardView.setVisibility(View.VISIBLE);
-            getNameOfYourPartner(appointment.getEmployeeId(), holder.nameAndSureName);
 
-            holder.sendReView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
 
-                    MainAplication.getServerRequests().sendReviewAndRating(appointment.getEmployeeId(),
-                            holder.stars.getRating(),
-                            holder.leaveReviewEditText.getText().toString(),
-                            appointment.getEmployerId()).enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, Response<String> response) {
-                            System.err.println(response.body());
-                        }
+            if(MainAplication.getCurrentUser().getId().equals(appointment.getEmployerId())){
+                getNameOfYourPartner(appointment.getEmployeeId(), holder.nameAndSureName);
 
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
+                holder.sendReView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                        }
-                    });
-                }
-            });
+                        MainAplication.getServerRequests().sendReviewAndRating(appointment.getEmployeeId(),
+                                holder.stars.getRating(),
+                                holder.leaveReviewEditText.getText().toString(),
+                                appointment.getEmployerId()).enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                System.err.println(response.body());
+                                holder.leaveReviewEditText.setText("");
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+
+                            }
+                        });
+                    }
+                });
+            }else {
+                holder.thankYouText.setVisibility(View.VISIBLE);
+                holder.avatar.setVisibility(View.INVISIBLE);
+                holder.nameAndSureName.setVisibility(View.INVISIBLE);
+                holder.stars.setVisibility(View.INVISIBLE);
+                holder.imagePressHere.setVisibility(View.INVISIBLE);
+                holder.leaveReviewEditText.setVisibility(View.INVISIBLE);
+                holder.sendReView.setVisibility(View.INVISIBLE);
+
+            }
 
 
         }
