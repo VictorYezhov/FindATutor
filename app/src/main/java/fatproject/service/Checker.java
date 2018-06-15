@@ -92,7 +92,7 @@ public class Checker implements Runnable {
             if(appointment.getTimeFor() != null &&  !appointment.isStarted()){
                 newTimeUnit = differenceCounter.countDifference(currentTimeStamp.getTime(), appointment.getTimeFor().getTime());
 
-                if(newTimeUnit == null && !appointment.isStarted()){
+                if(newTimeUnit == null && !appointment.isStarted() && appointment.isAcceeptedByEmployer() && appointment.isAcceptedByEmployee()){
                     appointment.setStarted(true);
                     MainAplication.getServerRequests().startAppointment(appointment.getId()).enqueue(new Callback<String>() {
                         @Override

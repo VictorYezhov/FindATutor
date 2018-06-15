@@ -154,7 +154,7 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
             MainAplication.getServerRequests().updateAppointment(appointments.get(currentAppointentCounter)).enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
-                    //FragmentDispatcher.launchFragment(Contracts.class);
+                    Checker.setAppointments(appointments);
                 }
 
                 @Override
