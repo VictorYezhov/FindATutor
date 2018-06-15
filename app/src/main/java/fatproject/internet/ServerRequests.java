@@ -156,7 +156,7 @@ public interface ServerRequests {
     Call<String> updateJobs(@Body Job job, @Path("id") Long id);
 
     @POST("/sendAskingQuestion{id}")
-    Call<String> sendAskingQuestion(@Body Question question, @Path("id") Long id);
+    Call<Long> sendAskingQuestion(@Body Question question, @Path("id") Long id);
 
     @GET("/getCommentsOfCurrentQuestion{id}")
     Call<List<CommentForm>> getListOfCommentForms(@Path("id") Long id);
@@ -237,7 +237,8 @@ public interface ServerRequests {
     Call<String> sendReviewAndRating(@Query("user_about") Long id_about,
                                      @Query("rating") float rating,
                                      @Query("review") String reviewText,
-                                     @Query("user_from") Long id_from);
+                                     @Query("user_from") Long id_from,
+                                     @Query("contract_id") Long id);
 
     @GET("/updateAppointment{id}")
     Call<Appointment> updateAppointmentById(@Path("id") Long id);

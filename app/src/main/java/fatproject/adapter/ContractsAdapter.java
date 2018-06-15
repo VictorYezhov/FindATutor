@@ -323,11 +323,20 @@ public class ContractsAdapter extends RecyclerView.Adapter<ContractsAdapter.MyVi
                         MainAplication.getServerRequests().sendReviewAndRating(appointment.getEmployeeId(),
                                 holder.stars.getRating(),
                                 holder.leaveReviewEditText.getText().toString(),
-                                appointment.getEmployerId()).enqueue(new Callback<String>() {
+                                appointment.getEmployerId(),
+                                appointment.getId()).enqueue(new Callback<String>() {
                             @Override
                             public void onResponse(Call<String> call, Response<String> response) {
                                 System.err.println(response.body());
                                 holder.leaveReviewEditText.setText("");
+                                holder.thankYouText.setVisibility(View.VISIBLE);
+                                holder.thankYouText.setText("Complete");
+                                holder.avatar.setVisibility(View.INVISIBLE);
+                                holder.nameAndSureName.setVisibility(View.INVISIBLE);
+                                holder.stars.setVisibility(View.INVISIBLE);
+                                holder.imagePressHere.setVisibility(View.INVISIBLE);
+                                holder.leaveReviewEditText.setVisibility(View.INVISIBLE);
+                                holder.sendReView.setVisibility(View.INVISIBLE);
 
                             }
 

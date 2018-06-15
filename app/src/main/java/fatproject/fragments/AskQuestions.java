@@ -33,6 +33,8 @@ import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fatproject.IncomingForms.QuestionForm;
+import fatproject.activities.FragmentDispatcher;
 import fatproject.activities.MainAplication;
 import fatproject.adapter.ChipAdapter;
 import fatproject.adapter.ChipAdapterAskQuestion;
@@ -41,6 +43,7 @@ import fatproject.entity.Question;
 import fatproject.entity.Skill;
 import fatproject.findatutor.R;
 import fatproject.validation.Validator;
+import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -299,17 +302,27 @@ public class AskQuestions extends Fragment {
     }
 
     public void sendNewQuestion(Question question){
-        MainAplication.getServerRequests().sendAskingQuestion(question, MainAplication.getCurrentUser().getId()).enqueue(new Callback<String>() {
+        MainAplication.getServerRequests().sendAskingQuestion(question, MainAplication.getCurrentUser().getId()).enqueue(new Callback<Long>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Long> call, Response<Long> response) {
                 System.err.println(response.body());
+                question.setId(response.body());
+                QuestionForm qf = new QuestionForm();
+                qf.setUserName(MainAplication.getCurrentUser().getName());
+                qf.setUserSurname(MainAplication.getCurrentUser().getFamilyName());
+                qf.setUserId(MainAplication.getCurrentUser().getId());
+                qf.setQuestion(question);
+                Paper.book().write(MainAplication.getContext().getResources().getString(R.string.current_dicription_choise),
+                        qf);
+                FragmentDispatcher.launchFragment(ApplicationDiscription.class);
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Long> call, Throwable t) {
 
             }
         });
+
     }
 
     @Override
