@@ -62,7 +62,7 @@ public class Checker implements Runnable {
                 Checker.appointments.add(a);
             }
         }
-       // AppointmentScheduler.reInit();
+       AppointmentScheduler.reInit();
     }
 
     public static int getPeriod() {
@@ -87,7 +87,7 @@ public class Checker implements Runnable {
         System.out.println("CHECKING:\n Current date: "+ currentTimeStamp+"\nCurrent timeunit "+timeUnit);
         List<Appointment> to_remove = new ArrayList<>();
         TimeUnit newTimeUnit = timeUnit;
-        int i = 0;
+
         for(Appointment appointment : appointments){
             if(appointment.getTimeFor() != null &&  !appointment.isStarted()){
                 newTimeUnit = differenceCounter.countDifference(currentTimeStamp.getTime(), appointment.getTimeFor().getTime());
